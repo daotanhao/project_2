@@ -2,15 +2,23 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, Layout } from 'antd';
 import './login.css';
+import axios from 'axios';
+import { useRequest } from '../../hooks/useRequest';
 
 const Login: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
+    axios
+      .post('/login', values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
-    <Layout className="h-screen">
-      <Card className="w-[360px] rounded-lg shadow m-auto">
+    <Layout className="container">
+      <Card className="login-card">
         <Form
           name="normal_login"
           className="login-form"
@@ -18,12 +26,12 @@ const Login: React.FC = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[{ required: true, message: 'Please input your Username!' }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              placeholder="Email"
             />
           </Form.Item>
           <Form.Item
@@ -49,7 +57,7 @@ const Login: React.FC = () => {
           <Form.Item>
             <Button
               type="primary"
-              // htmlType="submit"
+              htmlType="submit"
               className="login-form-button"
             >
               Log in
