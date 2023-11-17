@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import Login from '../pages/LoginPage';
+import HomePage from '../pages/HomePage';
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/login',
-        index: true,
         element: <Login />,
       },
     ],
@@ -19,6 +19,12 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <ProtectedLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+    ],
   },
 ]);
 

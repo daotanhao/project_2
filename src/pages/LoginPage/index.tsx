@@ -4,16 +4,13 @@ import { Button, Card, Checkbox, Form, Input, Layout } from 'antd';
 import './login.css';
 import axios from 'axios';
 import { useRequest } from '../../hooks/useRequest';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login: React.FC = () => {
+  const { login } = useAuth();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
-    axios
-      .post('/login', values)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => console.log(e));
+    login(values.email, values.password);
   };
 
   return (

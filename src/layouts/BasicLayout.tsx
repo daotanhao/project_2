@@ -1,7 +1,12 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const BasicLayout = () => {
+  const { user } = useAuth();
+  if (user) {
+    return <Navigate to="/" />;
+  }
   return <Outlet />;
 };
 
