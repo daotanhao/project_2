@@ -9,8 +9,9 @@ import { useRequest } from './useRequest';
 import axios from 'axios';
 
 interface AuthContextType {
-  user: User | null;
+  user: any;
   login: (email: string, password: string) => void;
+  signUp: (values: any) => void;
   logout: () => void;
   getMe: () => void;
 }
@@ -19,7 +20,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { request } = useRequest();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('is-authenticated')
   );
@@ -27,10 +28,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     if (token) getMe();
   }, [token]);
 
-  const login = (email: string, password: string) => {
-    setUser({ id: '1', name: 'Hao', email, password });
-    setToken(email);
-    localStorage.setItem('is-authenticated', email);
+  console.log('user', user);
+
+  const login = async (email: string, password: string) => {
+    await request('/user/login', {
+      method: 'POST',
+      data: { email, password },
+    }).then((res) => {
+      setUser(res.data);
+      setToken(res.data._id);
+      localStorage.setItem('is-authenticated', JSON.stringify(res.data));
+    });
   };
 
   const logout = () => {
@@ -40,10 +48,22 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getMe = () => {
-    setUser({ id: '1', name: 'Hao', email: 'daotanhao', password: '12345' });
+    const currentUser = localStorage.getItem('is-authenticated');
+    setUser(JSON.parse(currentUser || '{}'));
   };
 
-  const value = { user, login, logout, getMe };
+  const signUp = async (values: any) => {
+    await request('/user/register', {
+      method: 'POST',
+      data: values,
+    }).then((res) => {
+      setUser(res.data);
+      setToken(res.data._id);
+      localStorage.setItem('is-authenticated', JSON.stringify(res.data));
+    });
+  };
+
+  const value = { user, login, logout, signUp, getMe };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

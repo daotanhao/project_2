@@ -1,12 +1,10 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, Layout } from 'antd';
-import './login.css';
-import axios from 'axios';
-import { useRequest } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
+import './login.css';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
@@ -59,7 +57,7 @@ const Login: React.FC = () => {
             >
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <a href="/signup">register now!</a>
           </Form.Item>
         </Form>
       </Card>
@@ -67,4 +65,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

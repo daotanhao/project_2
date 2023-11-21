@@ -1,8 +1,11 @@
 export interface User {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    createdAt?: string;
-    updatedAt?: string;
+    _id: string
+    email: string
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    role: 'admin' | 'user'
+    gender: 'male' | 'female'
+    createdAt?: string
+    updatedAt?: string
 }

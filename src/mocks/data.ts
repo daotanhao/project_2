@@ -1,10 +1,13 @@
-import { User } from "../types/user";
+import { User } from '../types/user';
 
 export const user: User[] = [
-    {
-        id: '1',
-        name: 'Dao Tan Hao',
-        email: 'tanhao@gmail.com',
-        password:'12345'
-    }
-]
+  {
+    _id: '1',
+    email: 'tanhao@gmail.com',
+    firstName: 'Dao Tan',
+    lastName: 'Hao',
+    phoneNumber: '0528679244',
+    role: 'admin',
+    gender: 'male',
+  },
+];

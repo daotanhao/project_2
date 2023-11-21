@@ -7,7 +7,7 @@ export const useRequest = () => {
   async function request(url: string, config?: AxiosRequestConfig) {
     setLoading(true);
     const req: AxiosInstance = axios.create({
-      baseURL: 'http://localhost:3000',
+      baseURL: 'https://api-proj2.onrender.com',
       timeout: 120000,
       method: 'get',
     });
