@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { User } from '../types/user';
-import { useRequest } from './useRequest';
+import { useRequestWithState } from './useRequest';
 import axios from 'axios';
 
 interface AuthContextType {
@@ -14,12 +14,13 @@ interface AuthContextType {
   signUp: (values: any) => void;
   logout: () => void;
   getMe: () => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const { request } = useRequest();
+  const { request, loading } = useRequestWithState();
   const [user, setUser] = useState<any>(null);
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('is-authenticated')
@@ -63,7 +64,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const value = { user, login, logout, signUp, getMe };
+  const value = { user, login, logout, signUp, getMe, loading };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

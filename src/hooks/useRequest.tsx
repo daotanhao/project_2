@@ -3,9 +3,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { useState } from 'react';
 
 export const useRequest = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   async function request(url: string, config?: AxiosRequestConfig) {
-    setLoading(true);
     const req: AxiosInstance = axios.create({
       baseURL: 'https://api-proj2.onrender.com',
       timeout: 120000,
@@ -40,8 +38,17 @@ export const useRequest = () => {
 
         // Để cho phép các thành phần khác của ứng dụng xử lý lỗi này, bạn có thể ném nó lại ra bên ngoài hàm.
         throw error;
-      })
-      .finally(() => setLoading(false));
+      });
+  }
+  return request;
+};
+
+export const useRequestWithState = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const _request = useRequest();
+  async function request(url: string, config?: AxiosRequestConfig) {
+    setLoading(true);
+    return _request(url, config).finally(() => setLoading(false));
   }
   return { request, loading };
 };

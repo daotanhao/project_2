@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoginPage from '../pages/LoginPage';
 import HomePage from '../pages/HomePage';
 import SignUpPage from '../pages/SignUpPage';
+import LoadingPage from '../pages/LoadingPage';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <BasicLayout />,
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <BasicLayout />
+      </Suspense>
+    ),
     children: [
       {
         path: '/login',
@@ -22,8 +26,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/',
-    element: <ProtectedLayout />,
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <ProtectedLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,

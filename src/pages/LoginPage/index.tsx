@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import './login.css';
 
 const LoginPage: React.FC = () => {
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
     login(values.email, values.password);
@@ -54,6 +54,7 @@ const LoginPage: React.FC = () => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              loading={loading}
             >
               Log in
             </Button>
