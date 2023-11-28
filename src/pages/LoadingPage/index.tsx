@@ -1,13 +1,19 @@
-import { Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import React from 'react';
-import './style.css';
 
 const LoadingPage = () => {
   return (
-    <div className="container">
-      <Spin size="large"></Spin>
-      <span> Loading</span>
-    </div>
+    <Space
+      style={{
+        width: '100%',
+        height: window.innerHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 'auto',
+      }}
+    >
+      <Spin tip="Loading..." size="large"></Spin>
+    </Space>
   );
 };
 

@@ -1,11 +1,12 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
-import LoginPage from '../pages/LoginPage';
-import HomePage from '../pages/HomePage';
-import SignUpPage from '../pages/SignUpPage';
 import LoadingPage from '../pages/LoadingPage';
+
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const HomePage = lazy(() => import('../pages/HomePage'));
+const SignUpPage = lazy(() => import('../pages/SignUpPage'));
 
 const router = createBrowserRouter([
   {

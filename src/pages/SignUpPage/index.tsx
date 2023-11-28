@@ -4,10 +4,15 @@ import { useAuth } from '../../hooks/useAuth';
 import '../LoginPage/login.css';
 
 const SignUpPage: React.FC = () => {
-  const { signUp } = useAuth();
+  const { signUp, loading } = useAuth();
   const onFinish = (values: any) => {
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (values.email.match(validRegex)) {
+      signUp(values);
+    }
     console.log('Received values of form: ', values);
-    signUp(values);
   };
 
   return (
@@ -23,9 +28,13 @@ const SignUpPage: React.FC = () => {
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, message: 'Please input your Username!' }]}
+            rules={[{ required: true, message: 'Please input your Email!' }]}
           >
-            <Input placeholder="Email" />
+            <Input
+              type="email"
+              pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+              placeholder="Email"
+            />
           </Form.Item>
           <Form.Item
             label="Password"
@@ -59,7 +68,7 @@ const SignUpPage: React.FC = () => {
               { required: true, message: 'Please input your Phone Number!' },
             ]}
           >
-            <Input addonBefore="+84" placeholder="Phone Number" />
+            <Input type="number" addonBefore="+84" placeholder="Phone Number" />
           </Form.Item>
           <Form.Item label="Gender" name="gender">
             <Select
@@ -83,6 +92,7 @@ const SignUpPage: React.FC = () => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              loading={loading}
             >
               Sign Up
             </Button>

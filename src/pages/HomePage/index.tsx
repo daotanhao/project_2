@@ -23,7 +23,7 @@ const HomePage = () => {
           <Menu.Item key="2" icon={<UserOutlined />}>
             Profile
           </Menu.Item>
-          <Menu.Item key="3" icon={<UserOutlined />}>
+          <Menu.Item key="3">
             <Button onClick={() => onLogout()}>Log out</Button>
           </Menu.Item>
         </Menu>
