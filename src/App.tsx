@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { ConfigProvider, theme } from 'antd';
 import RouterApp from './routes/RouterApp';
-import { darkThemeConfig, lightThemeConfig } from './asset/theme';
+import { darkThemeConfig, lightThemeConfig } from './assets/theme';
 import { AuthProvider } from './hooks/useAuth';
 
 function App() {
