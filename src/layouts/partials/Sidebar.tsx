@@ -1,4 +1,4 @@
-import { Menu, Image, Typography } from 'antd';
+import { Menu, Image, Typography, MenuProps } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import React, { useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
@@ -9,9 +9,46 @@ import { ReactComponent as AngleDoubleRight } from '../../assets/icons/angle-dou
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const onMenuClick = (e: any) => {
-    console.log('click', e.key);
+  const [current, setCurrent] = useState('home');
+
+  const onMenuClick: MenuProps['onClick'] = (e) => {
+    if (e.key === 'collapse') {
+      setCollapsed(!collapsed);
+    } else {
+      setCurrent(e.key);
+    }
   };
+
+  const items: MenuProps['items'] = [
+    {
+      label: 'Home',
+      key: 'home',
+      icon: <SVGIcon component={HomeIcon} />,
+    },
+    {
+      label: 'Overview',
+      key: 'overview',
+      icon: <SVGIcon component={OverviewIcon} />,
+    },
+    {
+      key: 'collapse',
+      icon: (
+        <SVGIcon
+          style={{ justifyContent: 'flex-end' }}
+          component={collapsed ? AngleDoubleRight : AngleDoubleLeft}
+        />
+      ),
+      style: {
+        cursor: 'pointer',
+        background: 'transparent',
+        marginTop: window.innerHeight * 0.7,
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        width: '90%',
+      },
+    },
+  ];
+
   return (
     <Sider
       collapsed={collapsed}
@@ -20,17 +57,11 @@ const Sidebar = () => {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['1']}
-        style={{ height: 'auto', paddingTop: 8 }}
+        selectedKeys={[current]}
+        style={{ height: 'auto', paddingTop: 20 }}
         onClick={onMenuClick}
+        items={items}
       >
-        <Menu.Item key="0" icon={<SVGIcon component={HomeIcon} />}>
-          Home
-        </Menu.Item>
-        <Menu.Item key="1" icon={<SVGIcon component={OverviewIcon} />}>
-          Overview
-        </Menu.Item>
         {/* <Menu.Item key="2" icon={<SVGIcon component={HomeIcon} />}>
           Enrollment
         </Menu.Item>
@@ -43,23 +74,6 @@ const Sidebar = () => {
         <Menu.Item key="5" icon={<SVGIcon component={HomeIcon} />}>
           Output Standard
         </Menu.Item> */}
-        <Menu.Item
-          style={{
-            cursor: 'pointer',
-            background: 'transparent',
-            marginTop: window.innerHeight * 0.7,
-            display: 'flex',
-            flexDirection: 'row-reverse',
-            width: '90%',
-          }}
-          onClick={() => setCollapsed(!collapsed)}
-          icon={
-            <SVGIcon
-              style={{ justifyContent: 'flex-end' }}
-              component={collapsed ? AngleDoubleRight : AngleDoubleLeft}
-            />
-          }
-        />
       </Menu>
     </Sider>
   );

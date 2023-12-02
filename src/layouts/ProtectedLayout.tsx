@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { Navigate, Outlet } from 'react-router-dom';
-import { Button, Layout, Menu } from 'antd';
-import { Content, Header } from 'antd/es/layout/layout';
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
+import { Content } from 'antd/es/layout/layout';
 import Sidebar from './partials/Sidebar';
-import Headerbar from './partials/Headerbar';
+import HeaderBar from './partials/HeaderBar';
 
 const ProtectedLayout = () => {
   const { user } = useAuth();
@@ -17,7 +16,7 @@ const ProtectedLayout = () => {
   return (
     <Layout style={{ width: window.innerWidth, height: window.innerHeight }}>
       <Layout>
-        <Headerbar />
+        <HeaderBar />
 
         <Layout>
           <Sidebar />

@@ -20,6 +20,7 @@ export const lightThemeConfig: ThemeConfig = {
     colorPrimary: '#0077E2',
     colorBorder: '#dbdbdb',
     colorBorderBg: '#dbdbdb',
+    fontFamily: 'DM Sans, sans-serif',
   },
   components: {
     Layout: {
