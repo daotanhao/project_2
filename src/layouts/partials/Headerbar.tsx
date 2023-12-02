@@ -52,7 +52,7 @@ const HeaderBar = () => {
         justifyContent: 'space-between',
         display: 'flex',
         flexDirection: 'row',
-        padding: 30,
+        padding: 28,
       }}
     >
       <div
@@ -73,7 +73,7 @@ const HeaderBar = () => {
           <img
             alt="logo"
             src={require('../../assets/images/logo.png')}
-            style={{ width: 24, marginRight: 12 }}
+            style={{ width: 28, marginRight: 12 }}
           />
           <span style={{ fontWeight: 'bold' }}>
             Training Program Management
