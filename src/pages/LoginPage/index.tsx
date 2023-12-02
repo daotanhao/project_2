@@ -4,7 +4,7 @@ import { Button, Card, Checkbox, Form, Input, Layout } from 'antd';
 import { useAuth } from '../../hooks/useAuth';
 import './login.css';
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const { login, loading } = useAuth();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);

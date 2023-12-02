@@ -4,8 +4,6 @@ import Icon from '@ant-design/icons';
 interface IIconProps {
   component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   style?: CSSProperties;
-  width?: number;
-  height?: number;
 }
 
 const SVGIcon = (props: IIconProps) => {

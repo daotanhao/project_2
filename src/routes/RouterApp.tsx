@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoadingPage from '../pages/LoadingPage';
+import ErrorPage from '../pages/ErrorPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { element: <ErrorPage />, path: '*' },
 ]);
 
 const RouterApp = () => {

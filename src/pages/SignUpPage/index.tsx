@@ -3,7 +3,7 @@ import { Button, Card, Form, Input, Layout, Select } from 'antd';
 import { useAuth } from '../../hooks/useAuth';
 import '../LoginPage/login.css';
 
-const SignUpPage: React.FC = () => {
+const SignUpPage = () => {
   const { signUp, loading } = useAuth();
   const onFinish = (values: any) => {
     var validRegex =

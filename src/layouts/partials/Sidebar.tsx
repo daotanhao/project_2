@@ -6,8 +6,10 @@ import { ReactComponent as HomeIcon } from '../../assets/icons/home.svg';
 import { ReactComponent as OverviewIcon } from '../../assets/icons/overview.svg';
 import { ReactComponent as AngleDoubleLeft } from '../../assets/icons/angle-double-left.svg';
 import { ReactComponent as AngleDoubleRight } from '../../assets/icons/angle-double-right.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [current, setCurrent] = useState('home');
 
@@ -16,6 +18,7 @@ const Sidebar = () => {
       setCollapsed(!collapsed);
     } else {
       setCurrent(e.key);
+      navigate(`/${e.key}`);
     }
   };
 
