@@ -4,6 +4,7 @@ import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoadingPage from '../pages/LoadingPage';
 import ErrorPage from '../pages/ErrorPage';
+import SettingsPage from '../pages/SettingsPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/',
     element: (
       <Suspense fallback={<LoadingPage />}>
         <ProtectedLayout />
@@ -35,8 +37,12 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
+        path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
       },
     ],
   },

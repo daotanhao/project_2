@@ -21,11 +21,14 @@ export const lightThemeConfig: ThemeConfig = {
     colorBorder: '#dbdbdb',
     colorBorderBg: '#dbdbdb',
     fontFamily: 'DM Sans, sans-serif',
+    colorTextBase: '#101828',
+    colorTextSecondary: '#667085',
   },
   components: {
     Layout: {
       siderBg: '#fff',
       headerBg: '#fff',
+      bodyBg: '#fff',
     },
   },
   algorithm: theme.defaultAlgorithm,

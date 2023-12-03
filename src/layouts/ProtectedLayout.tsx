@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import Sidebar from './partials/Sidebar';
@@ -8,7 +8,8 @@ import HeaderBar from './partials/HeaderBar';
 
 const ProtectedLayout = () => {
   const { user } = useAuth();
-
+  const location = useLocation();
+  console.log(location.pathname);
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -22,7 +23,6 @@ const ProtectedLayout = () => {
           <Sidebar />
 
           <Content
-            className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,

@@ -11,13 +11,13 @@ import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  const [current, setCurrent] = useState('home');
 
   const onMenuClick: MenuProps['onClick'] = (e) => {
     if (e.key === 'collapse') {
       setCollapsed(!collapsed);
+    } else if (e.key === 'home') {
+      navigate('/');
     } else {
-      setCurrent(e.key);
       navigate(`/${e.key}`);
     }
   };
@@ -56,12 +56,12 @@ const Sidebar = () => {
     <Sider
       collapsed={collapsed}
       width={200}
-      style={{ borderRight: '1px solid #DBDBDB' }}
+      style={{ borderRight: '0.5px solid #DBDBDB' }}
     >
       <Menu
         mode="inline"
-        selectedKeys={[current]}
-        style={{ height: 'auto', paddingTop: 20 }}
+        // selectedKeys={[current]}
+        style={{ height: 'auto', paddingTop: 20, borderRight: 0 }}
         onClick={onMenuClick}
         items={items}
       >
