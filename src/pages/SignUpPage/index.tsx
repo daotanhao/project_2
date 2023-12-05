@@ -6,12 +6,7 @@ import '../LoginPage/login.css';
 const SignUpPage = () => {
   const { signUp, loading } = useAuth();
   const onFinish = (values: any) => {
-    var validRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-    if (values.email.match(validRegex)) {
-      signUp(values);
-    }
+    signUp(values);
     console.log('Received values of form: ', values);
   };
 
@@ -28,7 +23,13 @@ const SignUpPage = () => {
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, message: 'Please input your Email!' }]}
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Email!',
+                type: 'email',
+              },
+            ]}
           >
             <Input
               type="email"

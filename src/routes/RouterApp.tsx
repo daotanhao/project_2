@@ -5,6 +5,8 @@ import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoadingPage from '../pages/LoadingPage';
 import ErrorPage from '../pages/ErrorPage';
 import SettingsPage from '../pages/SettingsPage';
+import OverviewPage from '../pages/OverviewPage';
+import CreateOverviewPage from '../pages/OverviewPage/CreateOverviewPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -19,11 +21,11 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/login',
+        path: 'login',
         element: <LoginPage />,
       },
       {
-        path: '/signup',
+        path: 'signup',
         element: <SignUpPage />,
       },
     ],
@@ -39,6 +41,23 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: 'overview',
+        children: [
+          {
+            index: true,
+            element: <OverviewPage />,
+          },
+          {
+            path: 'create',
+            element: <CreateOverviewPage />,
+          },
+          {
+            path: ':name-:id',
+            element: <OverviewPage />,
+          },
+        ],
       },
       {
         path: '/settings',

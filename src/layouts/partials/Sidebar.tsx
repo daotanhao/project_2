@@ -1,24 +1,28 @@
 import { Menu, Image, Typography, MenuProps } from 'antd';
 import Sider from 'antd/es/layout/Sider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
 import { ReactComponent as HomeIcon } from '../../assets/icons/home.svg';
 import { ReactComponent as OverviewIcon } from '../../assets/icons/overview.svg';
 import { ReactComponent as AngleDoubleLeft } from '../../assets/icons/angle-double-left.svg';
 import { ReactComponent as AngleDoubleRight } from '../../assets/icons/angle-double-right.svg';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const [current, setCurrent] = useState('home');
 
   const onMenuClick: MenuProps['onClick'] = (e) => {
     if (e.key === 'collapse') {
       setCollapsed(!collapsed);
     } else if (e.key === 'home') {
       navigate('/');
+      setCurrent('home');
     } else {
       navigate(`/${e.key}`);
+      setCurrent(e.key);
     }
   };
 
@@ -52,6 +56,16 @@ const Sidebar = () => {
     },
   ];
 
+  useEffect(() => {
+    const regex = /\/([^/]+)/;
+    const match = location.pathname.match(regex);
+    if (match) {
+      setCurrent(match[1]);
+    } else {
+      setCurrent('home');
+    }
+  }, [location]);
+
   return (
     <Sider
       collapsed={collapsed}
@@ -60,7 +74,7 @@ const Sidebar = () => {
     >
       <Menu
         mode="inline"
-        // selectedKeys={[current]}
+        selectedKeys={[current]}
         style={{ height: 'auto', paddingTop: 20, borderRight: 0 }}
         onClick={onMenuClick}
         items={items}
