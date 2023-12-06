@@ -29,7 +29,7 @@ const validateMessages = {
   },
 };
 
-const CreateOverviewPage = () => {
+const UpdateOverviewPage = () => {
   const request = useRequest();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -133,4 +133,4 @@ const CreateOverviewPage = () => {
   );
 };
 
-export default CreateOverviewPage;
+export default UpdateOverviewPage;

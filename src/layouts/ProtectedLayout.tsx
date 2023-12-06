@@ -4,12 +4,10 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import Sidebar from './partials/Sidebar';
-import HeaderBar from './partials/HeaderBar';
+import Headerbar from './partials/Headerbar';
 
 const ProtectedLayout = () => {
   const { user } = useAuth();
-  const location = useLocation();
-  console.log(location.pathname);
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -17,7 +15,7 @@ const ProtectedLayout = () => {
   return (
     <Layout style={{ width: window.innerWidth, height: window.innerHeight }}>
       <Layout>
-        <HeaderBar />
+        <Headerbar />
 
         <Layout>
           <Sidebar />

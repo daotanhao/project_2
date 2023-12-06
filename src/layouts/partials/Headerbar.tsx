@@ -3,7 +3,7 @@ import NotificationBlock from '../blocks/NotificationBlock';
 import UserBlock from '../blocks/UserBlock';
 import { Typography } from 'antd';
 
-const HeaderBar = () => {
+const Headerbar = () => {
   return (
     <Header
       style={{
@@ -41,4 +41,4 @@ const HeaderBar = () => {
   );
 };
 
-export default HeaderBar;
+export default Headerbar;

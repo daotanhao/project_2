@@ -7,6 +7,7 @@ import ErrorPage from '../pages/ErrorPage';
 import SettingsPage from '../pages/SettingsPage';
 import OverviewPage from '../pages/OverviewPage';
 import CreateOverviewPage from '../pages/OverviewPage/CreateOverviewPage';
+import UpdateOverviewPage from '../pages/OverviewPage/UpdateOverviewPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -50,8 +51,8 @@ const router = createBrowserRouter([
             element: <OverviewPage />,
           },
           {
-            path: 'create',
-            element: <CreateOverviewPage />,
+            path: ':id',
+            element: <UpdateOverviewPage />,
           },
           {
             path: ':name-:id',

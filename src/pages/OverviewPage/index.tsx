@@ -25,39 +25,37 @@ const OverviewPage = () => {
   const columns: ColumnsType<Overview> = [
     {
       title: 'Education name',
-      dataIndex: 'eduName',
-      key: 'eduName',
+      dataIndex: 'name',
+      key: 'name',
       render: (text: any) => <a>{text}</a>,
     },
     {
       title: 'Education type',
-      dataIndex: 'eduType',
-      key: 'eduType',
+      dataIndex: 'type',
+      key: 'type',
     },
     {
       title: 'Degree',
-      dataIndex: 'degreeTraining',
-      key: 'degreeTraining',
+      dataIndex: 'degree',
+      key: 'degree',
     },
     {
       title: 'Major',
-      dataIndex: 'majorTraining',
-      key: 'majorTraining',
+      dataIndex: 'major',
+      key: 'major',
     },
     {
       title: 'Credits',
-      dataIndex: ['formOfTraining', 'creditsNumber'],
-      key: 'creditsNumber',
-      align: 'center',
+      dataIndex: 'credits',
+      key: 'credits',
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="small">
-          <Link to={'/'} title="Edit">
+          <Link to={`/overview/${record._id}`} title="Edit">
             <Button
-              onClick={() => handleDeleteOverview(record)}
               type="text"
               title="Delete"
               shape="circle"
