@@ -35,7 +35,7 @@ const UpdateOverviewPage = () => {
   const navigate = useNavigate();
   const onFinish = (values: any) => {
     const userId = user._id;
-    request('/overview/new', {
+    request('/overview/get/', {
       method: 'POST',
       data: { ...values, createdBy: userId },
     })
