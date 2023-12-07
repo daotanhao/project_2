@@ -51,12 +51,12 @@ const router = createBrowserRouter([
             element: <OverviewPage />,
           },
           {
-            path: ':id',
-            element: <UpdateOverviewPage />,
+            path: 'create',
+            element: <CreateOverviewPage />,
           },
           {
-            path: ':name-:id',
-            element: <OverviewPage />,
+            path: ':id',
+            element: <UpdateOverviewPage />,
           },
         ],
       },

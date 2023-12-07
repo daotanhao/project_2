@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   DatePicker,
@@ -10,8 +10,11 @@ import {
 } from 'antd';
 import { useRequest, useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Overview } from '../../types/overview';
+import { useForm } from 'antd/es/form/Form';
+import useFormInstance from 'antd/es/form/hooks/useFormInstance';
 
 const layout = {
   labelCol: { span: 8 },
@@ -32,30 +35,55 @@ const validateMessages = {
 const UpdateOverviewPage = () => {
   const request = useRequest();
   const { user } = useAuth();
-  const navigate = useNavigate();
-  const onFinish = (values: any) => {
-    const userId = user._id;
-    request('/overview/get/', {
-      method: 'POST',
-      data: { ...values, createdBy: userId },
-    })
+  const { id } = useParams();
+  const [form] = Form.useForm();
+  const [dataOverview, setDataOverview] = useState<Overview>();
+
+  const loadDataOverview = () => {
+    request(`/overview/get/${id}`)
       .then((res) => {
-        navigate('/overview');
-        return notification.success({
-          message: 'Create overview successfully',
-        });
+        setDataOverview(res.data);
       })
       .catch((err) => {
         return notification.error({
-          message: 'Create overview failed',
+          message: 'Load data overview failed',
           description: err.message,
         });
       });
   };
+
+  const onFinish = (values: any) => {
+    request(`/overview/${id}`, {
+      method: 'PUT',
+      data: { ...values, idUserLatestEdit: user?._id },
+    })
+      .then((res) => {
+        loadDataOverview();
+        return notification.success({
+          message: 'Update overview successfully',
+        });
+      })
+      .catch((err) => {
+        return notification.error({
+          message: 'Update overview failed',
+          description: err.message,
+        });
+      });
+  };
+
+  useEffect(() => {
+    loadDataOverview();
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue(dataOverview);
+  }, [dataOverview]);
+
   return (
     <Form
-      name="overview-form"
+      form={form}
       onFinish={onFinish}
+      name="overview-form"
       validateMessages={validateMessages}
       {...layout}
     >
@@ -126,7 +154,7 @@ const UpdateOverviewPage = () => {
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" htmlType="submit">
-          Create
+          Save
         </Button>
       </Form.Item>
     </Form>

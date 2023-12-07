@@ -39,7 +39,6 @@ export const useRequest = () => {
         }
 
         // Để cho phép các thành phần khác của ứng dụng xử lý lỗi này, bạn có thể ném nó lại ra bên ngoài hàm.
-        throw error;
       });
   }
   return request;
