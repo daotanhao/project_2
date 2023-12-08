@@ -1,4 +1,13 @@
-import { Button, Layout, Space, Table, Tooltip, Typography } from 'antd';
+import {
+  Button,
+  Layout,
+  Modal,
+  Space,
+  Table,
+  Tooltip,
+  Typography,
+  notification,
+} from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 import { ReactComponent as EditIcon } from '../../assets/icons/edit.svg';
@@ -8,6 +17,7 @@ import SVGIcon from '../../components/SVGIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { Overview } from '../../types/overview';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const OverviewPage = () => {
   const navigate = useNavigate();
@@ -75,12 +85,30 @@ const OverviewPage = () => {
   ];
 
   const handleDeleteOverview = (data: Overview) => {
-    if (!data) return;
-    const { _id } = data;
-    request('/overview/delete', {
-      method: 'DELETE',
-      data: { eduId: _id },
-    }).then(() => loadData());
+    Modal.confirm({
+      title: 'Do you want to delete this item?',
+      icon: <ExclamationCircleFilled />,
+      content: 'You will not be able to recover this item',
+      onOk() {
+        if (!data) return;
+        const { _id } = data;
+        request(`/overview/delete/${_id}`, {
+          method: 'DELETE',
+        })
+          .then(() => {
+            loadData();
+            return notification.success({
+              message: 'Delete overview successfully',
+            });
+          })
+          .catch((err) => {
+            return notification.error({
+              message: 'Delete overview failed',
+              description: err.message,
+            });
+          });
+      },
+    });
   };
 
   return (

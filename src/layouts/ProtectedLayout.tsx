@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import Sidebar from './partials/Sidebar';
 import Headerbar from './partials/Headerbar';
+import Breadcrumbs from './partials/Breadcrumbs';
 
 const ProtectedLayout = () => {
   const { user } = useAuth();
@@ -27,6 +28,8 @@ const ProtectedLayout = () => {
               minHeight: 280,
             }}
           >
+            <Breadcrumbs />
+
             <Outlet />
           </Content>
         </Layout>

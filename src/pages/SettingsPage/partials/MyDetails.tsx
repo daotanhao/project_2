@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import InfoRow from '../../../components/InfoRow';
 import { RcFile, UploadChangeParam, UploadProps } from 'antd/es/upload';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { beforeUploadImage, getBase64Image } from '../../../utils';
+import { beforeUploadImage, getBase64Image } from '../../../misc/Utils';
 
 const { Title, Paragraph } = Typography;
 
