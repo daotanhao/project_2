@@ -45,7 +45,7 @@ export const getRoutes = () => {
       ),
       children: [
         {
-          path: '/',
+          index: true,
           element: <HomePage />,
         },
         {
@@ -54,7 +54,6 @@ export const getRoutes = () => {
             {
               index: true,
               element: <OverviewPage />,
-              breadcrumb: 'Overview',
             },
             {
               path: 'create',

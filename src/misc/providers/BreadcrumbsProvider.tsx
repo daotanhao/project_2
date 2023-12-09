@@ -23,6 +23,7 @@ export const BreadcrumbsProvider = ({ children }: PropsWithChildren) => {
   const [data, setData] = useState<Record<string, any>>({});
   const breadcrumbs = useReactRouterBreadcrumbs();
   const params = useParams();
+  console.log('breadcrumbs', breadcrumbs);
   const pathname = (key: string) => {
     return data[key] || params.pathname || key;
   };
