@@ -14,5 +14,4 @@ export interface Overview {
   createdAt?: string;
   updatedAt?: string;
   listIdUserEdited?: string[];
-  __v?: number;
 }

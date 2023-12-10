@@ -9,9 +9,15 @@ import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoadingPage from '../pages/LoadingPage';
 import ErrorPage from '../pages/ErrorPage';
 import SettingsPage from '../pages/SettingsPage';
-import OverviewPage from '../pages/OverviewPage';
 import CreateOverviewPage from '../pages/OverviewPage/CreateOverviewPage';
 import UpdateOverviewPage from '../pages/OverviewPage/UpdateOverviewPage';
+import ListOverviewPage from '../pages/OverviewPage/ListOverviewPage';
+import ListEnrollmentPage from '../pages/EnrollmentPage/ListEnrollmentPage';
+import CreateEnrollmentPage from '../pages/EnrollmentPage/CreateEnrollmentPage';
+import UpdateEnrollmentPage from '../pages/EnrollmentPage/UpdateEnrollmentPage';
+import ListRegulationPage from '../pages/RegulationPage/ListRegulationPage';
+import CreateRegulationPage from '../pages/RegulationPage/CreateRegulationPage';
+import UpdateRegulationPage from '../pages/RegulationPage/UpdateRegulationPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -53,7 +59,7 @@ export const getRoutes = () => {
           children: [
             {
               index: true,
-              element: <OverviewPage />,
+              element: <ListOverviewPage />,
             },
             {
               path: 'create',
@@ -62,6 +68,40 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateOverviewPage />,
+            },
+          ],
+        },
+        {
+          path: 'enrollment',
+          children: [
+            {
+              index: true,
+              element: <ListEnrollmentPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateEnrollmentPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateEnrollmentPage />,
+            },
+          ],
+        },
+        {
+          path: 'regulation',
+          children: [
+            {
+              index: true,
+              element: <ListRegulationPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateRegulationPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateRegulationPage />,
             },
           ],
         },

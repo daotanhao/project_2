@@ -33,11 +33,11 @@ const CreateOverviewPage = () => {
   const request = useRequest();
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const onFinish = (values: any) => {
-    const userId = user._id;
     request('/overview/new', {
       method: 'POST',
-      data: { ...values, createdBy: userId },
+      data: { ...values, createdBy: user?._id },
     })
       .then((res) => {
         navigate('/overview');

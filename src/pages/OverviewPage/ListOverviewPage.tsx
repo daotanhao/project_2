@@ -19,13 +19,20 @@ import { useRequestWithState } from '../../hooks/useRequest';
 import { Overview } from '../../types/overview';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
-const OverviewPage = () => {
+const ListOverviewPage = () => {
   const navigate = useNavigate();
   const { request, loading } = useRequestWithState();
   const [dataOverview, setDataOverview] = useState<Overview[]>([]);
 
   const loadData = async () => {
-    await request('/overview').then((res) => setDataOverview(res?.data));
+    await request('/overview')
+      .then((res) => setDataOverview(res?.data))
+      .catch((err) =>
+        notification.error({
+          message: 'Load overview failed',
+          description: err.message,
+        })
+      );
   };
 
   useEffect(() => {
@@ -148,4 +155,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage;
+export default ListOverviewPage;

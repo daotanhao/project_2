@@ -8,7 +8,7 @@ import {
   Select,
   notification,
 } from 'antd';
-import { useRequest, useRequestWithState } from '../../hooks/useRequest';
+import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -33,7 +33,7 @@ const validateMessages = {
 };
 
 const UpdateOverviewPage = () => {
-  const request = useRequest();
+  const { request, loading } = useRequestWithState();
   const { user } = useAuth();
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -153,7 +153,7 @@ const UpdateOverviewPage = () => {
         <Input.TextArea />
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" htmlType="submit">
+        <Button loading={loading} type="primary" htmlType="submit">
           Save
         </Button>
       </Form.Item>

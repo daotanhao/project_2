@@ -6,6 +6,8 @@ import { ReactComponent as HomeIcon } from '../../assets/icons/home.svg';
 import { ReactComponent as OverviewIcon } from '../../assets/icons/overview.svg';
 import { ReactComponent as AngleDoubleLeft } from '../../assets/icons/angle-double-left.svg';
 import { ReactComponent as AngleDoubleRight } from '../../assets/icons/angle-double-right.svg';
+import { ReactComponent as EnrollmentIcon } from '../../assets/icons/enrollment.svg';
+import { ReactComponent as RegulationIcon } from '../../assets/icons/regulation.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -38,6 +40,16 @@ const Sidebar = () => {
       icon: <SVGIcon component={OverviewIcon} />,
     },
     {
+      label: 'Enrollment',
+      key: 'enrollment',
+      icon: <SVGIcon component={EnrollmentIcon} />,
+    },
+    {
+      label: 'Regulation',
+      key: 'regulation',
+      icon: <SVGIcon component={RegulationIcon} />,
+    },
+    {
       key: 'collapse',
       icon: (
         <SVGIcon
@@ -48,7 +60,7 @@ const Sidebar = () => {
       style: {
         cursor: 'pointer',
         background: 'transparent',
-        marginTop: window.innerHeight * 0.7,
+        marginTop: window.innerHeight * 0.6,
         display: 'flex',
         flexDirection: 'row-reverse',
         width: '90%',
@@ -70,7 +82,10 @@ const Sidebar = () => {
     <Sider
       collapsed={collapsed}
       width={200}
-      style={{ borderRight: '0.5px solid #DBDBDB' }}
+      style={{
+        borderRight: '0.5px solid #DBDBDB',
+        height: window.innerHeight - 64,
+      }}
     >
       <Menu
         mode="inline"
