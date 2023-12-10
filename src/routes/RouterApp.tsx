@@ -18,6 +18,12 @@ import UpdateEnrollmentPage from '../pages/EnrollmentPage/UpdateEnrollmentPage';
 import ListRegulationPage from '../pages/RegulationPage/ListRegulationPage';
 import CreateRegulationPage from '../pages/RegulationPage/CreateRegulationPage';
 import UpdateRegulationPage from '../pages/RegulationPage/UpdateRegulationPage';
+import ListRefDocPage from '../pages/RefDocPage/ListRefDocPage';
+import CreateRefDocPage from '../pages/RefDocPage/CreateRefDocPage';
+import UpdateRefDocPage from '../pages/RefDocPage/UpdateRefDocPage';
+import ListGeneralKnowledgePage from '../pages/GeneralKnowledgePage/ListGeneralKnowledgePage';
+import CreateGeneralKnowledgePage from '../pages/GeneralKnowledgePage/CreateGeneralKnowledgePage';
+import UpdateGeneralKnowledgePage from '../pages/GeneralKnowledgePage/UpdateGeneralKnowledgePage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -102,6 +108,40 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateRegulationPage />,
+            },
+          ],
+        },
+        {
+          path: 'refDoc',
+          children: [
+            {
+              index: true,
+              element: <ListRefDocPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateRefDocPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateRefDocPage />,
+            },
+          ],
+        },
+        {
+          path: 'generalKnowledge',
+          children: [
+            {
+              index: true,
+              element: <ListGeneralKnowledgePage />,
+            },
+            {
+              path: 'create',
+              element: <CreateGeneralKnowledgePage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateGeneralKnowledgePage />,
             },
           ],
         },

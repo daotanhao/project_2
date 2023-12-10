@@ -8,6 +8,8 @@ import { ReactComponent as AngleDoubleLeft } from '../../assets/icons/angle-doub
 import { ReactComponent as AngleDoubleRight } from '../../assets/icons/angle-double-right.svg';
 import { ReactComponent as EnrollmentIcon } from '../../assets/icons/enrollment.svg';
 import { ReactComponent as RegulationIcon } from '../../assets/icons/regulation.svg';
+import { ReactComponent as RefDocIcon } from '../../assets/icons/refDoc.svg';
+import { ReactComponent as GeneralKnowledgeIcon } from '../../assets/icons/knowledge.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -50,6 +52,16 @@ const Sidebar = () => {
       icon: <SVGIcon component={RegulationIcon} />,
     },
     {
+      label: 'Ref Documents',
+      key: 'refDoc',
+      icon: <SVGIcon component={RefDocIcon} />,
+    },
+    {
+      label: 'General Knowledge',
+      key: 'generalKnowledge',
+      icon: <SVGIcon component={GeneralKnowledgeIcon} />,
+    },
+    {
       key: 'collapse',
       icon: (
         <SVGIcon
@@ -60,10 +72,11 @@ const Sidebar = () => {
       style: {
         cursor: 'pointer',
         background: 'transparent',
-        marginTop: window.innerHeight * 0.6,
         display: 'flex',
         flexDirection: 'row-reverse',
         width: '90%',
+        top: '85%',
+        position: 'absolute',
       },
     },
   ];
