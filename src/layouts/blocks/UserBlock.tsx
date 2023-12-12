@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserBlock = () => {
   const [open, setOpen] = useState(false);
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -78,7 +78,7 @@ const UserBlock = () => {
           cursor: 'pointer',
         }}
       >
-        <Avatar icon={<UserOutlined />} />
+        <Avatar src={user.avatar} />
         <SVGIcon
           component={AngleDownIcon}
           style={{ marginTop: 4, fontSize: 12 }}

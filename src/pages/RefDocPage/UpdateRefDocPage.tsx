@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { ReferenceDocument } from '../../types/refDoc';
+import { ReferenceDocument } from '../../types/AppType';
 
 const UpdateRefDocPage = () => {
   const { request, loading } = useRequestWithState();

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { Regulation } from '../../types/regulation';
+import { Regulation } from '../../types/AppType';
 
 const UpdateRegulationPage = () => {
   const { request, loading } = useRequestWithState();

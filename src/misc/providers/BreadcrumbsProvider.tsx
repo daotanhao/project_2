@@ -1,10 +1,4 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useEffect,
-  useState,
-} from 'react';
-import { useRequestWithState } from '../../hooks/useRequest';
+import React, { PropsWithChildren, createContext, useState } from 'react';
 import useReactRouterBreadcrumbs from 'use-react-router-breadcrumbs';
 import { useParams } from 'react-router-dom';
 
@@ -23,7 +17,7 @@ export const BreadcrumbsProvider = ({ children }: PropsWithChildren) => {
   const [data, setData] = useState<Record<string, any>>({});
   const breadcrumbs = useReactRouterBreadcrumbs();
   const params = useParams();
-  console.log('breadcrumbs', breadcrumbs);
+
   const pathname = (key: string) => {
     return data[key] || params.pathname || key;
   };

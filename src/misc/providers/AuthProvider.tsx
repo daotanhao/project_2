@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }).then((res) => {
       setUser(res.data);
       setToken(res.data._id);
-      localStorage.setItem('is-authenticated', JSON.stringify(res.data));
+      localStorage.setItem('is-authenticated', res.data._id);
     });
   };
 
@@ -49,8 +49,18 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getMe = () => {
-    const currentUser = localStorage.getItem('is-authenticated');
-    setUser(JSON.parse(currentUser || '{}'));
+    const currentUserId = localStorage.getItem('is-authenticated');
+    if (!currentUserId) {
+      logout();
+    } else {
+      request(`/user/${currentUserId}`)
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((err) => {
+          logout();
+        });
+    }
   };
 
   const signUp = async (values: any) => {

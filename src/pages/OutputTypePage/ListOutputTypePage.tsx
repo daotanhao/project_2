@@ -15,22 +15,20 @@ import React, { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
-import { GeneralKnowledge } from '../../types/AppType';
+import { OutputType } from '../../types/AppType';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
-const ListGeneralKnowledgePage = () => {
+const ListOutputTypePage = () => {
   const navigate = useNavigate();
   const { request, loading } = useRequestWithState();
-  const [dataGeneralKnowledge, setDataGeneralKnowledge] = useState<
-    GeneralKnowledge[]
-  >([]);
+  const [dataOutputType, setDataOutputType] = useState<OutputType[]>([]);
 
   const loadData = async () => {
-    await request('/generalKnowledge')
-      .then((res) => setDataGeneralKnowledge(res?.data))
+    await request('/outputType')
+      .then((res) => setDataOutputType(res?.data))
       .catch((err) =>
         notification.error({
-          message: 'Load general knowledge failed',
+          message: 'Load outputType failed',
           description: err.message,
         })
       );
@@ -40,9 +38,9 @@ const ListGeneralKnowledgePage = () => {
     loadData();
   }, []);
 
-  const columns: ColumnsType<GeneralKnowledge> = [
+  const columns: ColumnsType<OutputType> = [
     {
-      title: 'Title',
+      title: 'Output type',
       dataIndex: 'title',
       key: 'title',
       render: (text: any) => <a>{text}</a>,
@@ -52,7 +50,7 @@ const ListGeneralKnowledgePage = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="small">
-          <Link to={`/generalKnowledge/${record._id}`} title="Edit">
+          <Link to={`/outputType/${record._id}`} title="Edit">
             <Button
               type="text"
               title="Delete"
@@ -61,7 +59,7 @@ const ListGeneralKnowledgePage = () => {
             />
           </Link>
           <Button
-            onClick={() => handleDeleteGeneralKnowledge(record)}
+            onClick={() => handleDeleteOutputType(record)}
             type="text"
             title="Delete"
             shape="circle"
@@ -72,7 +70,7 @@ const ListGeneralKnowledgePage = () => {
     },
   ];
 
-  const handleDeleteGeneralKnowledge = (data: GeneralKnowledge) => {
+  const handleDeleteOutputType = (data: OutputType) => {
     Modal.confirm({
       title: 'Do you want to delete this item?',
       icon: <ExclamationCircleFilled />,
@@ -80,18 +78,18 @@ const ListGeneralKnowledgePage = () => {
       onOk() {
         if (!data) return;
         const { _id } = data;
-        request(`/generalKnowledge/delete/${_id}`, {
+        request(`/outputType/delete/${_id}`, {
           method: 'DELETE',
         })
           .then(() => {
             loadData();
             return notification.success({
-              message: 'Delete general knowledge successfully',
+              message: 'Delete output type successfully',
             });
           })
           .catch((err) => {
             return notification.error({
-              message: 'Delete general knowledge failed',
+              message: 'Delete output type failed',
               description: err.message,
             });
           });
@@ -112,14 +110,14 @@ const ListGeneralKnowledgePage = () => {
       >
         <div>
           <Typography.Title level={4} style={{ margin: 0 }}>
-            General Knowledge
+            OutputType
           </Typography.Title>
           <Typography.Paragraph type="secondary">
-            Display all general knowledge of the training program
+            Display all outputType of the training program
           </Typography.Paragraph>
         </div>
         <Button
-          onClick={() => navigate('/generalKnowledge/create')}
+          onClick={() => navigate('/outputType/create')}
           icon={<PlusOutlined />}
           type="primary"
         >
@@ -128,7 +126,7 @@ const ListGeneralKnowledgePage = () => {
       </div>
       <Table
         loading={loading}
-        dataSource={dataGeneralKnowledge}
+        dataSource={dataOutputType}
         columns={columns}
         style={{ margin: 0 }}
       />
@@ -136,4 +134,4 @@ const ListGeneralKnowledgePage = () => {
   );
 };
 
-export default ListGeneralKnowledgePage;
+export default ListOutputTypePage;

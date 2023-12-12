@@ -1,17 +1,7 @@
-import React from 'react';
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  notification,
-} from 'antd';
-import { useRequest, useRequestWithState } from '../../hooks/useRequest';
+import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
+import { useRequest } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const layout = {
   labelCol: { span: 8 },
@@ -53,12 +43,7 @@ const CreateOverviewPage = () => {
       });
   };
   return (
-    <Form
-      name="overview-form"
-      onFinish={onFinish}
-      validateMessages={validateMessages}
-      {...layout}
-    >
+    <Form onFinish={onFinish} validateMessages={validateMessages} {...layout}>
       <Form.Item
         name="name"
         label="Education name"

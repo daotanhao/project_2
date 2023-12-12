@@ -3,7 +3,7 @@ import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { Overview } from '../../types/AppType';
+import { GraduationCondition } from '../../types/AppType';
 
 const layout = {
   labelCol: { span: 8 },
@@ -21,17 +21,18 @@ const validateMessages = {
   },
 };
 
-const UpdateOverviewPage = () => {
+const UpdateGraduationConditionPage = () => {
   const { request, loading } = useRequestWithState();
   const { user } = useAuth();
   const { id } = useParams();
   const [form] = Form.useForm();
-  const [dataOverview, setDataOverview] = useState<Overview>();
+  const [dataGraduationCondition, setDataGraduationCondition] =
+    useState<GraduationCondition>();
 
-  const loadDataOverview = () => {
-    request(`/overview/get/${id}`)
+  const loadDataGraduationCondition = () => {
+    request(`/graduationCondition/get/${id}`)
       .then((res) => {
-        setDataOverview(res.data);
+        setDataGraduationCondition(res.data);
       })
       .catch((err) => {
         return notification.error({
@@ -42,12 +43,12 @@ const UpdateOverviewPage = () => {
   };
 
   const onFinish = (values: any) => {
-    request(`/overview/${id}`, {
+    request(`/graduationCondition/${id}`, {
       method: 'PUT',
       data: { ...values, idUserLatestEdit: user?._id },
     })
       .then((res) => {
-        loadDataOverview();
+        loadDataGraduationCondition();
         return notification.success({
           message: 'Update overview successfully',
         });
@@ -61,12 +62,12 @@ const UpdateOverviewPage = () => {
   };
 
   useEffect(() => {
-    loadDataOverview();
+    loadDataGraduationCondition();
   }, []);
 
   useEffect(() => {
-    form.setFieldsValue(dataOverview);
-  }, [dataOverview]);
+    form.setFieldsValue(dataGraduationCondition);
+  }, [dataGraduationCondition]);
 
   return (
     <Form
@@ -149,4 +150,4 @@ const UpdateOverviewPage = () => {
   );
 };
 
-export default UpdateOverviewPage;
+export default UpdateGraduationConditionPage;

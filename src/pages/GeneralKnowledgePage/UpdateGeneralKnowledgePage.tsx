@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { GeneralKnowledge } from '../../types/generalKnowledge';
+import { GeneralKnowledge } from '../../types/AppType';
 
 const UpdateGeneralKnowledgePage = () => {
   const { request, loading } = useRequestWithState();

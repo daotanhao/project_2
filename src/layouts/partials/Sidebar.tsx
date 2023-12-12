@@ -10,6 +10,9 @@ import { ReactComponent as EnrollmentIcon } from '../../assets/icons/enrollment.
 import { ReactComponent as RegulationIcon } from '../../assets/icons/regulation.svg';
 import { ReactComponent as RefDocIcon } from '../../assets/icons/refDoc.svg';
 import { ReactComponent as GeneralKnowledgeIcon } from '../../assets/icons/knowledge.svg';
+import { ReactComponent as GraduationConditionIcon } from '../../assets/icons/graduation.svg';
+import { ReactComponent as OutputTypeIcon } from '../../assets/icons/type.svg';
+import { ReactComponent as OutputStandardIcon } from '../../assets/icons/standard.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -62,6 +65,21 @@ const Sidebar = () => {
       icon: <SVGIcon component={GeneralKnowledgeIcon} />,
     },
     {
+      label: 'Graduation Condition',
+      key: 'graduationCondition',
+      icon: <SVGIcon component={GraduationConditionIcon} />,
+    },
+    {
+      label: 'Output Type',
+      key: 'outputType',
+      icon: <SVGIcon component={OutputTypeIcon} />,
+    },
+    {
+      label: 'Output Standard',
+      key: 'outputStandard',
+      icon: <SVGIcon component={OutputStandardIcon} />,
+    },
+    {
       key: 'collapse',
       icon: (
         <SVGIcon
@@ -94,7 +112,7 @@ const Sidebar = () => {
   return (
     <Sider
       collapsed={collapsed}
-      width={200}
+      width={'205'}
       style={{
         borderRight: '0.5px solid #DBDBDB',
         height: window.innerHeight - 64,
@@ -106,20 +124,7 @@ const Sidebar = () => {
         style={{ height: 'auto', paddingTop: 20, borderRight: 0 }}
         onClick={onMenuClick}
         items={items}
-      >
-        {/* <Menu.Item key="2" icon={<SVGIcon component={HomeIcon} />}>
-          Enrollment
-        </Menu.Item>
-        <Menu.Item key="3" icon={<SVGIcon component={HomeIcon} />}>
-          Training Regulations
-        </Menu.Item>
-        <Menu.Item key="4" icon={<SVGIcon component={HomeIcon} />}>
-          Classification Scale
-        </Menu.Item>
-        <Menu.Item key="5" icon={<SVGIcon component={HomeIcon} />}>
-          Output Standard
-        </Menu.Item> */}
-      </Menu>
+      />
     </Sider>
   );
 };

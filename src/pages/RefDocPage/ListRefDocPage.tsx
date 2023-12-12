@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
-import { ReferenceDocument } from '../../types/refDoc';
+import { ReferenceDocument } from '../../types/AppType';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const ListRefDocPage = () => {

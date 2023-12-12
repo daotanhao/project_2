@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
-import { useRequestWithState } from '../../hooks/useRequest';
+import { useRequest } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
-import { useParams } from 'react-router-dom';
-import { Overview } from '../../types/AppType';
+import { useNavigate } from 'react-router-dom';
 
 const layout = {
   labelCol: { span: 8 },
@@ -21,60 +19,31 @@ const validateMessages = {
   },
 };
 
-const UpdateOverviewPage = () => {
-  const { request, loading } = useRequestWithState();
+const CreateGraduationConditionPage = () => {
+  const request = useRequest();
   const { user } = useAuth();
-  const { id } = useParams();
-  const [form] = Form.useForm();
-  const [dataOverview, setDataOverview] = useState<Overview>();
-
-  const loadDataOverview = () => {
-    request(`/overview/get/${id}`)
-      .then((res) => {
-        setDataOverview(res.data);
-      })
-      .catch((err) => {
-        return notification.error({
-          message: 'Load data overview failed',
-          description: err.message,
-        });
-      });
-  };
+  const navigate = useNavigate();
 
   const onFinish = (values: any) => {
-    request(`/overview/${id}`, {
-      method: 'PUT',
-      data: { ...values, idUserLatestEdit: user?._id },
+    request('/graduationCondition/new', {
+      method: 'POST',
+      data: { ...values, createdBy: user?._id },
     })
       .then((res) => {
-        loadDataOverview();
+        navigate('/overview');
         return notification.success({
-          message: 'Update overview successfully',
+          message: 'Create overview successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Update overview failed',
+          message: 'Create overview failed',
           description: err.message,
         });
       });
   };
-
-  useEffect(() => {
-    loadDataOverview();
-  }, []);
-
-  useEffect(() => {
-    form.setFieldsValue(dataOverview);
-  }, [dataOverview]);
-
   return (
-    <Form
-      form={form}
-      onFinish={onFinish}
-      validateMessages={validateMessages}
-      {...layout}
-    >
+    <Form onFinish={onFinish} validateMessages={validateMessages} {...layout}>
       <Form.Item
         name="name"
         label="Education name"
@@ -141,12 +110,12 @@ const UpdateOverviewPage = () => {
         <Input.TextArea />
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button loading={loading} type="primary" htmlType="submit">
-          Save
+        <Button type="primary" htmlType="submit">
+          Submit
         </Button>
       </Form.Item>
     </Form>
   );
 };
 
-export default UpdateOverviewPage;
+export default CreateGraduationConditionPage;

@@ -4,7 +4,6 @@ import {
   Modal,
   Space,
   Table,
-  Tooltip,
   Typography,
   notification,
 } from 'antd';
@@ -16,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
-import { Overview } from '../../types/overview';
+import { Overview } from '../../types/AppType';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const ListOverviewPage = () => {

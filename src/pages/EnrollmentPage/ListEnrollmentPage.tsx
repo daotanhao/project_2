@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Enrollment } from '../../types/enrollment';
+import { Enrollment } from '../../types/AppType';
 import { useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
 import {

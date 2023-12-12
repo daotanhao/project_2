@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { Enrollment } from '../../types/enrollment';
+import { Enrollment } from '../../types/AppType';
 
 const UpdateEnrollmentPage = () => {
   const { request, loading } = useRequestWithState();

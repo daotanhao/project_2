@@ -24,6 +24,15 @@ import UpdateRefDocPage from '../pages/RefDocPage/UpdateRefDocPage';
 import ListGeneralKnowledgePage from '../pages/GeneralKnowledgePage/ListGeneralKnowledgePage';
 import CreateGeneralKnowledgePage from '../pages/GeneralKnowledgePage/CreateGeneralKnowledgePage';
 import UpdateGeneralKnowledgePage from '../pages/GeneralKnowledgePage/UpdateGeneralKnowledgePage';
+import ListGraduationConditionPage from '../pages/GraduationConditionPage/ListGraduationConditionPage';
+import CreateGraduationConditionPage from '../pages/GraduationConditionPage/CreateGraduationConditionPage';
+import UpdateGraduationConditionPage from '../pages/GraduationConditionPage/UpdateGraduationConditionPage';
+import ListOutputTypePage from '../pages/OutputTypePage/ListOutputTypePage';
+import CreateOutputTypePage from '../pages/OutputTypePage/CreateOutputTypePage';
+import UpdateOutputTypePage from '../pages/OutputTypePage/UpdateOutputTypePage';
+import ListOutputStandardPage from '../pages/OutputStandardPage/ListOutputStandardPage';
+import CreateOutputStandardPage from '../pages/OutputStandardPage/CreateOutputStandardPage';
+import UpdateOutputStandardPage from '../pages/OutputStandardPage/UpdateOutputStandardPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -70,6 +79,7 @@ export const getRoutes = () => {
             {
               path: 'create',
               element: <CreateOverviewPage />,
+              breadcrumb: 'Create Overview',
             },
             {
               path: ':id',
@@ -142,6 +152,57 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateGeneralKnowledgePage />,
+            },
+          ],
+        },
+        {
+          path: 'graduationCondition',
+          children: [
+            {
+              index: true,
+              element: <ListGraduationConditionPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateGraduationConditionPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateGraduationConditionPage />,
+            },
+          ],
+        },
+        {
+          path: 'outputType',
+          children: [
+            {
+              index: true,
+              element: <ListOutputTypePage />,
+            },
+            {
+              path: 'create',
+              element: <CreateOutputTypePage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateOutputTypePage />,
+            },
+          ],
+        },
+        {
+          path: 'outputStandard',
+          children: [
+            {
+              index: true,
+              element: <ListOutputStandardPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateOutputStandardPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateOutputStandardPage />,
             },
           ],
         },

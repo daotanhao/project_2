@@ -15,22 +15,35 @@ import React, { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
-import { GeneralKnowledge } from '../../types/AppType';
+import { GraduationCondition } from '../../types/AppType';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
-const ListGeneralKnowledgePage = () => {
+const ListGraduationConditionPage = () => {
   const navigate = useNavigate();
   const { request, loading } = useRequestWithState();
-  const [dataGeneralKnowledge, setDataGeneralKnowledge] = useState<
-    GeneralKnowledge[]
+  const [dataGraduationCondition, setDataGraduationCondition] = useState<
+    GraduationCondition[]
   >([]);
+  const [overviewName, setOverviewName] = useState<string>('');
 
   const loadData = async () => {
-    await request('/generalKnowledge')
-      .then((res) => setDataGeneralKnowledge(res?.data))
+    await request('/graduationCondition')
+      .then((res) => {
+        const data = res?.data || [];
+        const mappedData: GraduationCondition[] = data.map(
+          (item: GraduationCondition) => {
+            request(`/overview/get/${item.idOverView}`).then((res) => {
+              const name = res?.data.name || '';
+              setOverviewName(name);
+            });
+            return { ...item, overviewName: overviewName };
+          }
+        );
+        setDataGraduationCondition(mappedData);
+      })
       .catch((err) =>
         notification.error({
-          message: 'Load general knowledge failed',
+          message: 'Load overview failed',
           description: err.message,
         })
       );
@@ -40,19 +53,24 @@ const ListGeneralKnowledgePage = () => {
     loadData();
   }, []);
 
-  const columns: ColumnsType<GeneralKnowledge> = [
+  const columns: ColumnsType<GraduationCondition> = [
     {
-      title: 'Title',
+      title: 'Graduation condition name',
       dataIndex: 'title',
       key: 'title',
       render: (text: any) => <a>{text}</a>,
+    },
+    {
+      title: 'From overview',
+      dataIndex: 'overviewName',
+      key: 'overviewName',
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="small">
-          <Link to={`/generalKnowledge/${record._id}`} title="Edit">
+          <Link to={`/graduationCondition/${record._id}`} title="Edit">
             <Button
               type="text"
               title="Delete"
@@ -61,7 +79,7 @@ const ListGeneralKnowledgePage = () => {
             />
           </Link>
           <Button
-            onClick={() => handleDeleteGeneralKnowledge(record)}
+            onClick={() => handleDeleteGraduationCondition(record)}
             type="text"
             title="Delete"
             shape="circle"
@@ -72,7 +90,7 @@ const ListGeneralKnowledgePage = () => {
     },
   ];
 
-  const handleDeleteGeneralKnowledge = (data: GeneralKnowledge) => {
+  const handleDeleteGraduationCondition = (data: GraduationCondition) => {
     Modal.confirm({
       title: 'Do you want to delete this item?',
       icon: <ExclamationCircleFilled />,
@@ -80,18 +98,18 @@ const ListGeneralKnowledgePage = () => {
       onOk() {
         if (!data) return;
         const { _id } = data;
-        request(`/generalKnowledge/delete/${_id}`, {
+        request(`/overview/delete/${_id}`, {
           method: 'DELETE',
         })
           .then(() => {
             loadData();
             return notification.success({
-              message: 'Delete general knowledge successfully',
+              message: 'Delete overview successfully',
             });
           })
           .catch((err) => {
             return notification.error({
-              message: 'Delete general knowledge failed',
+              message: 'Delete overview failed',
               description: err.message,
             });
           });
@@ -112,14 +130,14 @@ const ListGeneralKnowledgePage = () => {
       >
         <div>
           <Typography.Title level={4} style={{ margin: 0 }}>
-            General Knowledge
+            GraduationCondition
           </Typography.Title>
           <Typography.Paragraph type="secondary">
-            Display all general knowledge of the training program
+            Display all overview of the training program
           </Typography.Paragraph>
         </div>
         <Button
-          onClick={() => navigate('/generalKnowledge/create')}
+          onClick={() => navigate('/overview/create')}
           icon={<PlusOutlined />}
           type="primary"
         >
@@ -128,7 +146,7 @@ const ListGeneralKnowledgePage = () => {
       </div>
       <Table
         loading={loading}
-        dataSource={dataGeneralKnowledge}
+        dataSource={dataGraduationCondition}
         columns={columns}
         style={{ margin: 0 }}
       />
@@ -136,4 +154,4 @@ const ListGeneralKnowledgePage = () => {
   );
 };
 
-export default ListGeneralKnowledgePage;
+export default ListGraduationConditionPage;
