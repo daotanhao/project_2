@@ -6,11 +6,16 @@ import { Content } from 'antd/es/layout/layout';
 import Sidebar from './partials/Sidebar';
 import Headerbar from './partials/Headerbar';
 import Breadcrumbs from './partials/Breadcrumbs';
+import LoadingPage from '../pages/LoadingPage';
 
 const ProtectedLayout = () => {
-  const { user } = useAuth();
-  if (!user) {
+  const { user, loading } = useAuth();
+  if (!user && !loading) {
     return <Navigate to="/login" />;
+  }
+
+  if (loading) {
+    return <LoadingPage />;
   }
 
   return (

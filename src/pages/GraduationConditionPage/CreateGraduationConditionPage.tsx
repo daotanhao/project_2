@@ -2,6 +2,7 @@ import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
 import { useRequest } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const layout = {
   labelCol: { span: 8 },
@@ -23,6 +24,26 @@ const CreateGraduationConditionPage = () => {
   const request = useRequest();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [listDataOverview, setListDataOverview] = useState([]);
+
+  const loadDataOverview = () => {
+    request('/overview')
+      .then((res) => {
+        const dataOverview = res?.data || [];
+        const mappedDataOverview = dataOverview.map((item: any) => ({
+          label: item.name,
+          value: item._id,
+        }));
+        setListDataOverview(mappedDataOverview);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  useEffect(() => {
+    loadDataOverview();
+  }, []);
 
   const onFinish = (values: any) => {
     request('/graduationCondition/new', {
@@ -30,85 +51,43 @@ const CreateGraduationConditionPage = () => {
       data: { ...values, createdBy: user?._id },
     })
       .then((res) => {
-        navigate('/overview');
+        navigate('/graduationCondition');
         return notification.success({
-          message: 'Create overview successfully',
+          message: 'Create graduation condition successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Create overview failed',
+          message: 'Create graduation condition failed',
           description: err.message,
         });
       });
   };
+
   return (
     <Form onFinish={onFinish} validateMessages={validateMessages} {...layout}>
       <Form.Item
-        name="name"
-        label="Education name"
+        name="title"
+        label="Graduation condition name"
         rules={[{ required: true }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        name="type"
-        label="Education type"
+        name="content"
+        label="Graduation condition content"
         rules={[{ required: true }]}
       >
-        <Select options={[{ key: 'anc', value: 'abc' }]} />
-      </Form.Item>
-      <Form.Item
-        name="degree"
-        label="Training degree"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="major"
-        label="Training major"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="availableYear"
-        label="Available from"
-        rules={[{ required: true, type: 'date' }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="method"
-        label="Training method"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="credits"
-        label="Credits required"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="duration"
-        label="Training duration"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name="goals" label="Training goal">
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name="prospectAfterGraduation" label="After graduation">
-        <Input.TextArea />
+      <Form.Item
+        name="idOverView"
+        label="Overview"
+        rules={[{ required: true }]}
+      >
+        <Select options={listDataOverview} />
       </Form.Item>
-      <Form.Item name="perspectives" label="Program perspectives">
-        <Input.TextArea />
-      </Form.Item>
+
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" htmlType="submit">
           Submit

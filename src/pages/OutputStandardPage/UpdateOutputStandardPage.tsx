@@ -3,24 +3,25 @@ import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
-import { OutputType } from '../../types/AppType';
+import { OutputStandard } from '../../types/AppType';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 10 },
 };
 
-const UpdateOutputTypePage = () => {
+const UpdateOutputStandardPage = () => {
   const { request, loading } = useRequestWithState();
   const { user } = useAuth();
   const { id } = useParams();
   const [form] = Form.useForm();
-  const [dataOutputType, setDataOutputType] = useState<OutputType>();
+  const [dataOutputStandard, setDataOutputStandard] =
+    useState<OutputStandard>();
 
-  const loadDataOutputType = () => {
-    request(`/outputType/get/${id}`)
+  const loadDataOutputStandard = () => {
+    request(`/outputStandard/get/${id}`)
       .then((res) => {
-        setDataOutputType(res.data);
+        setDataOutputStandard(res.data);
       })
       .catch((err) => {
         return notification.error({
@@ -31,12 +32,12 @@ const UpdateOutputTypePage = () => {
   };
 
   const onFinish = (values: any) => {
-    request(`/outputType/${id}`, {
+    request(`/outputStandard/${id}`, {
       method: 'PUT',
       data: { ...values, idUserLatestEdit: user?._id },
     })
       .then((res) => {
-        loadDataOutputType();
+        loadDataOutputStandard();
         return notification.success({
           message: 'Update overview successfully',
         });
@@ -50,21 +51,35 @@ const UpdateOutputTypePage = () => {
   };
 
   useEffect(() => {
-    loadDataOutputType();
+    loadDataOutputStandard();
   }, []);
 
   useEffect(() => {
-    form.setFieldsValue(dataOutputType);
-  }, [dataOutputType]);
+    form.setFieldsValue(dataOutputStandard);
+  }, [dataOutputStandard]);
 
   return (
     <Form form={form} onFinish={onFinish} {...layout}>
       <Form.Item
         name="title"
-        label="Output type name"
+        label="Output standard name"
         rules={[{ required: true }]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        name="content"
+        label="Output standard content"
+        rules={[{ required: true }]}
+      >
+        <Input.TextArea />
+      </Form.Item>
+      <Form.Item
+        name="idOverView"
+        label="Output type"
+        rules={[{ required: true }]}
+      >
+        <Select />
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button loading={loading} type="primary" htmlType="submit">
@@ -75,4 +90,4 @@ const UpdateOutputTypePage = () => {
   );
 };
 
-export default UpdateOutputTypePage;
+export default UpdateOutputStandardPage;

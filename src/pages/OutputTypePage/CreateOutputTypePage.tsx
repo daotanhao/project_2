@@ -21,12 +21,12 @@ const CreateOutputTypePage = () => {
       .then((res) => {
         navigate('/outputType');
         return notification.success({
-          message: 'Create overview successfully',
+          message: 'Create output type successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Create overview failed',
+          message: 'Create output type failed',
           description: err.message,
         });
       });

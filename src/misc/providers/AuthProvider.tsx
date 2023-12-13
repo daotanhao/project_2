@@ -50,17 +50,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const getMe = () => {
     const currentUserId = localStorage.getItem('is-authenticated');
-    if (!currentUserId) {
-      logout();
-    } else {
-      request(`/user/${currentUserId}`)
-        .then((res) => {
-          setUser(res.data);
-        })
-        .catch((err) => {
-          logout();
-        });
-    }
+    request(`/user/${currentUserId}`)
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        logout();
+      });
   };
 
   const signUp = async (values: any) => {

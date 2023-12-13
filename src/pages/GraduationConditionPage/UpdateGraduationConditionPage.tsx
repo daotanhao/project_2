@@ -28,6 +28,7 @@ const UpdateGraduationConditionPage = () => {
   const [form] = Form.useForm();
   const [dataGraduationCondition, setDataGraduationCondition] =
     useState<GraduationCondition>();
+  const [listDataOverview, setListDataOverview] = useState([]);
 
   const loadDataGraduationCondition = () => {
     request(`/graduationCondition/get/${id}`)
@@ -36,9 +37,24 @@ const UpdateGraduationConditionPage = () => {
       })
       .catch((err) => {
         return notification.error({
-          message: 'Load data overview failed',
+          message: 'Load data graduation condition failed',
           description: err.message,
         });
+      });
+  };
+
+  const loadDataOverview = () => {
+    request('/overview')
+      .then((res) => {
+        const dataOverview = res?.data || [];
+        const mappedDataOverview = dataOverview.map((item: any) => ({
+          label: item.name,
+          value: item._id,
+        }));
+        setListDataOverview(mappedDataOverview);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   };
 
@@ -50,12 +66,12 @@ const UpdateGraduationConditionPage = () => {
       .then((res) => {
         loadDataGraduationCondition();
         return notification.success({
-          message: 'Update overview successfully',
+          message: 'Update graduation condition successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Update overview failed',
+          message: 'Update graduation condition failed',
           description: err.message,
         });
       });
@@ -63,6 +79,7 @@ const UpdateGraduationConditionPage = () => {
 
   useEffect(() => {
     loadDataGraduationCondition();
+    loadDataOverview();
   }, []);
 
   useEffect(() => {
@@ -77,69 +94,25 @@ const UpdateGraduationConditionPage = () => {
       {...layout}
     >
       <Form.Item
-        name="name"
-        label="Education name"
+        name="title"
+        label="Graduation condition name"
         rules={[{ required: true }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        name="type"
-        label="Education type"
+        name="content"
+        label="Graduation condition content"
         rules={[{ required: true }]}
       >
-        <Select options={[{ key: 'anc', value: 'abc' }]} />
-      </Form.Item>
-      <Form.Item
-        name="degree"
-        label="Training degree"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="major"
-        label="Training major"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="availableYear"
-        label="Available from"
-        rules={[{ required: true, type: 'date' }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="method"
-        label="Training method"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="credits"
-        label="Credits required"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="duration"
-        label="Training duration"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name="goals" label="Training goal">
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name="prospectAfterGraduation" label="After graduation">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item name="perspectives" label="Program perspectives">
-        <Input.TextArea />
+      <Form.Item
+        name="idOverView"
+        label="Overview"
+        rules={[{ required: true }]}
+      >
+        <Select options={listDataOverview} />
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button loading={loading} type="primary" htmlType="submit">

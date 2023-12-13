@@ -3,17 +3,16 @@ import React from 'react';
 
 const LoadingPage = () => {
   return (
-    <Space
+    <div
       style={{
-        width: '100%',
-        height: window.innerHeight,
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 'auto',
+        height: window.innerHeight,
       }}
     >
-      <Spin tip="Loading..." size="large"></Spin>
-    </Space>
+      <Spin size="large"></Spin>
+    </div>
   );
 };
 

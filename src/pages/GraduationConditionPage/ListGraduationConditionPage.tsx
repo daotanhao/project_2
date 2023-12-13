@@ -98,18 +98,18 @@ const ListGraduationConditionPage = () => {
       onOk() {
         if (!data) return;
         const { _id } = data;
-        request(`/overview/delete/${_id}`, {
+        request(`/graduationCondition/delete/${_id}`, {
           method: 'DELETE',
         })
           .then(() => {
             loadData();
             return notification.success({
-              message: 'Delete overview successfully',
+              message: 'Delete graduation condition successfully',
             });
           })
           .catch((err) => {
             return notification.error({
-              message: 'Delete overview failed',
+              message: 'Delete graduation condition failed',
               description: err.message,
             });
           });
@@ -130,14 +130,14 @@ const ListGraduationConditionPage = () => {
       >
         <div>
           <Typography.Title level={4} style={{ margin: 0 }}>
-            GraduationCondition
+            Graduation Condition
           </Typography.Title>
           <Typography.Paragraph type="secondary">
-            Display all overview of the training program
+            Display all graduation condition of the training program
           </Typography.Paragraph>
         </div>
         <Button
-          onClick={() => navigate('/overview/create')}
+          onClick={() => navigate('/graduationCondition/create')}
           icon={<PlusOutlined />}
           type="primary"
         >

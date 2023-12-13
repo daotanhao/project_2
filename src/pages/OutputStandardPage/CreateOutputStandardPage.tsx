@@ -21,12 +21,12 @@ const CreateOutputStandardPage = () => {
       .then((res) => {
         navigate('/outputStandard');
         return notification.success({
-          message: 'Create overview successfully',
+          message: 'Create output standard successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Create overview failed',
+          message: 'Create output standard failed',
           description: err.message,
         });
       });
@@ -35,10 +35,24 @@ const CreateOutputStandardPage = () => {
     <Form {...layout} onFinish={onFinish}>
       <Form.Item
         name="title"
-        label="Output type name"
+        label="Output standard name"
         rules={[{ required: true }]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        name="content"
+        label="Output standard content"
+        rules={[{ required: true }]}
+      >
+        <Input.TextArea />
+      </Form.Item>
+      <Form.Item
+        name="idOverView"
+        label="Output type"
+        rules={[{ required: true }]}
+      >
+        <Select />
       </Form.Item>
       <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button type="primary" htmlType="submit">

@@ -7,8 +7,8 @@ const Breadcrumbs = () => {
   const { breadcrumbs } = useBreadcrumbs();
   return (
     <Breadcrumb>
-      {breadcrumbs.map((breadcrumb: any, index: any) => {
-        const { match, key } = breadcrumb;
+      {breadcrumbs.map((b: any, index: any) => {
+        const { match, breadcrumb } = b;
         const shouldNavigate = index !== breadcrumbs.length - 1;
         <Breadcrumb.Item href={match.pathname} key={match.pathname}>
           {breadcrumb}

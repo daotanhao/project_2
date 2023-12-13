@@ -24,7 +24,7 @@ const UpdateOutputTypePage = () => {
       })
       .catch((err) => {
         return notification.error({
-          message: 'Load data overview failed',
+          message: 'Load data output type failed',
           description: err.message,
         });
       });
@@ -38,12 +38,12 @@ const UpdateOutputTypePage = () => {
       .then((res) => {
         loadDataOutputType();
         return notification.success({
-          message: 'Update overview successfully',
+          message: 'Update output type successfully',
         });
       })
       .catch((err) => {
         return notification.error({
-          message: 'Update overview failed',
+          message: 'Update output type failed',
           description: err.message,
         });
       });

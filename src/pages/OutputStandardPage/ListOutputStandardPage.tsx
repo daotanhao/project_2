@@ -26,11 +26,11 @@ const ListOutputStandardPage = () => {
   >([]);
 
   const loadData = async () => {
-    await request('/outputType')
+    await request('/outputStandard')
       .then((res) => setDataOutputStandard(res?.data))
       .catch((err) =>
         notification.error({
-          message: 'Load outputType failed',
+          message: 'Load output standard failed',
           description: err.message,
         })
       );
@@ -42,7 +42,7 @@ const ListOutputStandardPage = () => {
 
   const columns: ColumnsType<OutputStandard> = [
     {
-      title: 'Output type',
+      title: 'Output standard',
       dataIndex: 'title',
       key: 'title',
       render: (text: any) => <a>{text}</a>,
@@ -52,7 +52,7 @@ const ListOutputStandardPage = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="small">
-          <Link to={`/outputType/${record._id}`} title="Edit">
+          <Link to={`/outputStandard/${record._id}`} title="Edit">
             <Button
               type="text"
               title="Delete"
@@ -80,18 +80,18 @@ const ListOutputStandardPage = () => {
       onOk() {
         if (!data) return;
         const { _id } = data;
-        request(`/outputType/delete/${_id}`, {
+        request(`/outputStandard/delete/${_id}`, {
           method: 'DELETE',
         })
           .then(() => {
             loadData();
             return notification.success({
-              message: 'Delete output type successfully',
+              message: 'Delete output standard successfully',
             });
           })
           .catch((err) => {
             return notification.error({
-              message: 'Delete output type failed',
+              message: 'Delete output standard failed',
               description: err.message,
             });
           });
@@ -112,14 +112,14 @@ const ListOutputStandardPage = () => {
       >
         <div>
           <Typography.Title level={4} style={{ margin: 0 }}>
-            OutputStandard
+            Output Standard
           </Typography.Title>
           <Typography.Paragraph type="secondary">
-            Display all outputType of the training program
+            Display all output standard of the training program
           </Typography.Paragraph>
         </div>
         <Button
-          onClick={() => navigate('/outputType/create')}
+          onClick={() => navigate('/outputStandard/create')}
           icon={<PlusOutlined />}
           type="primary"
         >

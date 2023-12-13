@@ -110,10 +110,10 @@ const ListOutputTypePage = () => {
       >
         <div>
           <Typography.Title level={4} style={{ margin: 0 }}>
-            OutputType
+            Output Type
           </Typography.Title>
           <Typography.Paragraph type="secondary">
-            Display all outputType of the training program
+            Display all output type of the training program
           </Typography.Paragraph>
         </div>
         <Button

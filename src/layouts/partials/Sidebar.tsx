@@ -80,6 +80,11 @@ const Sidebar = () => {
       icon: <SVGIcon component={OutputStandardIcon} />,
     },
     {
+      label: 'Export',
+      key: 'export',
+      icon: <SVGIcon component={OutputStandardIcon} />,
+    },
+    {
       key: 'collapse',
       icon: (
         <SVGIcon

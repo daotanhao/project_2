@@ -33,6 +33,7 @@ import UpdateOutputTypePage from '../pages/OutputTypePage/UpdateOutputTypePage';
 import ListOutputStandardPage from '../pages/OutputStandardPage/ListOutputStandardPage';
 import CreateOutputStandardPage from '../pages/OutputStandardPage/CreateOutputStandardPage';
 import UpdateOutputStandardPage from '../pages/OutputStandardPage/UpdateOutputStandardPage';
+import ExportPDFPage from '../pages/ExportPDFPage.tsx';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -205,6 +206,10 @@ export const getRoutes = () => {
               element: <UpdateOutputStandardPage />,
             },
           ],
+        },
+        {
+          path: '/export',
+          element: <ExportPDFPage />,
         },
         {
           path: '/settings',
