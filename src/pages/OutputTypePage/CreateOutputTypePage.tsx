@@ -1,51 +1,22 @@
-import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
-import { useRequest } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
+import { Input } from 'antd';
+import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 
 const CreateOutputTypePage = () => {
-  const request = useRequest();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const onFinish = (values: any) => {
-    request('/outputType/new', {
-      method: 'POST',
-      data: { ...values, createdBy: user?._id },
-    })
-      .then((res) => {
-        navigate('/outputType');
-        return notification.success({
-          message: 'Create output type successfully',
-        });
-      })
-      .catch((err) => {
-        return notification.error({
-          message: 'Create output type failed',
-          description: err.message,
-        });
-      });
-  };
   return (
-    <Form {...layout} onFinish={onFinish}>
-      <Form.Item
-        name="title"
-        label="Output type name"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <CreateEntityTemplate
+      entityName="Output type"
+      entityRequestUrl="outputType"
+      entityRouterUrl="outputType"
+      fields={[
+        {
+          key: 'title',
+          name: 'title',
+          label: 'Output type title',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+      ]}
+    />
   );
 };
 

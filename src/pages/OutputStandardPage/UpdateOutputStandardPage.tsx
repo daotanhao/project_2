@@ -4,6 +4,7 @@ import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
 import { OutputStandard } from '../../types/AppType';
+import UpdateEntityTemplate from '../../misc/template/UpdateEntityTemplate';
 
 const layout = {
   labelCol: { span: 8 },
@@ -11,82 +12,57 @@ const layout = {
 };
 
 const UpdateOutputStandardPage = () => {
-  const { request, loading } = useRequestWithState();
-  const { user } = useAuth();
-  const { id } = useParams();
-  const [form] = Form.useForm();
-  const [dataOutputStandard, setDataOutputStandard] =
-    useState<OutputStandard>();
+  const { request } = useRequestWithState();
+  const [listDataOutputType, setListDataOutputType] = useState<any[]>([]);
 
-  const loadDataOutputStandard = () => {
-    request(`/outputStandard/get/${id}`)
+  const loadDataOutputType = () => {
+    request('/outputType')
       .then((res) => {
-        setDataOutputStandard(res.data);
+        const dataOutputType = res?.data || [];
+        const mappedDataOutputType = dataOutputType.map((item: any) => ({
+          label: item.title,
+          value: item._id,
+        }));
+        setListDataOutputType(mappedDataOutputType);
       })
       .catch((err) => {
-        return notification.error({
-          message: 'Load data overview failed',
-          description: err.message,
-        });
-      });
-  };
-
-  const onFinish = (values: any) => {
-    request(`/outputStandard/${id}`, {
-      method: 'PUT',
-      data: { ...values, idUserLatestEdit: user?._id },
-    })
-      .then((res) => {
-        loadDataOutputStandard();
-        return notification.success({
-          message: 'Update overview successfully',
-        });
-      })
-      .catch((err) => {
-        return notification.error({
-          message: 'Update overview failed',
-          description: err.message,
-        });
+        console.log(err.message);
       });
   };
 
   useEffect(() => {
-    loadDataOutputStandard();
+    loadDataOutputType();
   }, []);
 
-  useEffect(() => {
-    form.setFieldsValue(dataOutputStandard);
-  }, [dataOutputStandard]);
-
   return (
-    <Form form={form} onFinish={onFinish} {...layout}>
-      <Form.Item
-        name="title"
-        label="Output standard name"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="content"
-        label="Output standard content"
-        rules={[{ required: true }]}
-      >
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item
-        name="idOverView"
-        label="Output type"
-        rules={[{ required: true }]}
-      >
-        <Select />
-      </Form.Item>
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button loading={loading} type="primary" htmlType="submit">
-          Save
-        </Button>
-      </Form.Item>
-    </Form>
+    <UpdateEntityTemplate
+      entityName="Output standard"
+      entityRequestUrl="outputStandard"
+      entityRouterUrl="outputStandard"
+      fields={[
+        {
+          key: 'title',
+          name: 'title',
+          label: 'Output standard title',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'content',
+          name: 'content',
+          label: 'Output standard content',
+          rules: [{ required: true }],
+          component: <Input.TextArea />,
+        },
+        {
+          key: 'idOutputType',
+          name: ['idOutputType', 'title'],
+          label: 'Output type',
+          rules: [{ required: true }],
+          component: <Select options={listDataOutputType} />,
+        },
+      ]}
+    />
   );
 };
 

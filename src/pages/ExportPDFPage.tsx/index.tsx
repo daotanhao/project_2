@@ -4,11 +4,12 @@ import { Input } from 'antd';
 
 const ExportPDFPage = () => {
   return (
-    <CreateEntityTemplate
-      fields={[{ label: 'abc', name: 'abc', component: <Input /> }]}
-      entityRequestUrl="abc"
-      entityRouterUrl="abc"
-    />
+    // <CreateEntityTemplate
+    //   fields={[{ label: 'abc', name: 'abc', component: <Input /> }]}
+    //   entityRequestUrl="abc"
+    //   entityRouterUrl="abc"
+    // />
+    <></>
   );
 };
 

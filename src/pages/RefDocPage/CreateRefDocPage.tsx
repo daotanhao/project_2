@@ -1,54 +1,36 @@
-import { Button, Form, Input, Layout, notification } from 'antd';
-import { useRequestWithState } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Input } from 'antd';
+import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 
 const CreateRefDocPage = () => {
-  const { request, loading } = useRequestWithState();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const onFinish = (values: any) => {
-    request('/referenceDoc/new', {
-      method: 'POST',
-      data: { ...values, createdBy: user?._id },
-    })
-      .then((res) => {
-        navigate('/refDoc');
-        return notification.success({
-          message: 'Create reference document successfully',
-        });
-      })
-      .catch((err) => {
-        return notification.error({
-          message: 'Create reference document failed',
-          description: err.message,
-        });
-      });
-  };
   return (
-    <Layout style={{ width: '80%', marginLeft: '10%' }}>
-      <Form onFinish={onFinish} layout="vertical">
-        <Form.Item
-          label="Reference documents title"
-          name="title"
-          rules={[{ required: true, message: 'Please input title!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item label="Domestic documents" name="domesticContent">
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item label="Foreign documents" name="nonDomesticContent">
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button loading={loading} type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </Layout>
+    <CreateEntityTemplate
+      entityName="Reference documents"
+      entityRequestUrl="referenceDoc"
+      entityRouterUrl="refDoc"
+      fields={[
+        {
+          key: 'title',
+          name: 'title',
+          label: 'Reference documents title',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'domesticDocument',
+          name: 'domesticDocument',
+          label: 'Domestic documents',
+          rules: [{ required: true }],
+          component: <Input.TextArea />,
+        },
+        {
+          key: 'nonDomesticDocument',
+          name: 'nonDomesticDocument',
+          label: 'Foreign documents',
+          rules: [{ required: true }],
+          component: <Input.TextArea />,
+        },
+      ]}
+    />
   );
 };
 

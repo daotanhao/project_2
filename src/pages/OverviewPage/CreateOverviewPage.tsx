@@ -1,120 +1,89 @@
-import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
-import { useRequest } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
-
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
+import { Input, InputNumber, Select } from 'antd';
+import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 
 const CreateOverviewPage = () => {
-  const request = useRequest();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const onFinish = (values: any) => {
-    request('/overview/new', {
-      method: 'POST',
-      data: { ...values, createdBy: user?._id },
-    })
-      .then((res) => {
-        navigate('/overview');
-        return notification.success({
-          message: 'Create overview successfully',
-        });
-      })
-      .catch((err) => {
-        return notification.error({
-          message: 'Create overview failed',
-          description: err.message,
-        });
-      });
-  };
   return (
-    <Form onFinish={onFinish} validateMessages={validateMessages} {...layout}>
-      <Form.Item
-        name="name"
-        label="Education name"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="type"
-        label="Education type"
-        rules={[{ required: true }]}
-      >
-        <Select options={[{ key: 'anc', value: 'abc' }]} />
-      </Form.Item>
-      <Form.Item
-        name="degree"
-        label="Training degree"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="major"
-        label="Training major"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="availableYear"
-        label="Available from"
-        rules={[{ required: true, type: 'date' }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="method"
-        label="Training method"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="credits"
-        label="Credits required"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="duration"
-        label="Training duration"
-        rules={[{ required: true }]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name="goals" label="Training goal">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item name="prospectAfterGraduation" label="After graduation">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item name="perspectives" label="Program perspectives">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <CreateEntityTemplate
+      entityName="Overview"
+      entityRequestUrl="overview"
+      entityRouterUrl="overview"
+      fields={[
+        {
+          key: 'name',
+          name: 'name',
+          label: 'Education name',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'type',
+          name: 'type',
+          label: 'Education type',
+          rules: [{ required: true }],
+          component: <Select options={[{ key: 'anc', value: 'abc' }]} />,
+        },
+        {
+          key: 'degree',
+          name: 'degree',
+          label: 'Training degree',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'major',
+          name: 'major',
+          label: 'Training major',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'availableYear',
+          name: 'availableYear',
+          label: 'Available from',
+          rules: [{ required: true, type: 'date' }],
+          component: <InputNumber />,
+        },
+        {
+          key: 'method',
+          name: 'method',
+          label: 'Training method',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'credits',
+          name: 'credits',
+          label: 'Credits required',
+          rules: [{ required: true }],
+          component: <InputNumber />,
+        },
+        {
+          key: 'duration',
+          name: 'duration',
+          label: 'Training duration',
+          rules: [{ required: true }],
+          component: <InputNumber />,
+        },
+        {
+          key: 'goals',
+          name: 'goals',
+          label: 'Training goal',
+          component: <Input.TextArea />,
+        },
+        {
+          key: 'prospectAfterGraduation',
+          name: 'prospectAfterGraduation',
+          label: 'After graduation',
+          component: <Input.TextArea />,
+        },
+        {
+          key: 'perspectives',
+          name: 'perspectives',
+          label: 'Program perspectives',
+          component: <Input.TextArea />,
+        },
+      ]}
+    />
   );
 };
 

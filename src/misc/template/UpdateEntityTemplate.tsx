@@ -1,19 +1,19 @@
+import React, { useEffect, useState } from 'react';
 import { Button, Form, notification } from 'antd';
-import React from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FormItemProps, Rule } from 'antd/es/form';
 
 interface Field {
   key?: React.Key | null | undefined;
-  name: string;
+  name: any;
   label: React.ReactNode;
   rules?: Rule[];
   component: FormItemProps['children'];
 }
 
-type CreateEntityTemplateProps = {
+type UpdateEntityTemplateProps = {
   entityName: string;
   entityRequestUrl: string;
   entityRouterUrl: string;
@@ -36,31 +36,61 @@ const validateMessages = {
   },
 };
 
-const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
+const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   const { request, loading } = useRequestWithState();
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const { id } = useParams();
+  const [form] = Form.useForm();
+  const [dataEntity, setDataEntity] = useState<any>();
 
-  const onFinish = (values: any) => {
-    request(`/${props.entityRequestUrl}/new`, {
-      method: 'POST',
-      data: { ...values, createdBy: user?._id },
-    })
+  const loadDataEntity = () => {
+    request(`/${props.entityRequestUrl}/get/${id}`)
       .then((res) => {
-        navigate(`/${props.entityRouterUrl}`);
-        return notification.success({
-          message: `Create ${props.entityName} successfully`,
-        });
+        setDataEntity(res.data);
       })
       .catch((err) => {
         return notification.error({
-          message: `Create ${props.entityName} failed`,
+          message: 'Load data overview failed',
           description: err.message,
         });
       });
   };
+
+  const onFinish = (values: any) => {
+    console.log('values', values);
+    request(`/${props.entityRequestUrl}/${id}`, {
+      method: 'PUT',
+      data: { ...values, idUserLatestEdit: user?._id },
+    })
+      .then((res) => {
+        loadDataEntity();
+        return notification.success({
+          message: `Update ${props.entityName} successfully`,
+        });
+      })
+      .catch((err) => {
+        return notification.error({
+          message: `Update ${props.entityName} failed`,
+          description: err.message,
+        });
+      });
+  };
+
+  useEffect(() => {
+    loadDataEntity();
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue(dataEntity);
+  }, [dataEntity]);
+
   return (
-    <Form {...layout} validateMessages={validateMessages} onFinish={onFinish}>
+    <Form
+      {...layout}
+      form={form}
+      validateMessages={validateMessages}
+      onFinish={onFinish}
+    >
       {props.fields.map((field) => (
         <Form.Item
           key={field.key}
@@ -79,4 +109,4 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
   );
 };
 
-export default CreateEntityTemplate;
+export default UpdateEntityTemplate;

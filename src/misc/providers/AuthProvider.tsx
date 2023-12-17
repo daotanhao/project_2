@@ -5,6 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
+import { useLocation } from 'react-router-dom';
 
 interface AuthContextType {
   user: any;
@@ -21,10 +22,19 @@ export const AuthContext = createContext<AuthContextType>(
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { request, loading } = useRequestWithState();
+  const location = React.useRef<string>('');
   const [user, setUser] = useState<any>(null);
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('is-authenticated')
   );
+  const currentLocation = useLocation().pathname;
+  if (
+    currentLocation === '/login' ||
+    currentLocation === '/signup' ||
+    currentLocation === '/'
+  ) {
+    location.current = currentLocation;
+  }
   useEffect(() => {
     if (token) getMe();
   }, [token]);

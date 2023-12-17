@@ -1,65 +1,59 @@
-import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
+import { Input, Select } from 'antd';
+import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 import { useRequest } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
+import { useEffect, useState } from 'react';
 
 const CreateOutputStandardPage = () => {
   const request = useRequest();
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const [listDataOutputType, setListDataOutputType] = useState<any[]>([]);
 
-  const onFinish = (values: any) => {
-    request('/outputStandard/new', {
-      method: 'POST',
-      data: { ...values, createdBy: user?._id },
-    })
+  const loadDataOutputType = () => {
+    request('/outputType')
       .then((res) => {
-        navigate('/outputStandard');
-        return notification.success({
-          message: 'Create output standard successfully',
-        });
+        const dataOutputType = res?.data || [];
+        const mappedDataOutputType = dataOutputType.map((item: any) => ({
+          label: item.title,
+          value: item._id,
+        }));
+        setListDataOutputType(mappedDataOutputType);
       })
       .catch((err) => {
-        return notification.error({
-          message: 'Create output standard failed',
-          description: err.message,
-        });
+        console.log(err.message);
       });
   };
+
+  useEffect(() => {
+    loadDataOutputType();
+  }, []);
   return (
-    <Form {...layout} onFinish={onFinish}>
-      <Form.Item
-        name="title"
-        label="Output standard name"
-        rules={[{ required: true }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="content"
-        label="Output standard content"
-        rules={[{ required: true }]}
-      >
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item
-        name="idOverView"
-        label="Output type"
-        rules={[{ required: true }]}
-      >
-        <Select />
-      </Form.Item>
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <CreateEntityTemplate
+      entityName="Output standard"
+      entityRequestUrl="outputStandard"
+      entityRouterUrl="outputStandard"
+      fields={[
+        {
+          key: 'title',
+          name: 'title',
+          label: 'Output standard title',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'content',
+          name: 'content',
+          label: 'Output standard content',
+          rules: [{ required: true }],
+          component: <Input.TextArea />,
+        },
+        {
+          key: 'idOutputType',
+          name: 'idOutputType',
+          label: 'Output type',
+          rules: [{ required: true }],
+          component: <Select options={listDataOutputType} />,
+        },
+      ]}
+    />
   );
 };
 
