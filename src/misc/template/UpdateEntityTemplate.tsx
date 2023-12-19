@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, notification } from 'antd';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { FormItemProps, Rule } from 'antd/es/form';
+import { useBreadcrumbs } from '../../hooks/useBreadcrumbs';
 
 interface Field {
   key?: React.Key | null | undefined;
@@ -40,6 +41,8 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   const { request, loading } = useRequestWithState();
   const { user } = useAuth();
   const { id } = useParams();
+  const { setPathname } = useBreadcrumbs();
+  const location = useLocation();
   const [form] = Form.useForm();
   const [dataEntity, setDataEntity] = useState<any>();
 
@@ -47,6 +50,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
     request(`/${props.entityRequestUrl}/get/${id}`)
       .then((res) => {
         setDataEntity(res.data);
+        setPathname(location.pathname, 'abc');
       })
       .catch((err) => {
         return notification.error({
@@ -57,7 +61,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   };
 
   const onFinish = (values: any) => {
-    console.log('values', values);
+    console.log('update form values', values);
     request(`/${props.entityRequestUrl}/${id}`, {
       method: 'PUT',
       data: { ...values, idUserLatestEdit: user?._id },

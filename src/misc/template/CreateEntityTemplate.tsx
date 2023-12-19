@@ -7,7 +7,7 @@ import { FormItemProps, Rule } from 'antd/es/form';
 
 interface Field {
   key?: React.Key | null | undefined;
-  name: string;
+  name: any;
   label: React.ReactNode;
   rules?: Rule[];
   component: FormItemProps['children'];

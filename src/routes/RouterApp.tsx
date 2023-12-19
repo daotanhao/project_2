@@ -34,6 +34,10 @@ import ListOutputStandardPage from '../pages/OutputStandardPage/ListOutputStanda
 import CreateOutputStandardPage from '../pages/OutputStandardPage/CreateOutputStandardPage';
 import UpdateOutputStandardPage from '../pages/OutputStandardPage/UpdateOutputStandardPage';
 import ExportPDFPage from '../pages/ExportPDFPage.tsx';
+import CustomBreadcrumbItem from '../components/CustomBreadcrumbItem';
+import ListClassificationScalePage from '../pages/ClassificationScalePage/ListClassificationScalePage';
+import CreateClassificationScalePage from '../pages/ClassificationScalePage/CreateClassificationScalePage';
+import UpdateClassificationScalePage from '../pages/ClassificationScalePage/UpdateClassificationScalePage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -85,6 +89,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateOverviewPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -204,6 +209,23 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateOutputStandardPage />,
+            },
+          ],
+        },
+        {
+          path: 'classificationScale',
+          children: [
+            {
+              index: true,
+              element: <ListClassificationScalePage />,
+            },
+            {
+              path: 'create',
+              element: <CreateClassificationScalePage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateClassificationScalePage />,
             },
           ],
         },

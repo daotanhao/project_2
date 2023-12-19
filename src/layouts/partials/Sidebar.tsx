@@ -13,6 +13,8 @@ import { ReactComponent as GeneralKnowledgeIcon } from '../../assets/icons/knowl
 import { ReactComponent as GraduationConditionIcon } from '../../assets/icons/graduation.svg';
 import { ReactComponent as OutputTypeIcon } from '../../assets/icons/type.svg';
 import { ReactComponent as OutputStandardIcon } from '../../assets/icons/standard.svg';
+import { ReactComponent as ClassificationScaleIcon } from '../../assets/icons/classify.svg';
+import { FilePdfOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -80,9 +82,14 @@ const Sidebar = () => {
       icon: <SVGIcon component={OutputStandardIcon} />,
     },
     {
+      label: 'Classification Scale',
+      key: 'classificationScale',
+      icon: <SVGIcon component={ClassificationScaleIcon} />,
+    },
+    {
       label: 'Export',
       key: 'export',
-      icon: <SVGIcon component={OutputStandardIcon} />,
+      icon: <FilePdfOutlined />,
     },
     {
       key: 'collapse',

@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
-import { useRequestWithState } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useParams } from 'react-router-dom';
-import { OutputStandard } from '../../types/AppType';
-import UpdateEntityTemplate from '../../misc/template/UpdateEntityTemplate';
+import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
+import { Input, InputNumber, Select } from 'antd';
+import { useRequest } from '../../hooks/useRequest';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
-
-const UpdateOutputStandardPage = () => {
-  const { request } = useRequestWithState();
+const CreateClassificationScalePage = () => {
+  const request = useRequest();
   const [listDataOutputType, setListDataOutputType] = useState<any[]>([]);
 
   const loadDataOutputType = () => {
@@ -33,26 +25,32 @@ const UpdateOutputStandardPage = () => {
   useEffect(() => {
     loadDataOutputType();
   }, []);
-
   return (
-    <UpdateEntityTemplate
-      entityName="Output standard"
-      entityRequestUrl="outputStandard"
-      entityRouterUrl="outputStandard"
+    <CreateEntityTemplate
+      entityName="Classification Scale"
+      entityRequestUrl="classifyScale"
+      entityRouterUrl="classificationScale"
       fields={[
         {
-          key: 'title',
-          name: 'title',
-          label: 'Output standard title',
+          key: 'code',
+          name: 'code',
+          label: 'Level code',
           rules: [{ required: true }],
           component: <Input />,
         },
         {
-          key: 'content',
-          name: 'content',
-          label: 'Output standard content',
+          key: 'level',
+          name: 'level',
+          label: 'Level',
           rules: [{ required: true }],
-          component: <Input.TextArea />,
+          component: <InputNumber />,
+        },
+        {
+          key: 'nameLevel',
+          name: 'nameLevel',
+          label: 'Level name',
+          rules: [{ required: true }],
+          component: <Input />,
         },
         {
           key: 'idOutputType',
@@ -66,4 +64,4 @@ const UpdateOutputStandardPage = () => {
   );
 };
 
-export default UpdateOutputStandardPage;
+export default CreateClassificationScalePage;

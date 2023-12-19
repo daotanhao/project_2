@@ -48,7 +48,7 @@ const UpdateGraduationConditionPage = () => {
         },
         {
           key: 'idOverView',
-          name: ['idOverView', 'name'],
+          name: ['idOverView', '_id'],
           label: 'Overview',
           rules: [{ required: true }],
           component: <Select options={listDataOverview} />,

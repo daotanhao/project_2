@@ -19,7 +19,7 @@ export const BreadcrumbsProvider = ({ children }: PropsWithChildren) => {
   const params = useParams();
 
   const pathname = (key: string) => {
-    return data[key] || params.pathname || key;
+    return data[key] || params.name || key;
   };
   const setPathname = (key: string, value: string) => {
     setData({ ...data, [key]: value });
