@@ -22,6 +22,7 @@ interface Columns {
   title: string;
   dataIndex?: DataIndex;
   key: string;
+  width?: number;
   render?: (text: any) => JSX.Element;
 }
 

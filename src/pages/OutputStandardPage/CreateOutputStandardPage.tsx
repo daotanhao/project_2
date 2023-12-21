@@ -39,6 +39,13 @@ const CreateOutputStandardPage = () => {
           component: <Input />,
         },
         {
+          key: 'id',
+          name: 'id',
+          label: 'Output standard id',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
           key: 'content',
           name: 'content',
           label: 'Output standard content',

@@ -42,6 +42,8 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
   const navigate = useNavigate();
 
   const onFinish = (values: any) => {
+    console.log('create values', values);
+
     request(`/${props.entityRequestUrl}/new`, {
       method: 'POST',
       data: { ...values, createdBy: user?._id },

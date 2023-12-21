@@ -50,7 +50,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
     request(`/${props.entityRequestUrl}/get/${id}`)
       .then((res) => {
         setDataEntity(res.data);
-        setPathname(location.pathname, 'abc');
+        setPathname(location.pathname, `Update ${res.data.title}`);
       })
       .catch((err) => {
         return notification.error({

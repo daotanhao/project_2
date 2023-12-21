@@ -38,6 +38,9 @@ import CustomBreadcrumbItem from '../components/CustomBreadcrumbItem';
 import ListClassificationScalePage from '../pages/ClassificationScalePage/ListClassificationScalePage';
 import CreateClassificationScalePage from '../pages/ClassificationScalePage/CreateClassificationScalePage';
 import UpdateClassificationScalePage from '../pages/ClassificationScalePage/UpdateClassificationScalePage';
+import ListSubjectCombinationPage from '../pages/SubjectCombinationPage/ListSubjectCombinationPage';
+import CreateSubjectCombinationPage from '../pages/SubjectCombinationPage/CreateSubjectCombinationPage';
+import UpdateSubjectCombinationPage from '../pages/SubjectCombinationPage/UpdateSubjectCombinationPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -107,6 +110,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateEnrollmentPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -226,6 +230,23 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateClassificationScalePage />,
+            },
+          ],
+        },
+        {
+          path: 'subjectCombination',
+          children: [
+            {
+              index: true,
+              element: <ListSubjectCombinationPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateSubjectCombinationPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateSubjectCombinationPage />,
             },
           ],
         },

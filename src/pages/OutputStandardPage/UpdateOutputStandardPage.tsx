@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, InputNumber, Select, notification } from 'antd';
+import { useEffect, useState } from 'react';
+import { Input, Select } from 'antd';
 import { useRequestWithState } from '../../hooks/useRequest';
-import { useAuth } from '../../hooks/useAuth';
-import { useParams } from 'react-router-dom';
-import { OutputStandard } from '../../types/AppType';
 import UpdateEntityTemplate from '../../misc/template/UpdateEntityTemplate';
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
 
 const UpdateOutputStandardPage = () => {
   const { request } = useRequestWithState();
@@ -44,6 +36,13 @@ const UpdateOutputStandardPage = () => {
           key: 'title',
           name: 'title',
           label: 'Output standard title',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
+          key: 'id',
+          name: 'id',
+          label: 'Output standard id',
           rules: [{ required: true }],
           component: <Input />,
         },

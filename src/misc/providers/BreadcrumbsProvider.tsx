@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, createContext, useState } from 'react';
 import useReactRouterBreadcrumbs from 'use-react-router-breadcrumbs';
 import { useParams } from 'react-router-dom';
+import { getRoutes } from '../../routes/RouterApp';
 
 interface BreadcrumbsContextType {
   pathname(key: string): string;
@@ -15,7 +16,7 @@ export const BreadcrumbsContext = createContext<BreadcrumbsContextType>(
 
 export const BreadcrumbsProvider = ({ children }: PropsWithChildren) => {
   const [data, setData] = useState<Record<string, any>>({});
-  const breadcrumbs = useReactRouterBreadcrumbs();
+  const breadcrumbs = useReactRouterBreadcrumbs(getRoutes());
   const params = useParams();
 
   const pathname = (key: string) => {
