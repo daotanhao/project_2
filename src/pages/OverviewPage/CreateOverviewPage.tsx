@@ -9,8 +9,8 @@ const CreateOverviewPage = () => {
       entityRouterUrl="overview"
       fields={[
         {
-          key: 'name',
-          name: 'name',
+          key: 'title',
+          name: 'title',
           label: 'Education name',
           rules: [{ required: true }],
           component: <Input />,
@@ -20,14 +20,38 @@ const CreateOverviewPage = () => {
           name: 'type',
           label: 'Education type',
           rules: [{ required: true }],
-          component: <Select options={[{ key: 'anc', value: 'abc' }]} />,
+          component: (
+            <Select
+              options={[
+                { label: 'Chính quy tập trung', value: 'Chính quy tập trung' },
+                {
+                  label: 'Đào tạo từ xa tập trung',
+                  value: 'Đào tạo từ xa tập trung',
+                },
+                {
+                  label: 'Đào tạo từ xa không tập trung',
+                  value: 'Đào tạo từ xa không tập trung',
+                },
+              ]}
+            />
+          ),
         },
         {
           key: 'degree',
           name: 'degree',
           label: 'Training degree',
           rules: [{ required: true }],
-          component: <Input />,
+          component: (
+            <Select
+              options={[
+                { label: 'Đại học', value: 'Đại học' },
+                {
+                  label: 'Cử nhân',
+                  value: 'Cử nhân',
+                },
+              ]}
+            />
+          ),
         },
         {
           key: 'major',

@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, Select } from 'antd';
 import UpdateEntityTemplate from '../../misc/template/UpdateEntityTemplate';
 
 const UpdateRefDocPage = () => {
@@ -16,18 +16,18 @@ const UpdateRefDocPage = () => {
           component: <Input />,
         },
         {
-          key: 'domesticContent',
-          name: 'domesticContent',
-          label: 'Domestic documents',
+          key: 'type',
+          name: 'type',
+          label: 'Reference documents type',
           rules: [{ required: true }],
-          component: <Input.TextArea />,
-        },
-        {
-          key: 'nonDomesticContent',
-          name: 'nonDomesticContent',
-          label: 'Foreign documents',
-          rules: [{ required: true }],
-          component: <Input.TextArea />,
+          component: (
+            <Select
+              options={[
+                { label: 'Domestic', value: 'Domestic' },
+                { label: 'Foreign', value: 'Foreign' },
+              ]}
+            />
+          ),
         },
       ]}
     />

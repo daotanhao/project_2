@@ -63,7 +63,6 @@ const ListTableEntityTemplate = (props: ListEntityTemplateProps) => {
           <Link to={`/${props.entityRouterUrl}/${record._id}`} title="Edit">
             <Button
               type="text"
-              title="Delete"
               shape="circle"
               icon={<SVGIcon component={EditIcon} />}
             />

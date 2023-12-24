@@ -34,10 +34,6 @@ const UserBlock = () => {
 
   const items: MenuProps['items'] = [
     {
-      label: 'Click',
-      key: '1',
-    },
-    {
       label: 'Settings',
       key: 'settings',
       icon: (

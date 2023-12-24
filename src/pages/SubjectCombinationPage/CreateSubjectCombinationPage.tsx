@@ -57,8 +57,8 @@ const CreateSubjectCombinationPage = () => {
           component: <InputNumber />,
         },
         {
-          key: 'percent',
-          name: 'percent',
+          key: 'percents',
+          name: 'percents',
           label: 'Percent',
           rules: [{ required: true }],
           component: <InputNumber />,

@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, Select } from 'antd';
 import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 
 const CreateRefDocPage = () => {
@@ -16,18 +16,18 @@ const CreateRefDocPage = () => {
           component: <Input />,
         },
         {
-          key: 'domesticDocument',
-          name: 'domesticDocument',
-          label: 'Domestic documents',
+          key: 'type',
+          name: 'type',
+          label: 'Reference documents type',
           rules: [{ required: true }],
-          component: <Input.TextArea />,
-        },
-        {
-          key: 'nonDomesticDocument',
-          name: 'nonDomesticDocument',
-          label: 'Foreign documents',
-          rules: [{ required: true }],
-          component: <Input.TextArea />,
+          component: (
+            <Select
+              options={[
+                { label: 'Domestic', value: 'Domestic' },
+                { label: 'Foreign', value: 'Foreign' },
+              ]}
+            />
+          ),
         },
       ]}
     />

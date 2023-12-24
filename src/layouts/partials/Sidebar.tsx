@@ -14,7 +14,8 @@ import { ReactComponent as GraduationConditionIcon } from '../../assets/icons/gr
 import { ReactComponent as OutputTypeIcon } from '../../assets/icons/type.svg';
 import { ReactComponent as OutputStandardIcon } from '../../assets/icons/standard.svg';
 import { ReactComponent as ClassificationScaleIcon } from '../../assets/icons/classify.svg';
-import { ReactComponent as SubjectCombinationIcon } from '../../assets/icons/subject.svg';
+import { ReactComponent as SubjectCombinationIcon } from '../../assets/icons/subjectCombination.svg';
+import { ReactComponent as SubjectDetailsIcon } from '../../assets/icons/subjectDetail.svg';
 import { FilePdfOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -91,6 +92,11 @@ const Sidebar = () => {
       label: 'Subject Combination',
       key: 'subjectCombination',
       icon: <SVGIcon component={SubjectCombinationIcon} />,
+    },
+    {
+      label: 'Subject Details',
+      key: 'subjectDetails',
+      icon: <SVGIcon component={SubjectDetailsIcon} />,
     },
     {
       label: 'Export',

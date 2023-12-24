@@ -14,6 +14,11 @@ const ListRefDocPage = () => {
           key: 'title',
           render: (text: any) => <a>{text}</a>,
         },
+        {
+          title: 'Reference document type',
+          dataIndex: 'type',
+          key: 'type',
+        },
       ]}
     />
   );

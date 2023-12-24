@@ -10,8 +10,8 @@ const ListOverviewPage = () => {
       columns={[
         {
           title: 'Education name',
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'title',
+          key: 'title',
           render: (text: any) => <a>{text}</a>,
         },
         {

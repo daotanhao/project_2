@@ -4,6 +4,10 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
+
+import SVGIcon from '../components/SVGIcon';
+import { ReactComponent as HomeIcon } from '../assets/icons/home.svg';
+
 import BasicLayout from '../layouts/BasicLayout';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import LoadingPage from '../pages/LoadingPage';
@@ -41,6 +45,9 @@ import UpdateClassificationScalePage from '../pages/ClassificationScalePage/Upda
 import ListSubjectCombinationPage from '../pages/SubjectCombinationPage/ListSubjectCombinationPage';
 import CreateSubjectCombinationPage from '../pages/SubjectCombinationPage/CreateSubjectCombinationPage';
 import UpdateSubjectCombinationPage from '../pages/SubjectCombinationPage/UpdateSubjectCombinationPage';
+import ListSubjectDetailsPage from '../pages/SubjectDetailsPage/ListSubjectDetailsPage';
+import CreateSubjectDetailsPage from '../pages/SubjectDetailsPage/CreateSubjectDetailsPage';
+import UpdateSubjectDetailsPage from '../pages/SubjectDetailsPage/UpdateSubjectDetailsPage';
 
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -76,6 +83,7 @@ export const getRoutes = () => {
         {
           index: true,
           element: <HomePage />,
+          breadcrumb: () => <SVGIcon component={HomeIcon} />,
         },
         {
           path: 'overview',
@@ -128,6 +136,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateRegulationPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -145,6 +154,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateRefDocPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -162,6 +172,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateGeneralKnowledgePage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -179,6 +190,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateGraduationConditionPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -196,6 +208,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateOutputTypePage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -213,6 +226,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateOutputStandardPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -230,6 +244,7 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateClassificationScalePage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
@@ -247,6 +262,25 @@ export const getRoutes = () => {
             {
               path: ':id',
               element: <UpdateSubjectCombinationPage />,
+              breadcrumb: CustomBreadcrumbItem,
+            },
+          ],
+        },
+        {
+          path: 'subjectDetails',
+          children: [
+            {
+              index: true,
+              element: <ListSubjectDetailsPage />,
+            },
+            {
+              path: 'create',
+              element: <CreateSubjectDetailsPage />,
+            },
+            {
+              path: ':id',
+              element: <UpdateSubjectDetailsPage />,
+              breadcrumb: CustomBreadcrumbItem,
             },
           ],
         },
