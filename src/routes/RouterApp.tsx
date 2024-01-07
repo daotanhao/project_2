@@ -146,6 +146,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListRefDocPage />,
+              breadcrumb: 'Reference Documents',
             },
             {
               path: 'create',
@@ -164,6 +165,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListGeneralKnowledgePage />,
+              breadcrumb: 'General Knowledge',
             },
             {
               path: 'create',
@@ -182,6 +184,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListGraduationConditionPage />,
+              breadcrumb: 'Graduation Condition',
             },
             {
               path: 'create',
@@ -200,6 +203,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListOutputTypePage />,
+              breadcrumb: 'Output Type',
             },
             {
               path: 'create',
@@ -218,6 +222,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListOutputStandardPage />,
+              breadcrumb: 'Output Standard',
             },
             {
               path: 'create',
@@ -236,6 +241,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListClassificationScalePage />,
+              breadcrumb: 'Classification Scale',
             },
             {
               path: 'create',
@@ -254,6 +260,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListSubjectCombinationPage />,
+              breadcrumb: 'Subject Combination',
             },
             {
               path: 'create',
@@ -272,6 +279,7 @@ export const getRoutes = () => {
             {
               index: true,
               element: <ListSubjectDetailsPage />,
+              breadcrumb: 'Subject Details',
             },
             {
               path: 'create',

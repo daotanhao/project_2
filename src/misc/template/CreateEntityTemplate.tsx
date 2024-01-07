@@ -62,22 +62,26 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
       });
   };
   return (
-    <Form {...layout} validateMessages={validateMessages} onFinish={onFinish}>
-      {props.fields.map((field) => (
+    <div style={{ width: '100%' }}>
+      <Form {...layout} validateMessages={validateMessages} onFinish={onFinish}>
+        {props.fields.map((field) => (
+          <Form.Item
+            key={field.key}
+            name={field.name}
+            label={field.label}
+            rules={field.rules}
+            children={field.component}
+          />
+        ))}
         <Form.Item
-          key={field.key}
-          name={field.name}
-          label={field.label}
-          rules={field.rules}
-          children={field.component}
-        />
-      ))}
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button loading={loading} type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+          style={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}
+        >
+          <Button loading={loading} type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

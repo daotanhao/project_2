@@ -20,13 +20,13 @@ const ListSubjectDetailsPage = () => {
         },
         {
           title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'title',
+          key: 'title',
         },
         {
           title: 'English name',
-          dataIndex: 'englishName',
-          key: 'englishName',
+          dataIndex: 'englishTitle',
+          key: 'englishTitle',
         },
         {
           title: 'Theory credits',

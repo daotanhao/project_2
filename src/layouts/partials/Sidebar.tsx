@@ -111,15 +111,15 @@ const Sidebar = () => {
           component={collapsed ? AngleDoubleRight : AngleDoubleLeft}
         />
       ),
-      style: {
-        cursor: 'pointer',
-        background: 'transparent',
-        display: 'flex',
-        flexDirection: 'row-reverse',
-        width: '90%',
-        top: '85%',
-        position: 'absolute',
-      },
+      // style: {
+      //   cursor: 'pointer',
+      //   background: 'transparent',
+      //   display: 'flex',
+      //   flexDirection: 'row-reverse',
+      //   width: '90%',
+      //   top: '85%',
+      //   position: 'absolute',
+      // },
     },
   ];
 
@@ -139,7 +139,7 @@ const Sidebar = () => {
       width={'205'}
       style={{
         borderRight: '0.5px solid #DBDBDB',
-        height: window.innerHeight - 64,
+        // height: window.innerHeight - 64,
       }}
     >
       <Menu

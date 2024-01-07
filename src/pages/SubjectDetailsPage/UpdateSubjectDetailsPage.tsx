@@ -75,15 +75,15 @@ const UpdateSubjectDetailsPage = () => {
       entityRouterUrl="subjectDetails"
       fields={[
         {
-          key: 'name',
-          name: 'name',
+          key: 'title',
+          name: 'title',
           label: 'Subject name',
           rules: [{ required: true }],
           component: <Input />,
         },
         {
-          key: 'englishName',
-          name: 'englishName',
+          key: 'englishTitle',
+          name: 'englishTitle',
           label: 'Subject english name',
           rules: [{ required: true }],
           component: <Input />,

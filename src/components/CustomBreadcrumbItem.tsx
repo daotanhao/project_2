@@ -8,7 +8,7 @@ const CustomBreadcrumbItem = (props: any) => {
     return pathname(key);
   }, [data]);
   console.log('display', display);
-  return <span>{display}</span>;
+  return <span style={{ fontWeight: 'bold' }}>{display}</span>;
 };
 
 export default CustomBreadcrumbItem;

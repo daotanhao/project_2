@@ -19,7 +19,7 @@ const ProtectedLayout = () => {
   }
 
   return (
-    <Layout style={{ width: window.innerWidth, height: window.innerHeight }}>
+    <Layout>
       <Layout>
         <Headerbar />
 

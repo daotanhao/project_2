@@ -13,7 +13,7 @@ export interface User {
 
 export interface Overview {
   _id: string;
-  name: string; //education name
+  title: string; //education name
   type: string; // education type like:...
   method: string; // education  like:...
   degree: string; // education degree
@@ -21,9 +21,9 @@ export interface Overview {
   availableYear: number;
   credits: number;
   duration: number;
-  goals?: string; //program goals
+  goalsTraining?: string; //program goals
   prospectAfterGraduation?: string;
-  perspectives?: string;
+  perspectivesTraining?: string;
   createdAt?: string;
   updatedAt?: string;
   listIdUserEdited?: string[];

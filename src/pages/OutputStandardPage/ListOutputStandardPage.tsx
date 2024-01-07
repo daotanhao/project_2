@@ -5,8 +5,8 @@ const ListOutputStandardPage = () => {
   return (
     <ListTableEntityTemplate
       entityName="Output Standard"
-      entityRequestUrl="subjectCombination"
-      entityRouterUrl="subjectCombination"
+      entityRequestUrl="outputStandard"
+      entityRouterUrl="outputStandard"
       columns={[
         {
           title: 'Output standard id',

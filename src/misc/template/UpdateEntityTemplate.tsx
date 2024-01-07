@@ -104,7 +104,9 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
           children={field.component}
         />
       ))}
-      <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Form.Item
+        style={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}
+      >
         <Button loading={loading} type="primary" htmlType="submit">
           Submit
         </Button>

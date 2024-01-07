@@ -53,6 +53,13 @@ const UpdateClassificationScalePage = () => {
           component: <Input />,
         },
         {
+          key: 'discription',
+          name: 'discription',
+          label: 'Description',
+          rules: [{ required: true }],
+          component: <Input.TextArea />,
+        },
+        {
           key: 'idOutputType',
           name: ['idOutputType', '_id'],
           label: 'Output type',

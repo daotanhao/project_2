@@ -66,7 +66,7 @@ const CreateSubjectCombinationPage = () => {
         {
           key: 'idGeneralKnowledge',
           name: ['idGeneralKnowledge', '_id'],
-          label: 'Output type',
+          label: 'General knowledge',
           rules: [{ required: true }],
           component: <Select options={listDataGeneralKnowledge} />,
         },
