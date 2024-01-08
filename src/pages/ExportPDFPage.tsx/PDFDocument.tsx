@@ -16,6 +16,10 @@ import EnrollmentDocument from './partials/EnrollmentDocument';
 import RegulationDocument from './partials/RegulationDocument';
 import OutputStandardDocument from './partials/OutputStandardDocument';
 import ClassificationScaleDocument from './partials/ClassificationScaleDocument';
+import TrainingProgramDocument from './partials/TrainingProgramDocument';
+import GraduationConditionDocument from './partials/GraduationConditionDocument';
+import SubjectDetailsDocument from './partials/SubjectDetailsDocument';
+import RefDocDocument from './partials/RefDocDocument';
 
 interface DataEntityId {
   [key: string]: string;
@@ -122,6 +126,12 @@ const PDFDocument = () => {
           <ClassificationScaleDocument
             classificationScale={entityData?.classifyScale}
           />
+          <TrainingProgramDocument />
+          <GraduationConditionDocument
+            graduationCondition={entityData?.graduationCondition}
+          />
+          <SubjectDetailsDocument />
+          <RefDocDocument refDoc={entityData?.referenceDoc} />
 
           <Text
             style={styles.pageNumber}

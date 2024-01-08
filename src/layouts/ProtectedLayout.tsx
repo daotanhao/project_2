@@ -25,12 +25,15 @@ const ProtectedLayout = () => {
 
         <Layout>
           <Sidebar />
-
           <Content
+            // style={{
+            //   padding: 24,
+            //   margin: 0,
+            //   minHeight: 280,
+            // }}
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 280,
             }}
           >
             <Breadcrumbs />

@@ -1,7 +1,10 @@
-import { Button, Form, Select } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Button, Form, Select, Typography } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import FormList from '../../components/FormList';
 
+const { Title, Text } = Typography;
 interface Item {
   id: number;
   title: string;
@@ -11,57 +14,68 @@ interface EntityData {
   [key: string]: Item[];
 }
 
+const entityList = [
+  {
+    name: 'overview',
+    label: 'Overview',
+  },
+  {
+    name: 'enroll',
+    label: 'Enrollment',
+  },
+  {
+    name: 'trainingReg',
+    label: 'Regulation',
+  },
+  {
+    name: 'referenceDoc',
+    label: 'Reference documents',
+  },
+  {
+    name: 'generalKnowledge',
+    label: 'General knowledge',
+  },
+  {
+    name: 'graduationCondition',
+    label: 'Graduation condition',
+  },
+  {
+    name: 'outputType',
+    label: 'Output type',
+  },
+  {
+    name: 'outputStandard',
+    label: 'Output standard',
+  },
+  {
+    name: 'classifyScale',
+    label: 'Classification scale',
+  },
+  {
+    name: 'subjectCombination',
+    label: 'Subject combination',
+  },
+  {
+    name: 'subjectDetails',
+    label: 'Subject details',
+  },
+];
+
 const InputDocument = () => {
   const { request, loading } = useRequestWithState();
   const [entityData, setEntityData] = useState<EntityData>({});
   const [form] = Form.useForm();
 
-  const entityList = [
-    {
-      name: 'overview',
-      label: 'Overview',
+  const dataEntity = useCallback(
+    (name: string) => {
+      return (
+        entityData[name]?.map((item: any) => {
+          return { label: item.title, value: item._id };
+        }) || []
+      );
     },
-    {
-      name: 'enroll',
-      label: 'Enrollment',
-    },
-    {
-      name: 'trainingReg',
-      label: 'Regulation',
-    },
-    {
-      name: 'referenceDoc',
-      label: 'Reference documents',
-    },
-    {
-      name: 'generalKnowledge',
-      label: 'General knowledge',
-    },
-    {
-      name: 'graduationCondition',
-      label: 'Graduation condition',
-    },
-    {
-      name: 'outputType',
-      label: 'Output type',
-    },
-    {
-      name: 'outputStandard',
-      label: 'Output standard',
-    },
-    {
-      name: 'classifyScale',
-      label: 'Classification scale',
-    },
-    {
-      name: 'subjectCombination',
-      label: 'Subject combination',
-    },
-    {
-      name: 'subjectDetails',
-      label: 'Subject details',
-    },
-  ];
+    [entityData]
+  );
 
   useEffect(() => {
     const fetchDataForEntities = async () => {
@@ -86,37 +100,121 @@ const InputDocument = () => {
     fetchDataForEntities();
   }, []); // useEffect sẽ chạy một lần khi component được render.
 
-  console.log('entityData', entityData);
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
       }}
     >
       <Form
         form={form}
         onFinish={(values) => console.log('Form values:', values)}
-        style={{ width: '80%' }}
+        style={{
+          width: '95%',
+          overflowY: 'scroll',
+          height: window.innerHeight * 0.8,
+          paddingRight: 8,
+        }}
       >
-        {entityList.map((entity) => (
-          <Form.Item key={entity.name} label={entity.label} name={entity.name}>
-            <Select
-              placeholder={`Select ${entity.label}`}
-              // onChange={value => handleEntityChange(value, entity)}
-            >
-              {entityData[entity.name]?.map((item: any) => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.title}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-        ))}
+        <Title level={5}>1. Giới thiệu chung</Title>
+        <Form.Item name="overview">
+          <Select
+            placeholder="Select overview"
+            options={dataEntity('overview')}
+            allowClear
+          />
+        </Form.Item>
 
+        <Title level={5}>2. Đối tượng tuyển sinh</Title>
+        <Form.Item name="enroll">
+          <Select
+            placeholder="Select enrollment"
+            options={dataEntity('enroll')}
+            allowClear
+          />
+        </Form.Item>
+
+        <Title level={5}>3. Quy chế đào tạo</Title>
+        <Form.Item name="trainingReg">
+          <Select
+            placeholder="Select regulation"
+            options={dataEntity('trainingReg')}
+            allowClear
+          />
+        </Form.Item>
+
+        <Title level={5}>4. Chuẩn đầu ra</Title>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Về nhận thức:</Text>
+        </div>
+        <FormList name={['outputType', 'awareness']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('outputStandard')}
+            style={{ width: '92%' }}
+          />
+        </FormList>
+
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Về kỹ năng:</Text>
+        </div>
+        <FormList name={['outputType', 'skill']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('outputStandard')}
+            style={{ width: '92%' }}
+          />
+        </FormList>
+
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Về thái độ:</Text>
+        </div>
+        <FormList name={['outputType', 'attitude']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('outputStandard')}
+            style={{ width: '92%' }}
+          />
+        </FormList>
+
+        <Title level={5}>5. Thang phân loại kiến thức, kỹ năng, thái độ</Title>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Thang phân loại về "Nhận thức":</Text>
+        </div>
+        <FormList name={['classifyScale', 'awareness']}>
+          <Select
+            placeholder="Select output standard"
+            style={{ width: '92%' }}
+          />
+        </FormList>
+
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Thang phân loại về "Kỹ năng":</Text>
+        </div>
+        <FormList name={['classifyScale', 'skill']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('classifyScale')}
+            style={{ width: '92%' }}
+          />
+        </FormList>
+
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Thang phân loại về "Thái độ":</Text>
+        </div>
+        <FormList name={['classifyScale', 'attitude']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('classifyScale')}
+            style={{ width: '92%' }}
+            key={1}
+          />
+        </FormList>
         <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="primary" htmlType="submit">
+          <Button loading={loading} type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>

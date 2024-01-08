@@ -9,13 +9,6 @@ const Breadcrumbs = () => {
   const { breadcrumbs } = useBreadcrumbs();
 
   return (
-    // <Breadcrumb style={{ margin: '16px 0' }}>
-    //   {breadcrumbs.map((breadcrumb: any, index: any) => (
-    //     <Breadcrumb.Item key={breadcrumb.key}>
-    //       {breadcrumb.breadcrumb}
-    //     </Breadcrumb.Item>
-    //   ))}
-    // </Breadcrumb>
     <Breadcrumb style={{ paddingBottom: 12 }}>
       {breadcrumbs.map((b: any, index: any) => {
         const { match, breadcrumb, key } = b;

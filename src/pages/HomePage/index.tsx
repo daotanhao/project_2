@@ -45,7 +45,7 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* <div
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -54,7 +54,7 @@ const HomePage = () => {
         }}
       >
         <PDFDocument />
-      </div> */}
+      </div>
     </div>
   );
 };

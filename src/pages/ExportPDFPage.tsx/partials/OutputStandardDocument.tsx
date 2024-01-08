@@ -3,7 +3,7 @@ import { Text, View } from '@react-pdf/renderer';
 import { styles } from '../PDFDocument';
 
 const OutputStandardDocument = (props: any) => {
-  const outputStandard: OutputStandard = props?.outputStandard || {};
+  const outputStandard = props?.outputStandard || {};
   console.log('outputStandard data', outputStandard);
 
   return (
@@ -14,7 +14,9 @@ const OutputStandardDocument = (props: any) => {
         thuật Phần mềm phải đáp ứng các yêu cầu về tiêu chuẩn đầu ra (CĐR) sau:
       </Text>
       <Text style={styles.text}>Về nhận thức:</Text>
-      <Text></Text>
+      <Text style={styles.text}>
+        - {outputStandard.id}: {outputStandard.title}
+      </Text>
       <Text style={styles.text}>Về kỹ năng:</Text>
       <Text style={styles.text}>Về thái độ:</Text>
     </View>

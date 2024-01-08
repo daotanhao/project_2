@@ -74,11 +74,6 @@ const Sidebar = () => {
       icon: <SVGIcon component={GraduationConditionIcon} />,
     },
     {
-      label: 'Output Type',
-      key: 'outputType',
-      icon: <SVGIcon component={OutputTypeIcon} />,
-    },
-    {
       label: 'Output Standard',
       key: 'outputStandard',
       icon: <SVGIcon component={OutputStandardIcon} />,
@@ -111,15 +106,14 @@ const Sidebar = () => {
           component={collapsed ? AngleDoubleRight : AngleDoubleLeft}
         />
       ),
-      // style: {
-      //   cursor: 'pointer',
-      //   background: 'transparent',
-      //   display: 'flex',
-      //   flexDirection: 'row-reverse',
-      //   width: '90%',
-      //   top: '85%',
-      //   position: 'absolute',
-      // },
+      style: {
+        // background: 'transparent',
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        // width: '90%',
+        // top: '85%',
+        // position: 'absolute',
+      },
     },
   ];
 
@@ -137,9 +131,18 @@ const Sidebar = () => {
     <Sider
       collapsed={collapsed}
       width={'205'}
+      // style={{
+      //   borderRight: '0.5px solid #DBDBDB',
+      //   overflow: 'scroll',
+      //   height: 'auto',
+      // }}
+      // width="10%"
       style={{
+        overflow: 'auto',
+        height: window.innerHeight - 64,
+        // position: 'fixed',
+        left: 0,
         borderRight: '0.5px solid #DBDBDB',
-        // height: window.innerHeight - 64,
       }}
     >
       <Menu

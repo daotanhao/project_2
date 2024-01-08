@@ -2,6 +2,18 @@ import React from 'react';
 import ListTableEntityTemplate from '../../misc/template/ListTableEntityTemplate';
 
 const ListClassificationScalePage = () => {
+  const renderOutputType = (type: string) => {
+    switch (type) {
+      case 'skill':
+        return 'Kỹ năng';
+      case 'awareness':
+        return 'Nhận thức';
+      case 'attitude':
+        return 'Thái độ';
+      default:
+        return 'Unknown';
+    }
+  };
   return (
     <ListTableEntityTemplate
       entityName="Classification Scale"
@@ -26,8 +38,9 @@ const ListClassificationScalePage = () => {
         },
         {
           title: 'Output type',
-          dataIndex: ['idOutputType', 'title'],
-          key: 'outputType',
+          dataIndex: 'type',
+          key: 'type',
+          render: (text: any) => <>{renderOutputType(text)}</>,
         },
       ]}
     />

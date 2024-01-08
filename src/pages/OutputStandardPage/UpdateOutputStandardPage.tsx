@@ -54,11 +54,19 @@ const UpdateOutputStandardPage = () => {
           component: <Input.TextArea />,
         },
         {
-          key: 'idOutputType',
-          name: ['idOutputType', '_id'],
+          key: 'type',
+          name: 'type',
           label: 'Output type',
           rules: [{ required: true }],
-          component: <Select options={listDataOutputType} />,
+          component: (
+            <Select
+              options={[
+                { label: 'Awareness', value: 'awareness' },
+                { label: 'Skill', value: 'skill' },
+                { label: 'Attitude', value: 'attitude' },
+              ]}
+            />
+          ),
         },
       ]}
     />
