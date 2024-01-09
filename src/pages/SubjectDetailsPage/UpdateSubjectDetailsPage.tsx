@@ -118,7 +118,7 @@ const UpdateSubjectDetailsPage = () => {
         {
           key: 'idSubjectCombination',
           name: ['idSubjectCombination', '_id'],
-          label: 'Output type',
+          label: 'Subject Combination',
           rules: [{ required: true }],
           component: <Select options={listDataSubjectCombination} />,
         },
