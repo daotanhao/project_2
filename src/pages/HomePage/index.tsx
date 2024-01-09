@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PDFDocument from '../ExportPDFPage.tsx/PDFDocument';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import html2pdf from 'html2pdf.js';
+import OverviewFlow from '../../components/DiagramFlow/DiagramFlow';
 
 const PDFGenerator = () => {
   return (
@@ -53,7 +54,8 @@ const HomePage = () => {
           width: '100%',
         }}
       >
-        <PDFDocument />
+        {/* <PDFDocument /> */}
+        <OverviewFlow/>
       </div>
     </div>
   );
