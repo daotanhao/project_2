@@ -64,11 +64,6 @@ const Sidebar = () => {
       icon: <SVGIcon component={RefDocIcon} />,
     },
     {
-      label: 'General Knowledge',
-      key: 'generalKnowledge',
-      icon: <SVGIcon component={GeneralKnowledgeIcon} />,
-    },
-    {
       label: 'Graduation Condition',
       key: 'graduationCondition',
       icon: <SVGIcon component={GraduationConditionIcon} />,
@@ -91,7 +86,7 @@ const Sidebar = () => {
     {
       label: 'Subject Details',
       key: 'subjectDetails',
-      icon: <SVGIcon component={SubjectDetailsIcon} />,
+      icon: <SVGIcon component={GeneralKnowledgeIcon} />,
     },
     {
       label: 'Export',

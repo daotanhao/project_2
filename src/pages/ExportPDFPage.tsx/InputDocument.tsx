@@ -213,6 +213,44 @@ const InputDocument = () => {
             key={1}
           />
         </FormList>
+
+        <Title level={5}>6. Chương trình đào tạo</Title>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; 6.1 Tỷ lệ các khối kiến thức:</Text>
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Khối kiến thức giáo dục đại cương:</Text>
+        </div>
+        <FormList name={['subjectCombination', 'general']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('subjectCombination')}
+            style={{ width: '92%' }}
+            key={1}
+          />
+        </FormList>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Khối kiến thức giáo dục chuyên nghiệp:</Text>
+        </div>
+        <FormList name={['subjectCombination', 'professional']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('subjectCombination')}
+            style={{ width: '92%' }}
+            key={1}
+          />
+        </FormList>
+        <div style={{ marginBottom: 12 }}>
+          <Text strong>&emsp; - Tốt nghiệp:</Text>
+        </div>
+        <FormList name={['subjectCombination', 'graduate']}>
+          <Select
+            placeholder="Select output standard"
+            options={dataEntity('subjectCombination')}
+            style={{ width: '92%' }}
+            key={1}
+          />
+        </FormList>
         <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button loading={loading} type="primary" htmlType="submit">
             Submit

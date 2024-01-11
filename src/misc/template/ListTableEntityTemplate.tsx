@@ -138,6 +138,9 @@ const ListTableEntityTemplate = (props: ListEntityTemplateProps) => {
         dataSource={dataEntity}
         columns={columns}
         style={{ margin: 0 }}
+        pagination={{
+          pageSize: 5,
+        }}
       />
     </Layout>
   );

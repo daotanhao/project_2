@@ -3,6 +3,18 @@ import ListTableEntityTemplate from '../../misc/template/ListTableEntityTemplate
 import { Typography } from 'antd';
 
 const ListSubjectCombinationPage = () => {
+  const renderGeneralKnowledge = (type: string) => {
+    switch (type) {
+      case 'general':
+        return 'Khối kiến thức giáo dục đại cương';
+      case 'professional':
+        return 'Khối kiến thức giáo dục chuyên nghiệp';
+      case 'graduate':
+        return 'Tốt nghiệp';
+      default:
+        return 'Unknown';
+    }
+  };
   return (
     <ListTableEntityTemplate
       entityName="Subject Combination"
@@ -31,9 +43,9 @@ const ListSubjectCombinationPage = () => {
 
         {
           title: 'From general knowledge',
-          dataIndex: ['idGeneralKnowledge', 'title'],
-          key: 'generalKnowledge',
-          render: (text: any) => <a>{text}</a>,
+          dataIndex: 'type',
+          key: 'type',
+          render: (text: any) => <a>{renderGeneralKnowledge(text)}</a>,
         },
       ]}
     />

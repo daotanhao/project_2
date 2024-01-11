@@ -24,9 +24,14 @@ const ListSubjectDetailsPage = () => {
           key: 'title',
         },
         {
-          title: 'English name',
-          dataIndex: 'englishTitle',
-          key: 'englishTitle',
+          title: 'Output standard id',
+          dataIndex: ['idOutputStandard', 'id'],
+          key: 'outputStandardId',
+        },
+        {
+          title: 'Classification scale code',
+          dataIndex: ['idClassificationScale', 'code'],
+          key: 'classificationScaleCode',
         },
         {
           title: 'Theory credits',

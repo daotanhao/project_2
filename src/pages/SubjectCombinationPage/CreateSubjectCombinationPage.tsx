@@ -43,13 +43,6 @@ const CreateSubjectCombinationPage = () => {
           component: <Input />,
         },
         {
-          key: 'content',
-          name: 'content',
-          label: 'Content',
-          rules: [{ required: true }],
-          component: <Input.TextArea />,
-        },
-        {
           key: 'totalCredits',
           name: 'totalCredits',
           label: 'Total credits',
@@ -64,11 +57,25 @@ const CreateSubjectCombinationPage = () => {
           component: <InputNumber />,
         },
         {
-          key: 'idGeneralKnowledge',
-          name: ['idGeneralKnowledge', '_id'],
+          key: 'type',
+          name: 'type',
           label: 'General knowledge',
           rules: [{ required: true }],
-          component: <Select options={listDataGeneralKnowledge} />,
+          component: (
+            <Select
+              options={[
+                {
+                  label: 'Khối kiến thức giáo dục đại cương',
+                  value: 'general',
+                },
+                {
+                  label: 'Khối kiến thức giáo dục chuyên nghiệp',
+                  value: 'professional',
+                },
+                { label: 'Tốt nghiệp', value: 'graduate' },
+              ]}
+            />
+          ),
         },
       ]}
     />

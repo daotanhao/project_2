@@ -70,3 +70,11 @@ export interface OutputType {
   _id: string;
   title: string;
 }
+
+interface Relationship {
+  idOutputStandard: string;
+  idClassificationScale: string;
+}
+export interface SubjectDetails {
+  relationship: Relationship[];
+}

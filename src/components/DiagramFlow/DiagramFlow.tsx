@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 
 import ReactFlow, {
   addEdge,
@@ -7,24 +7,29 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
-} from "reactflow";
+} from 'reactflow';
 
 import {
   nodes as initialNodes,
   edges as initialEdges,
-} from "./intinal-elements";
-import CustomNode from "./CustomNode";
+} from './intinal-elements';
+import CustomNode from './CustomNode';
 
-import "reactflow/dist/style.css";
-import "./overview.css";
-import { useRequestWithState } from "../../hooks/useRequest";
-import { notification } from "antd";
+import 'reactflow/dist/style.css';
+import './overview.css';
+import { useRequestWithState } from '../../hooks/useRequest';
+import { notification } from 'antd';
 import { memo } from 'react';
-import SemesterNode from "./SemesterNode";
+import OutlineSubject from './OutlineSubject';
+import DownloadButton from './DownloadButton';
+import BasicSubject from './BasicSubject';
+import MajorSubject from './MajorSubject';
 
 const nodeTypes = {
   custom: CustomNode,
-  semester: SemesterNode,
+  outlineSubject: OutlineSubject,
+  basicSubject: BasicSubject,
+  majorSubject: MajorSubject,
 };
 
 const minimapStyle = {
@@ -32,7 +37,7 @@ const minimapStyle = {
 };
 
 const onInit = (reactFlowInstance: any) =>
-  console.log("flow loaded:", reactFlowInstance);
+  console.log('flow loaded:', reactFlowInstance);
 
 const OverviewFlow = () => {
   const initialNodesArray = initialNodes ?? []; // Use an empty array if initialNodes is null
@@ -52,17 +57,15 @@ const OverviewFlow = () => {
     await request(`/${props}`)
       .then((res) => {
         console.log(res.data);
-        if (props == 'subjectDetails') {
+        if (props === 'subjectDetails') {
           setSubjectDetails(res?.data);
           return;
         }
 
-        if (props == 'subjectCombination') {
+        if (props === 'subjectCombination') {
           setSubjectCombination(res?.data);
           return;
         }
-
-
       })
       .catch((err) =>
         notification.error({
@@ -73,16 +76,15 @@ const OverviewFlow = () => {
   };
 
   useEffect(() => {
-    loadData("subjectDetails");
-    loadData("subjectCombination");
-
+    loadData('subjectDetails');
+    loadData('subjectCombination');
   }, []);
 
   // we are using a bit of a shortcut here to adjust the edge type
   // this could also be done with a custom edge for example
   const edgesWithUpdatedTypes = edges.map((edge) => {
     if (edge.sourceHandle) {
-      const customNode = nodes.find((node) => node.type === "custom");
+      const customNode = nodes.find((node) => node.type === 'custom');
 
       if (customNode) {
         const edgeType = customNode.data.selects
@@ -115,6 +117,7 @@ const OverviewFlow = () => {
       <MiniMap style={minimapStyle} zoomable pannable />
       <Controls />
       <Background color="#aaa" gap={16} />
+      <DownloadButton />
     </ReactFlow>
   );
 };

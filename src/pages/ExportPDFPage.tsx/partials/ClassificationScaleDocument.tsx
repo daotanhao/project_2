@@ -4,7 +4,6 @@ import { styles } from '../PDFDocument';
 const ClassificationScaleDocument = (props: any) => {
   const outputStandard = props?.outputStandard || {};
   console.log('outputStandard data', outputStandard);
-
   return (
     <View style={{ marginTop: 20 }}>
       <Text style={styles.title}>

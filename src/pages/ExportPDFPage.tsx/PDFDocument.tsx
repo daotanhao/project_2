@@ -20,6 +20,7 @@ import TrainingProgramDocument from './partials/TrainingProgramDocument';
 import GraduationConditionDocument from './partials/GraduationConditionDocument';
 import SubjectDetailsDocument from './partials/SubjectDetailsDocument';
 import RefDocDocument from './partials/RefDocDocument';
+import SubjectAndOutputStandardDocument from './partials/SubjectAndOutputStandardDocument';
 
 interface DataEntityId {
   [key: string]: string;
@@ -127,6 +128,7 @@ const PDFDocument = () => {
             classificationScale={entityData?.classifyScale}
           />
           <TrainingProgramDocument />
+          <SubjectAndOutputStandardDocument />
           <GraduationConditionDocument
             graduationCondition={entityData?.graduationCondition}
           />

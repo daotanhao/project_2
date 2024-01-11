@@ -46,13 +46,6 @@ const UpdateClassificationScalePage = () => {
           component: <InputNumber />,
         },
         {
-          key: 'nameLevel',
-          name: 'nameLevel',
-          label: 'Level name',
-          rules: [{ required: true }],
-          component: <Input />,
-        },
-        {
           key: 'discription',
           name: 'discription',
           label: 'Description',

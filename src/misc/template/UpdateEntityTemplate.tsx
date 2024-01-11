@@ -19,6 +19,7 @@ type UpdateEntityTemplateProps = {
   entityRequestUrl: string;
   entityRouterUrl: string;
   fields: Field[];
+  layout?: 'horizontal' | 'vertical' | 'inline';
 };
 
 const layout = {
@@ -91,6 +92,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   return (
     <Form
       {...layout}
+      layout={props.layout || 'horizontal'}
       form={form}
       validateMessages={validateMessages}
       onFinish={onFinish}
