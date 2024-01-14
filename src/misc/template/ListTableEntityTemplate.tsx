@@ -13,7 +13,7 @@ import { ReactComponent as EditIcon } from '../../assets/icons/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/delete.svg';
 import { useEffect, useState } from 'react';
 import SVGIcon from '../../components/SVGIcon';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { DataIndex } from 'rc-table/lib/interface';
@@ -23,21 +23,22 @@ interface Columns {
   dataIndex?: DataIndex;
   key: string;
   width?: number;
-  render?: (text: any) => JSX.Element;
+  render?: (text: any, object?: any) => JSX.Element;
 }
 
 type ListEntityTemplateProps = {
-  entityName: string;
-  entityRequestUrl: string;
-  entityRouterUrl: string;
-  columns: Columns[];
+  entityName?: string;
+  entityRequestUrl?: string;
+  entityRouterUrl?: string;
+  columns?: Columns[];
+  dataSource?: any[];
 };
 
 const ListTableEntityTemplate = (props: ListEntityTemplateProps) => {
   const navigate = useNavigate();
   const { request, loading } = useRequestWithState();
+  const { id } = useParams();
   const [dataEntity, setDataEntity] = useState<any[]>([]);
-
   const loadData = async () => {
     await request(`/${props.entityRequestUrl}`)
       .then((res) => setDataEntity(res?.data))
@@ -50,34 +51,40 @@ const ListTableEntityTemplate = (props: ListEntityTemplateProps) => {
   };
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (!props.dataSource) {
+      loadData();
+    } else {
+      setDataEntity(props.dataSource);
+    }
+  }, [props.dataSource]);
 
-  const columns: ColumnsType<any> = [
-    ...props.columns,
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="small">
-          <Link to={`/${props.entityRouterUrl}/${record._id}`} title="Edit">
-            <Button
-              type="text"
-              shape="circle"
-              icon={<SVGIcon component={EditIcon} />}
-            />
-          </Link>
-          <Button
-            onClick={() => handleDeleteEntity(record)}
-            type="text"
-            title="Delete"
-            shape="circle"
-            icon={<SVGIcon component={DeleteIcon} />}
-          />
-        </Space>
-      ),
-    },
-  ];
+  const columns: ColumnsType<any> = props.columns
+    ? [
+        ...props.columns,
+        {
+          title: 'Action',
+          key: 'action',
+          render: (_, record) => (
+            <Space size="small">
+              <Link to={`/${props.entityRouterUrl}/${record._id}`} title="Edit">
+                <Button
+                  type="text"
+                  shape="circle"
+                  icon={<SVGIcon component={EditIcon} />}
+                />
+              </Link>
+              <Button
+                onClick={() => handleDeleteEntity(record)}
+                type="text"
+                title="Delete"
+                shape="circle"
+                icon={<SVGIcon component={DeleteIcon} />}
+              />
+            </Space>
+          ),
+        },
+      ]
+    : [];
 
   const handleDeleteEntity = (data: any) => {
     Modal.confirm({
@@ -126,7 +133,10 @@ const ListTableEntityTemplate = (props: ListEntityTemplateProps) => {
           </Typography.Paragraph>
         </div>
         <Button
-          onClick={() => navigate(`/${props.entityRouterUrl}/create`)}
+          onClick={() => {
+            if (id) navigate(`/${props.entityRouterUrl}/create/${id}`);
+            else navigate(`/${props.entityRouterUrl}/create`);
+          }}
           icon={<PlusOutlined />}
           type="primary"
         >

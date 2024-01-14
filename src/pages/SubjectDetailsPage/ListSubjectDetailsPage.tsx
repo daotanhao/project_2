@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListTableEntityTemplate from '../../misc/template/ListTableEntityTemplate';
-import { Typography } from 'antd';
+import { Typography, notification } from 'antd';
+import { useRequestWithState } from '../../hooks/useRequest';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const ListSubjectDetailsPage = () => {
+  const { request, loading } = useRequestWithState();
+  const [dataSubjectList, setDataSubjectList] = useState<any[]>([]);
+  const { id } = useParams();
+  const loadData = async () => {
+    await request(`/subjectCombination/get/${id}`).then((res) =>
+      setDataSubjectList(res?.data.listSubjectDetails)
+    );
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
   return (
     <ListTableEntityTemplate
-      entityName="Subject Details"
-      entityRequestUrl="subjectDetails"
+      dataSource={dataSubjectList}
       entityRouterUrl="subjectDetails"
+      entityName="Subject details"
       columns={[
         {
           title: 'Code',

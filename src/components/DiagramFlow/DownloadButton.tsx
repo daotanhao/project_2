@@ -6,6 +6,7 @@ import {
   getTransformForBounds,
 } from 'reactflow';
 import { toPng } from 'html-to-image';
+import { Button } from 'antd';
 
 function downloadImage(dataUrl: string) {
   const a = document.createElement('a');
@@ -47,9 +48,9 @@ function DownloadButton() {
 
   return (
     <Panel position="top-right">
-      <button className="download-btn" onClick={onClick}>
+      <Button type="primary" className="download-btn" onClick={onClick}>
         Download Image
-      </button>
+      </Button>
     </Panel>
   );
 }

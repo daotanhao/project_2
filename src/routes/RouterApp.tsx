@@ -256,6 +256,7 @@ export const getRoutes = () => {
         },
         {
           path: 'subjectCombination',
+
           children: [
             {
               index: true,
@@ -277,12 +278,12 @@ export const getRoutes = () => {
           path: 'subjectDetails',
           children: [
             {
-              index: true,
+              path: 'list/:id',
               element: <ListSubjectDetailsPage />,
-              breadcrumb: 'Subject Details',
+              // breadcrumb: '',
             },
             {
-              path: 'create',
+              path: 'create/:id',
               element: <CreateSubjectDetailsPage />,
             },
             {

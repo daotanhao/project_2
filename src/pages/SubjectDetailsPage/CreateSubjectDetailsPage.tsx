@@ -2,9 +2,11 @@ import { Input, InputNumber, Select } from 'antd';
 import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 import { useRequest } from '../../hooks/useRequest';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const CreateSubjectDetailsPage = () => {
   const request = useRequest();
+  const { id } = useParams();
   const [listDataSubjectCombination, setListDataSubjectCombination] = useState<
     any[]
   >([]);
@@ -72,7 +74,7 @@ const CreateSubjectDetailsPage = () => {
     <CreateEntityTemplate
       entityName="Subject detail"
       entityRequestUrl="subjectDetails"
-      entityRouterUrl="subjectDetails"
+      entityRouterUrl="subjectCombination"
       fields={[
         {
           key: 'title',
@@ -117,21 +119,22 @@ const CreateSubjectDetailsPage = () => {
         },
         {
           key: 'idSubjectCombination',
-          name: ['idSubjectCombination', '_id'],
+          name: 'idSubjectCombination',
           label: 'Subject combination',
-          rules: [{ required: true }],
-          component: <Select options={listDataSubjectCombination} />,
+          initialValue: id,
+
+          component: <Select disabled options={listDataSubjectCombination} />,
         },
         {
           key: 'idOutputStandard',
-          name: ['idOutputStandard', '_id'],
+          name: 'idOutputStandard',
           label: 'Output standard',
           rules: [{ required: true }],
           component: <Select options={listDataOutputStandard} />,
         },
         {
           key: 'idClassificationScale',
-          name: ['idClassificationScale', '_id'],
+          name: 'idClassificationScale',
           label: 'Classification Scale',
           rules: [{ required: true }],
           component: <Select options={listDataClassificationScale} />,

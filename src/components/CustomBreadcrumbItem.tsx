@@ -7,7 +7,6 @@ const CustomBreadcrumbItem = (props: any) => {
   const display = useMemo(() => {
     return pathname(key);
   }, [data]);
-  console.log('display', display);
   return <span style={{ fontWeight: 'bold' }}>{display}</span>;
 };
 

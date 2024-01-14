@@ -83,11 +83,11 @@ const Sidebar = () => {
       key: 'subjectCombination',
       icon: <SVGIcon component={SubjectCombinationIcon} />,
     },
-    {
-      label: 'Subject Details',
-      key: 'subjectDetails',
-      icon: <SVGIcon component={GeneralKnowledgeIcon} />,
-    },
+    // {
+    //   label: 'Subject Details',
+    //   key: 'subjectDetails',
+    //   icon: <SVGIcon component={GeneralKnowledgeIcon} />,
+    // },
     {
       label: 'Export',
       key: 'export',

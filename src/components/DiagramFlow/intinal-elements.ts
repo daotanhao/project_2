@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarkerType, MiniMap, Position } from 'reactflow';
+import { Edge, Node, Position } from 'reactflow';
 
 interface NodeData {
   label: string;
@@ -10,98 +10,29 @@ interface NodeData {
   listSubjectDetails?: any;
 }
 
-interface Node {
-  id: string;
-  type?: string;
-  data: NodeData;
-  position: {
-    x: number;
-    y: number;
-  };
-  className?: string;
-  style?: React.CSSProperties;
-  sourcePosition?: Position;
-  targetPosition?: Position;
-  draggable?: boolean;
-  selectable?: boolean;
-}
+// interface Node {
+//   id: string;
+//   type?: string;
+//   data: NodeData;
+//   position: {
+//     x: number;
+//     y: number;
+//   };
+//   className?: string;
+//   style?: React.CSSProperties;
+//   sourcePosition?: Position;
+//   targetPosition?: Position;
+//   draggable?: boolean;
+//   selectable?: boolean;
+// }
 
 export const nodes: Node[] = [
-  // {
-  //   id: '4',
-  //   type: 'custom',
-  //   position: { x: 100, y: 200 },
-  //   data: {
-  //     label: 'custom nodes',
-  //     selects: {
-  //       'handle-0': 'smoothstep',
-  //       'handle-1': 'smoothstep',
-  //     },
-  //   },
-  // },
-  // {
-  //   id: '5',
-  //   type: 'output',
-  //   data: {
-  //     label: 'custom style',
-  //   },
-  //   className: 'circle',
-  //   style: {
-  //     background: '#2B6CB0',
-  //     color: 'white',
-  //   },
-  //   position: { x: 400, y: 200 },
-  //   sourcePosition: Position.Right,
-  //   targetPosition: Position.Left,
-  // },
-  // {
-  //   id: '6',
-  //   type: 'output',
-  //   style: {
-  //     background: '#63B3ED',
-  //     color: 'white',
-  //     width: 100,
-  //   },
-  //   data: {
-  //     label: 'Node',
-  //   },
-  //   position: { x: 400, y: 325 },
-  //   sourcePosition: Position.Right,
-  //   targetPosition: Position.Left,
-  // },
-  // {
-  //   id: '7',
-  //   type: 'default',
-  //   className: 'annotation',
-  //   data: {
-  //     label: 'This is some notes for the diagram'
-  //   },
-  //   draggable: false,
-  //   selectable: false,
-  //   position: { x: 150, y: 400 },
-  // },
   {
     id: '1',
     type: 'outlineSubject',
-    position: { x: 400, y: 500 },
+    position: { x: 400, y: 100 },
     data: {
       label: 'CÁC MÔN HỌC ĐẠI CƯƠNG',
-      // listSubjectDetails: [
-      //   {
-      //     id: 1,
-      //     title: 'Tư tưởng Hồ Chí Minh',
-      //     theoryCredits: 2,
-      //     practiseCredits: 1,
-      //     totalCredits: 3,
-      //   },
-      //   {
-      //     id: 2,
-      //     title: 'Pháp luật đại cương',
-      //     theoryCredits: 23,
-      //     practiseCredits: 14,
-      //     totalCredits: 32,
-      //   },
-      // ],
     },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -109,7 +40,7 @@ export const nodes: Node[] = [
   {
     id: '2',
     type: 'basicSubject',
-    position: { x: 400, y: 700 },
+    position: { x: 400, y: 400 },
     data: {
       label: 'CÁC MÔN HỌC CƠ SỞ NGÀNH',
     },
@@ -119,40 +50,103 @@ export const nodes: Node[] = [
   {
     id: '3',
     type: 'majorSubject',
-    position: { x: 400, y: 900 },
+    position: { x: 400, y: 700 },
     data: {
       label: 'CÁC MÔN HỌC CHUYÊN NGÀNH',
     },
+    targetPosition: Position.Top,
+  },
+  {
+    id: '4',
+    type: 'otherSubject',
+    position: { x: 400, y: 1000 },
+    data: {
+      label: 'CÁC MÔN HỌC KHÁC VÀ TỰ CHỌN',
+    },
+    targetPosition: Position.Top,
+  },
+  {
+    id: '5',
+    type: 'projectSubject',
+    position: { x: 400, y: 1090 },
+    data: {
+      label: 'THỰC TẬP DOANH NGHIỆP, ĐỒ ÁN',
+    },
+    targetPosition: Position.Top,
+  },
+  {
+    id: '6',
+    type: 'thesisGraduate',
+    position: { x: 370, y: 1250 },
+    data: {
+      label: 'KHÓA LUẬN TỐT NGHIỆP',
+    },
+    targetPosition: Position.Top,
+  },
+  {
+    id: '7',
+    type: 'thesisTopic',
+    position: { x: 530, y: 1250 },
+    data: {
+      label: 'CHUYÊN ĐỀ TỐT NGHIỆP',
+    },
+    targetPosition: Position.Top,
   },
 ];
 
-export const edges = [
-  { id: 'e1-2', source: '1', target: '2', label: 'this is an edge label' },
-  { id: 'e1-3', source: '1', target: '3', animated: false },
+export const edges: Edge[] = [
   {
-    id: 'e4-5',
-    source: '1',
-    target: '2',
+    id: 'edge-1-2',
     type: 'smoothstep',
-    sourceHandle: 'handle-0',
-    data: {
-      selectIndex: 0,
-    },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
+    source: '1', // id của node nguồn
+    target: '2', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
   },
   {
-    id: 'e4-6',
-    source: '2',
-    target: '3',
+    id: 'edge-2-3',
     type: 'smoothstep',
-    sourceHandle: 'handle-1',
-    data: {
-      selectIndex: 1,
-    },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
+    source: '2', // id của node nguồn
+    target: '3', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
+  },
+  {
+    id: 'edge-3-4',
+    type: 'smoothstep',
+    source: '3', // id của node nguồn
+    target: '4', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
+  },
+  {
+    id: 'edge-4-5',
+    type: 'smoothstep',
+    source: '4', // id của node nguồn
+    target: '5', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
+  },
+  {
+    id: 'edge-5-6',
+    type: 'smoothstep',
+    source: '5', // id của node nguồn
+    target: '6', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
+  },
+  {
+    id: 'edge-5-7',
+    type: 'smoothstep',
+    source: '5', // id của node nguồn
+    target: '7', // id của node đích
+    sourceHandle: 'bottom', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node nguồn
+    targetHandle: 'top', // bạn có thể thay đổi giá trị này tùy thuộc vào vị trí của handle trên node đích
+    // Tạo một label với react node bên trong
   },
 ];

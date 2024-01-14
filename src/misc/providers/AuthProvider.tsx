@@ -39,8 +39,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     if (token) getMe();
   }, [token]);
 
-  console.log('user', user);
-
   const login = async (email: string, password: string) => {
     await request('/user/login', {
       method: 'POST',

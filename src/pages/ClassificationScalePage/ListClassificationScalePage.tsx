@@ -32,6 +32,11 @@ const ListClassificationScalePage = () => {
           key: 'level',
         },
         {
+          title: 'Level name',
+          dataIndex: 'title',
+          key: 'title',
+        },
+        {
           title: 'Output type',
           dataIndex: 'type',
           key: 'type',

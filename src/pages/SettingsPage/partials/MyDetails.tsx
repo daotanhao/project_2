@@ -51,14 +51,12 @@ const MyDetails = () => {
   }, []);
 
   const onFinish = (values: any) => {
-    console.log('values', values);
     request(`/user/${user._id}`, {
       method: 'PUT',
       data: { ...values, avatar: imageUrl, idUserLatestEdit: user?._id },
     })
       .then((res) => {
         getMe();
-        console.log('res', res);
         return notification.success({
           message: 'Update user data successfully',
         });

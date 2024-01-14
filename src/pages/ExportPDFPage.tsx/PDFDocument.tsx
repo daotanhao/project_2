@@ -43,13 +43,19 @@ const dataEntityId: Record<string, any> = {
 const PDFDocument = () => {
   const { request } = useRequestWithState();
   const [entityData, setEntityData] = useState<{ [key: string]: any }>({});
+
+  const [formPDF, setFormPDF] = useState(
+    localStorage.getItem('formPDF') || '{}'
+  );
+
   useEffect(() => {
+    const inputPDF = JSON.parse(formPDF);
     const fetchDataForEntities = async () => {
       const entityDataCopy = { ...entityData };
 
       await Promise.all(
-        Object.keys(dataEntityId).map((entity: string) => {
-          return request(`/${entity}/get/${dataEntityId[entity]}`)
+        Object.keys(inputPDF).map((entity: string) => {
+          return request(`/${entity}/get/${inputPDF[entity]}`)
             .then((res) => {
               entityDataCopy[entity] = res.data;
               return;
@@ -62,8 +68,22 @@ const PDFDocument = () => {
     };
 
     fetchDataForEntities();
+  }, [formPDF]);
+
+  useEffect(() => {
+    const handleLocalStorageChange = () => {
+      setFormPDF(localStorage.getItem('formPDF') || '{}');
+    };
+
+    // Attach the event listener
+    window.addEventListener('storage', handleLocalStorageChange);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('storage', handleLocalStorageChange);
+    };
   }, []);
-  console.log(entityData);
+  console.log('entity Data', entityData);
 
   const renderCoverPage = () => {
     return (
@@ -115,6 +135,7 @@ const PDFDocument = () => {
   };
 
   const renderPdf = useCallback(() => {
+    console.log(JSON.parse(formPDF));
     return (
       <Document>
         {renderCoverPage()}
@@ -145,7 +166,7 @@ const PDFDocument = () => {
         </Page>
       </Document>
     );
-  }, [entityData]);
+  }, [entityData, formPDF]);
   return (
     <>
       <PDFViewer style={{ height: '100%' }}>{renderPdf()}</PDFViewer>

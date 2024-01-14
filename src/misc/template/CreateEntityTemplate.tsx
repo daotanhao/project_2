@@ -10,6 +10,7 @@ interface Field {
   name: any;
   label: React.ReactNode;
   rules?: Rule[];
+  initialValue?: any;
   component: FormItemProps['children'];
 }
 
@@ -42,14 +43,12 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
   const navigate = useNavigate();
 
   const onFinish = (values: any) => {
-    console.log('create values', values);
-
     request(`/${props.entityRequestUrl}/new`, {
       method: 'POST',
       data: { ...values, createdBy: user?._id },
     })
       .then((res) => {
-        navigate(`/${props.entityRouterUrl}`);
+        navigate(-1);
         return notification.success({
           message: `Create ${props.entityName} successfully`,
         });
@@ -71,6 +70,7 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
             label={field.label}
             rules={field.rules}
             children={field.component}
+            initialValue={field.initialValue}
           />
         ))}
         <Form.Item

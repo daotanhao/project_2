@@ -7,7 +7,6 @@ const SignUpPage = () => {
   const { signUp, loading } = useAuth();
   const onFinish = (values: any) => {
     signUp(values);
-    console.log('Received values of form: ', values);
   };
 
   return (

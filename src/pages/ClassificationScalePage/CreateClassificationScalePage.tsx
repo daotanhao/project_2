@@ -39,6 +39,13 @@ const CreateClassificationScalePage = () => {
           component: <Input />,
         },
         {
+          key: 'title',
+          name: 'title',
+          label: 'Level name',
+          rules: [{ required: true }],
+          component: <Input />,
+        },
+        {
           key: 'level',
           name: 'level',
           label: 'Level',

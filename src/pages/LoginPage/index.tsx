@@ -7,7 +7,6 @@ import './login.css';
 const LoginPage = () => {
   const { login, loading } = useAuth();
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
     login(values.email, values.password);
   };
 

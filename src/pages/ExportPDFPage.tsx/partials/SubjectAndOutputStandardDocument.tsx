@@ -1,34 +1,32 @@
 import { Text, View } from '@react-pdf/renderer';
 import { styles } from '../PDFDocument';
-
-//example data to render subject with output standard
-const data: any[] = [
-  {
-    code: 'SS003',
-    name: 'Tư tưởng Hồ Chí Minh',
-    relationship: ['LO1:N01', 'LO2:KN3'],
-  },
-  {
-    code: 'MA006',
-    name: 'Giải tích',
-    relationship: [
-      //  key: value
-      // 'id' output standard: 'code' classification scale
-      'LO2: KN3',
-      'LO3: KN3',
-    ],
-  },
-];
+import { useRequestWithState } from '../../../hooks/useRequest';
+import { useEffect, useState } from 'react';
 
 const SubjectAndOutputStandardDocument = (props: any) => {
   const outputStandard = props?.outputStandard || {};
-  console.log('outputStandard data', outputStandard);
+  const { request } = useRequestWithState();
+  const [dataSubject, setDataSubject] = useState<any[]>([]);
 
-  const newData = data.map((item) => {
+  const loadData = () => {
+    request('/subjectDetails')
+      .then((res) => {
+        setDataSubject(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const newData = dataSubject.map((item) => {
     if (Array.isArray(item.relationship)) {
       let relationshipObject: Record<any, string> = {};
       item.relationship.forEach((relationshipItem: any) => {
-        let [key, value] = relationshipItem.split(':');
+        let [key, value] = relationshipItem.code.split(':');
         relationshipObject[key] = value;
       });
       item.relationship = relationshipObject;
@@ -38,18 +36,17 @@ const SubjectAndOutputStandardDocument = (props: any) => {
   });
 
   const renderSubjectWithOutputStandard = () => {
-    console.log('new data', newData);
-    return newData.map((item: any) => {
+    return newData.map((item: any, index: number) => {
       return (
         <View style={styles.tableRow}>
           <View style={{ ...styles.tableCol, width: '5%' }}>
-            <Text style={styles.tableCell}></Text>
+            <Text style={styles.tableCell}>{index + 1}</Text>
           </View>
           <View style={{ ...styles.tableCol, width: '10%' }}>
-            <Text style={styles.tableCell}>{item.code}</Text>
+            <Text style={styles.tableCell}>{item.subjectCode}</Text>
           </View>
           <View style={{ ...styles.tableCol, width: '25%' }}>
-            <Text style={styles.tableCell}>{item.name}</Text>
+            <Text style={{ ...styles.tableCell }}>{item.title}</Text>
           </View>
           <View style={{ ...styles.tableCol, width: '7.5%' }}>
             <Text style={styles.tableCell}>{item?.relationship?.LO1}</Text>

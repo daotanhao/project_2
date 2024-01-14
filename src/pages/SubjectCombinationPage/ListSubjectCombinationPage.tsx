@@ -1,8 +1,11 @@
 import React from 'react';
 import ListTableEntityTemplate from '../../misc/template/ListTableEntityTemplate';
 import { Typography } from 'antd';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import ListSubjectDetailsPage from '../SubjectDetailsPage/ListSubjectDetailsPage';
 
 const ListSubjectCombinationPage = () => {
+  const navigate = useNavigate();
   const renderGeneralKnowledge = (type: string) => {
     switch (type) {
       case 'general':
@@ -26,8 +29,10 @@ const ListSubjectCombinationPage = () => {
           dataIndex: 'title',
           key: 'title',
           width: 200,
-          render: (text: any) => (
-            <Typography.Text ellipsis>{text}</Typography.Text>
+          render: (text: any, object: any) => (
+            <Link to={`/subjectDetails/list/${object._id}`} replace={true}>
+              {text}
+            </Link>
           ),
         },
         {
@@ -45,7 +50,7 @@ const ListSubjectCombinationPage = () => {
           title: 'From general knowledge',
           dataIndex: 'type',
           key: 'type',
-          render: (text: any) => <a>{renderGeneralKnowledge(text)}</a>,
+          render: (text: any) => <>{renderGeneralKnowledge(text)}</>,
         },
       ]}
     />

@@ -4,7 +4,6 @@ import { styles } from '../PDFDocument';
 
 const RefDocDocument = (props: any) => {
   const refDoc = props?.refDoc || {};
-  console.log('ref doc', refDoc);
 
   return (
     <View style={{ marginTop: 20 }}>
