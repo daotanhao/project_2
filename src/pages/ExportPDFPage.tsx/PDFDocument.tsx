@@ -21,69 +21,11 @@ import GraduationConditionDocument from './partials/GraduationConditionDocument'
 import SubjectDetailsDocument from './partials/SubjectDetailsDocument';
 import RefDocDocument from './partials/RefDocDocument';
 import SubjectAndOutputStandardDocument from './partials/SubjectAndOutputStandardDocument';
-
-interface DataEntityId {
-  [key: string]: string;
-}
-
-const dataEntityId: Record<string, any> = {
-  overview: '6585d80b813c9d43a3112e37',
-  enroll: '657441735b87d18c330bfb68',
-  trainingReg: '65754eb0d2dc45312afef3b5',
-  referenceDoc: '65748cf3faed00c29b28ba7f',
-  generalKnowledge: '6564480b6b3e7175a20dac0d',
-  graduationCondition: '6579e6366baf99b650883047',
-  outputType: '654b6d66a5a010e43ca8c974',
-  outputStandard: '657966a1b59d9bc820af23f2',
-  classifyScale: '6581ca8483f47771f660c43c',
-  subjectCombination: '65830c18133d8ca7f1481407',
-  subjectDetails: undefined,
-};
+import { useAuth } from '../../hooks/useAuth';
 
 const PDFDocument = () => {
-  const { request } = useRequestWithState();
-  const [entityData, setEntityData] = useState<{ [key: string]: any }>({});
-
-  const [formPDF, setFormPDF] = useState(
-    localStorage.getItem('formPDF') || '{}'
-  );
-
-  useEffect(() => {
-    const inputPDF = JSON.parse(formPDF);
-    const fetchDataForEntities = async () => {
-      const entityDataCopy = { ...entityData };
-
-      await Promise.all(
-        Object.keys(inputPDF).map((entity: string) => {
-          return request(`/${entity}/get/${inputPDF[entity]}`)
-            .then((res) => {
-              entityDataCopy[entity] = res.data;
-              return;
-            })
-            .catch((e) => console.log(e));
-        })
-      );
-
-      setEntityData(entityDataCopy);
-    };
-
-    fetchDataForEntities();
-  }, [formPDF]);
-
-  useEffect(() => {
-    const handleLocalStorageChange = () => {
-      setFormPDF(localStorage.getItem('formPDF') || '{}');
-    };
-
-    // Attach the event listener
-    window.addEventListener('storage', handleLocalStorageChange);
-
-    // Cleanup the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener('storage', handleLocalStorageChange);
-    };
-  }, []);
-  console.log('entity Data', entityData);
+  const { pdfData } = useAuth();
+  console.log(pdfData?.programImage);
 
   const renderCoverPage = () => {
     return (
@@ -125,7 +67,7 @@ const PDFDocument = () => {
             marginVertical: 5,
           }}
         >
-          NGÀNH {entityData?.overview?.major}
+          NGÀNH {pdfData?.overview?.major}
         </Text>
         <Text style={{ fontSize: 18, alignSelf: 'center', marginTop: 230 }}>
           THÁNG 6/2022
@@ -135,26 +77,23 @@ const PDFDocument = () => {
   };
 
   const renderPdf = useCallback(() => {
-    console.log(JSON.parse(formPDF));
     return (
       <Document>
         {renderCoverPage()}
 
         <Page style={styles.body}>
-          <OverviewDocument overview={entityData?.overview} />
-          <EnrollmentDocument enrollment={entityData?.enroll} />
-          <RegulationDocument regulation={entityData?.trainingReg} />
-          <OutputStandardDocument outputStandard={entityData?.outputStandard} />
-          <ClassificationScaleDocument
-            classificationScale={entityData?.classifyScale}
-          />
-          <TrainingProgramDocument />
+          <OverviewDocument overview={pdfData?.overview} />
+          <EnrollmentDocument enrollment={pdfData?.enroll} />
+          <RegulationDocument regulation={pdfData?.trainingReg} />
+          <OutputStandardDocument outputStandard={pdfData?.outputStandard} />
+          <ClassificationScaleDocument />
+          <TrainingProgramDocument programImage={pdfData?.programImage} />
           <SubjectAndOutputStandardDocument />
           <GraduationConditionDocument
-            graduationCondition={entityData?.graduationCondition}
+            graduationCondition={pdfData?.graduationCondition}
           />
           <SubjectDetailsDocument />
-          <RefDocDocument refDoc={entityData?.referenceDoc} />
+          <RefDocDocument />
 
           <Text
             style={styles.pageNumber}
@@ -166,7 +105,7 @@ const PDFDocument = () => {
         </Page>
       </Document>
     );
-  }, [entityData, formPDF]);
+  }, [pdfData]);
   return (
     <>
       <PDFViewer style={{ height: '100%' }}>{renderPdf()}</PDFViewer>
@@ -179,7 +118,6 @@ const PDFDocument = () => {
           loading ? 'Loading document...' : 'Download now!'
         }
       </PDFDownloadLink>
-      {/* {renderPdf()} */}
     </>
   );
 };

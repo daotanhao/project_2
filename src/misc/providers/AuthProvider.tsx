@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 interface AuthContextType {
   user: any;
+  pdfData: any;
   login: (email: string, password: string) => void;
   signUp: (values: any) => void;
   logout: () => void;
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { request, loading } = useRequestWithState();
   const location = React.useRef<string>('');
   const [user, setUser] = useState<any>(null);
+  const [pdfData, setPDFData] = useState<any>({});
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('is-authenticated')
   );
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   ) {
     location.current = currentLocation;
   }
+  console.log('pdf data', pdfData);
   useEffect(() => {
     if (token) getMe();
   }, [token]);
@@ -61,6 +64,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     request(`/user/${currentUserId}`)
       .then((res) => {
         setUser(res.data);
+        if (res.data.pdfData) {
+          setPDFData(res.data.pdfData);
+        }
       })
       .catch((err) => {
         logout();
@@ -78,6 +84,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const value = { user, login, logout, signUp, getMe, loading };
+  const value = { user, pdfData, login, logout, signUp, getMe, loading };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

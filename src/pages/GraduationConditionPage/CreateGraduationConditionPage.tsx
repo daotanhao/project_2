@@ -1,31 +1,7 @@
-import { Input, Select } from 'antd';
-import { useRequest } from '../../hooks/useRequest';
-import { useEffect, useState } from 'react';
+import { Input } from 'antd';
 import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 
 const CreateGraduationConditionPage = () => {
-  const request = useRequest();
-  const [listDataOverview, setListDataOverview] = useState<any[]>([]);
-
-  const loadDataOverview = () => {
-    request('/overview')
-      .then((res) => {
-        const dataOverview = res?.data || [];
-        const mappedDataOverview = dataOverview.map((item: any) => ({
-          label: item.name,
-          value: item._id,
-        }));
-        setListDataOverview(mappedDataOverview);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  useEffect(() => {
-    loadDataOverview();
-  }, []);
-
   return (
     <CreateEntityTemplate
       entityName="Graduation condition"
@@ -45,13 +21,6 @@ const CreateGraduationConditionPage = () => {
           label: 'Graduation condition content',
           rules: [{ required: true }],
           component: <Input.TextArea />,
-        },
-        {
-          key: 'idOverView',
-          name: 'idOverView',
-          label: 'Overview',
-          rules: [{ required: true }],
-          component: <Select options={listDataOverview} />,
         },
       ]}
     />

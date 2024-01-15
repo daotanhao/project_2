@@ -95,7 +95,9 @@ const OverviewDocument = (props: any) => {
         </div>
       </div>
 
-      <Text style={{ ...styles.title, marginVertical: 20 }}>
+      <Text
+        style={{ ...styles.title, marginVertical: 20, textAlign: 'center' }}
+      >
         CHƯƠNG TRÌNH GIÁO DỤC ĐẠI HỌC
       </Text>
 

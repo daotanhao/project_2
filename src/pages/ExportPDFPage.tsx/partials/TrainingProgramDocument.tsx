@@ -3,19 +3,19 @@ import { Text, View, Image } from '@react-pdf/renderer';
 import { styles } from '../PDFDocument';
 import { useRequestWithState } from '../../../hooks/useRequest';
 import { useEffect, useMemo, useState } from 'react';
+import { useAuth } from '../../../hooks/useAuth';
 
 function calculateTotalCredits(dataSubjects: any[]): number {
   return dataSubjects.reduce((total, item) => total + item.totalCredits, 0);
 }
 
-const TrainingProgramDocument = () => {
-  //   const enrollment: Enrollment = props?.enrollment || {};
-
+const TrainingProgramDocument = (props: any) => {
   const { request } = useRequestWithState();
   const [dataSubjectCombination, setDataSubjectCombination] = useState<any[]>(
     []
   );
-  const formPDF: any = localStorage.getItem('formPDF');
+  const { pdfData } = useAuth();
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   const totalTrainingCredits: number = useMemo(() => {
     return calculateTotalCredits(dataSubjectCombination);
@@ -24,7 +24,6 @@ const TrainingProgramDocument = () => {
   const loadData = () => {
     request('/subjectCombination')
       .then((res) => {
-        console.log('subject combination', res.data);
         setDataSubjectCombination(res.data);
       })
       .catch((err) => {
@@ -35,6 +34,12 @@ const TrainingProgramDocument = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(() => {
+    setImageUrl(props?.programImage);
+  }, [pdfData]);
+
+  // console.log(pdfData?.programImage);
 
   const renderTitleSubjectCombination = (text: string) => {
     switch (text) {
@@ -47,7 +52,7 @@ const TrainingProgramDocument = () => {
     }
   };
 
-  const renderSubjectDetails = (subjectCombination: any[], type: string) => {
+  const mapSubjectCombination = (subjectCombination: any[], type: string) => {
     return (
       <View style={styles.tableRow}>
         <View style={{ ...styles.tableCol, width: '15%' }}>
@@ -64,7 +69,6 @@ const TrainingProgramDocument = () => {
           }}
         >
           {subjectCombination.map((item: any) => {
-            // setTotalTrainingCredits((prev) => prev + item.totalCredits);
             return (
               <View style={styles.tableRow}>
                 <View style={{ ...styles.tableCol, width: '50%' }}>
@@ -89,15 +93,15 @@ const TrainingProgramDocument = () => {
   const renderSubjectCombination = () => {
     return (
       <>
-        {renderSubjectDetails(
+        {mapSubjectCombination(
           dataSubjectCombination.filter((item) => item.type === 'general'),
           'general'
         )}
-        {renderSubjectDetails(
+        {mapSubjectCombination(
           dataSubjectCombination.filter((item) => item.type === 'professional'),
           'professional'
         )}
-        {renderSubjectDetails(
+        {mapSubjectCombination(
           dataSubjectCombination.filter((item) => item.type === 'graduate'),
           'graduate'
         )}
@@ -176,9 +180,29 @@ const TrainingProgramDocument = () => {
       </>
 
       {/*******  6.2 *******/}
-      <>
-        <Image source={JSON.parse(formPDF)?.image[0]?.thumbUrl || ''} />
-      </>
+      <Text style={styles.subtitle}>6.2 &nbsp; Phân bố các khối kiến thức</Text>
+      <>{imageUrl && <Image source={imageUrl} />}</>
+
+      {/*******  6.3 *******/}
+      <Text style={styles.subtitle}>
+        6.3 &nbsp; Khối kiến thức giáo dục đại cương
+      </Text>
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <View style={{ ...styles.tableCol, width: '5%' }}>
+            <Text style={styles.tableCell}>STT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '10%' }}>
+            <Text style={styles.tableCell}>Mã môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '25%' }}>
+            <Text style={styles.tableCell}>Tên môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '60%' }}>
+            <Text style={styles.tableCell}>Chuẩn đầu ra</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import ListTableEntityTemplate from '../../misc/template/ListTableEntityTemplate';
+import { Typography } from 'antd';
 
 const ListGraduationConditionPage = () => {
   return (
@@ -15,9 +16,14 @@ const ListGraduationConditionPage = () => {
           render: (text: any) => <a>{text}</a>,
         },
         {
-          title: 'From overview',
-          dataIndex: ['idOverView', 'name'],
-          key: 'overviewName',
+          title: 'Content',
+          dataIndex: 'content',
+          key: 'content',
+          render: (text: any) => (
+            <Typography.Text style={{ width: 300 }} ellipsis>
+              {text}
+            </Typography.Text>
+          ),
         },
       ]}
     />

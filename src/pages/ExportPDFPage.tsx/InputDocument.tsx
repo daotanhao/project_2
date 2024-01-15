@@ -72,19 +72,22 @@ const entityList = [
   },
 ];
 
-const normFile = (e: any) => {
-  if (Array.isArray(e)) {
-    return e;
+function transformObject(originalObject: any) {
+  const transformedObject: Record<string, any> = {};
+  for (const key in originalObject) {
+    if (originalObject.hasOwnProperty(key) && originalObject[key]._id) {
+      transformedObject[key] = originalObject[key]._id;
+    }
   }
-  return e?.fileList;
-};
+  return transformedObject;
+}
 
 const InputDocument = () => {
-  const { request } = useRequestWithState();
+  const { request, loading } = useRequestWithState();
   const [entityData, setEntityData] = useState<EntityData>({});
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState<string>();
-  const { user, getMe } = useAuth();
+  const { user, getMe, pdfData } = useAuth();
 
   const handleUploadChange: UploadProps['onChange'] = (
     info: UploadChangeParam<UploadFile>
@@ -99,6 +102,13 @@ const InputDocument = () => {
       });
     }
   };
+
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
 
   const dataEntity = useCallback(
     (name: string) => {
@@ -134,31 +144,34 @@ const InputDocument = () => {
   }, []);
 
   useEffect(() => {
-    const formPDF = localStorage.getItem('formPDF');
+    setImageUrl(pdfData?.programImage);
+  }, [pdfData]);
+
+  useEffect(() => {
+    const formPDF = transformObject(pdfData);
     if (formPDF) {
-      form.setFieldsValue(JSON.parse(formPDF));
+      form.setFieldsValue(formPDF);
     }
   });
 
   const onFinish = (values: any) => {
     console.log('Form values:', values);
-    localStorage.setItem('formPDF', JSON.stringify(values));
-    // request(`/user/${user._id}`, {
-    //   method: 'PUT',
-    //   data: { pdfData: values, idUserLatestEdit: user?._id },
-    // })
-    //   .then((res) => {
-    //     getMe();
-    //     return notification.success({
-    //       message: 'Update user data successfully',
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     return notification.error({
-    //       message: 'Update user data failed',
-    //       description: err.message,
-    //     });
-    //   });
+    request(`/user/${user._id}`, {
+      method: 'PUT',
+      data: { pdfData: { ...values, programImage: imageUrl } },
+    })
+      .then((res) => {
+        getMe();
+        return notification.success({
+          message: 'Update pdf form data successfully',
+        });
+      })
+      .catch((err) => {
+        return notification.error({
+          message: 'Update pdf form data failed',
+          description: err.message,
+        });
+      });
   };
 
   return (
@@ -175,12 +188,11 @@ const InputDocument = () => {
         onFinish={onFinish}
         style={{
           width: '95%',
-          overflowY: 'scroll',
           height: window.innerHeight * 0.8,
           paddingRight: 8,
         }}
       >
-        <Title level={5}>1. Giới thiệu chung</Title>
+        <Title level={5}>Giới thiệu chung</Title>
         <Form.Item name="overview">
           <Select
             placeholder="Select overview"
@@ -189,7 +201,7 @@ const InputDocument = () => {
           />
         </Form.Item>
 
-        <Title level={5}>2. Đối tượng tuyển sinh</Title>
+        <Title level={5}>Đối tượng tuyển sinh</Title>
         <Form.Item name="enroll">
           <Select
             placeholder="Select enrollment"
@@ -198,7 +210,7 @@ const InputDocument = () => {
           />
         </Form.Item>
 
-        <Title level={5}>3. Quy chế đào tạo</Title>
+        <Title level={5}>Quy chế đào tạo</Title>
         <Form.Item name="trainingReg">
           <Select
             placeholder="Select regulation"
@@ -207,129 +219,32 @@ const InputDocument = () => {
           />
         </Form.Item>
 
-        <Title level={5}>4. Chuẩn đầu ra</Title>
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Về nhận thức:</Text>
-        </div>
-        <FormList name={['outputType', 'awareness']}>
+        <Title level={5}>Điều kiện tốt nghiệp</Title>
+        <Form.Item name="graduationCondition">
           <Select
-            placeholder="Select output standard"
-            options={dataEntity('outputStandard')}
-            style={{ width: '92%' }}
+            placeholder="Select graduation condition"
+            options={dataEntity('graduationCondition')}
+            allowClear
           />
-        </FormList>
-
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Về kỹ năng:</Text>
-        </div>
-        <FormList name={['outputType', 'skill']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('outputStandard')}
-            style={{ width: '92%' }}
-          />
-        </FormList>
-
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Về thái độ:</Text>
-        </div>
-        <FormList name={['outputType', 'attitude']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('outputStandard')}
-            style={{ width: '92%' }}
-          />
-        </FormList>
-
-        <Title level={5}>5. Thang phân loại kiến thức, kỹ năng, thái độ</Title>
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Thang phân loại về "Nhận thức":</Text>
-        </div>
-        <FormList name={['classifyScale', 'awareness']}>
-          <Select
-            placeholder="Select output standard"
-            style={{ width: '92%' }}
-          />
-        </FormList>
-
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Thang phân loại về "Kỹ năng":</Text>
-        </div>
-        <FormList name={['classifyScale', 'skill']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('classifyScale')}
-            style={{ width: '92%' }}
-          />
-        </FormList>
-
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Thang phân loại về "Thái độ":</Text>
-        </div>
-        <FormList name={['classifyScale', 'attitude']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('classifyScale')}
-            style={{ width: '92%' }}
-            key={1}
-          />
-        </FormList>
-
-        <Title level={5}>6. Chương trình đào tạo</Title>
-
-        <Form.Item
-          name="image"
-          label="Upload Image"
-          valuePropName="fileList"
-          getValueFromEvent={(e) => e.fileList}
-        >
-          <Upload
-            name="image"
-            beforeUpload={beforeUploadImage}
-            listType="picture"
-          >
-            <Button>Chọn ảnh</Button>
-          </Upload>
         </Form.Item>
 
-        {/* <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; 6.1 Tỷ lệ các khối kiến thức:</Text>
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Khối kiến thức giáo dục đại cương:</Text>
-        </div>
-        <FormList name={['subjectCombination', 'general']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('subjectCombination')}
-            style={{ width: '92%' }}
-            key={1}
-          />
-        </FormList>
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Khối kiến thức giáo dục chuyên nghiệp:</Text>
-        </div>
-        <FormList name={['subjectCombination', 'professional']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('subjectCombination')}
-            style={{ width: '92%' }}
-            key={1}
-          />
-        </FormList>
-        <div style={{ marginBottom: 12 }}>
-          <Text strong>&emsp; - Tốt nghiệp:</Text>
-        </div>
-        <FormList name={['subjectCombination', 'graduate']}>
-          <Select
-            placeholder="Select output standard"
-            options={dataEntity('subjectCombination')}
-            style={{ width: '92%' }}
-            key={1}
-          />
-        </FormList> */}
+        <Title level={5}>Chương trình đào tạo</Title>
+
+        <Upload
+          listType="picture-card"
+          showUploadList={false}
+          action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+          beforeUpload={beforeUploadImage}
+          onChange={handleUploadChange}
+        >
+          {imageUrl ? (
+            <img src={imageUrl} style={{ width: '85%' }} />
+          ) : (
+            uploadButton
+          )}
+        </Upload>
         <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="primary" htmlType="submit">
+          <Button loading={loading} type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
