@@ -24,8 +24,8 @@ const RefDocDocument = () => {
 
   const renderDataTextWithFilter = (data: any[], type: string) => {
     const dataDisplay = data.filter((item) => item.type === type);
-    return dataDisplay.map((item) => (
-      <Text key={item._id} style={styles.text}>
+    return dataDisplay.map((item, index) => (
+      <Text key={index} style={styles.text}>
         - {item.title}
       </Text>
     ));
@@ -36,17 +36,13 @@ const RefDocDocument = () => {
       <Text style={{ ...styles.text, textDecoration: 'underline' }}>
         Trong nước
       </Text>
-      <Text style={styles.text}>
-        {renderDataTextWithFilter(dataRefDoc, 'Domestic')}
-      </Text>
+      {renderDataTextWithFilter(dataRefDoc, 'Domestic')}
       <Text
         style={{ ...styles.text, textDecoration: 'underline', marginTop: 20 }}
       >
         Ngoài nước
       </Text>
-      <Text style={styles.text}>
-        {renderDataTextWithFilter(dataRefDoc, 'Foreign')}
-      </Text>
+      {renderDataTextWithFilter(dataRefDoc, 'Foreign')}
     </View>
   );
 };

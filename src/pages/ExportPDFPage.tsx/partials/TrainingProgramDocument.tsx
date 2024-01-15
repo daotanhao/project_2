@@ -52,6 +52,41 @@ const TrainingProgramDocument = (props: any) => {
     }
   };
 
+  const renderSubjectDetails = (subjectCombination: any[], type: string) => {
+    let dataSubjectList: any[] = [];
+    subjectCombination
+      .filter((item) => item.type === type)
+      .forEach((item: any) => {
+        dataSubjectList = [...dataSubjectList, ...item.listSubjectDetails];
+      });
+    return dataSubjectList.map((item, index) => {
+      return (
+        <View style={styles.tableRow}>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>{index + 1}</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '16%' }}>
+            <Text style={styles.tableCell}>{item?.subjectCode}</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '60%' }}>
+            <Text style={styles.tableCell}>{item?.title}</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>
+              {item?.theoryCredits + item?.practiseCredits}
+            </Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>{item?.theoryCredits}</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>{item?.practiseCredits}</Text>
+          </View>
+        </View>
+      );
+    });
+  };
+
   const mapSubjectCombination = (subjectCombination: any[], type: string) => {
     return (
       <View style={styles.tableRow}>
@@ -115,7 +150,9 @@ const TrainingProgramDocument = (props: any) => {
 
       {/*******  6.1 *******/}
       <>
-        <Text style={styles.subtitle}>6.1 &nbsp; Tỷ lệ các khối kiến thức</Text>
+        <Text style={{ ...styles.subtitle, marginTop: 16 }}>
+          6.1 &nbsp; Tỷ lệ các khối kiến thức
+        </Text>
         <Text style={styles.text}>
           &nbsp; Không kể giáo dục thể chất và giáo dục quốc phòng
         </Text>
@@ -180,28 +217,89 @@ const TrainingProgramDocument = (props: any) => {
       </>
 
       {/*******  6.2 *******/}
-      <Text style={styles.subtitle}>6.2 &nbsp; Phân bố các khối kiến thức</Text>
+      <Text style={{ ...styles.subtitle, marginTop: 16 }}>
+        6.2 &nbsp; Phân bố các khối kiến thức
+      </Text>
       <>{imageUrl && <Image source={imageUrl} />}</>
 
       {/*******  6.3 *******/}
-      <Text style={styles.subtitle}>
+      <Text style={{ ...styles.subtitle, marginTop: 16 }}>
         6.3 &nbsp; Khối kiến thức giáo dục đại cương
       </Text>
       <View style={styles.table}>
         <View style={styles.tableRow}>
-          <View style={{ ...styles.tableCol, width: '5%' }}>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
             <Text style={styles.tableCell}>STT</Text>
           </View>
-          <View style={{ ...styles.tableCol, width: '10%' }}>
+          <View style={{ ...styles.tableCol, width: '16%' }}>
             <Text style={styles.tableCell}>Mã môn học</Text>
           </View>
-          <View style={{ ...styles.tableCol, width: '25%' }}>
+          <View style={{ ...styles.tableCol, width: '60%' }}>
             <Text style={styles.tableCell}>Tên môn học</Text>
           </View>
-          <View style={{ ...styles.tableCol, width: '60%' }}>
-            <Text style={styles.tableCell}>Chuẩn đầu ra</Text>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TC</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>LT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TH</Text>
           </View>
         </View>
+        {renderSubjectDetails(dataSubjectCombination, 'general')}
+      </View>
+      <Text style={{ ...styles.subtitle, marginTop: 16 }}>
+        6.4 &nbsp; Khối kiến thức giáo dục chuyên nghiệp
+      </Text>
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>STT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '16%' }}>
+            <Text style={styles.tableCell}>Mã môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '60%' }}>
+            <Text style={styles.tableCell}>Tên môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TC</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>LT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TH</Text>
+          </View>
+        </View>
+        {renderSubjectDetails(dataSubjectCombination, 'professional')}
+      </View>
+      <Text style={{ ...styles.subtitle, marginTop: 16 }}>
+        6.3 &nbsp; Khối kiến thức tốt nghiệp
+      </Text>
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>STT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '16%' }}>
+            <Text style={styles.tableCell}>Mã môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '60%' }}>
+            <Text style={styles.tableCell}>Tên môn học</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TC</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>LT</Text>
+          </View>
+          <View style={{ ...styles.tableCol, width: '6%' }}>
+            <Text style={styles.tableCell}>TH</Text>
+          </View>
+        </View>
+        {renderSubjectDetails(dataSubjectCombination, 'graduate')}
       </View>
     </View>
   );

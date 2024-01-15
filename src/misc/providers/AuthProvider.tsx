@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useLocation } from 'react-router-dom';
+import { notification } from 'antd';
 
 interface AuthContextType {
   user: any;
@@ -46,11 +47,18 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     await request('/user/login', {
       method: 'POST',
       data: { email, password },
-    }).then((res) => {
-      setUser(res.data);
-      setToken(res.data._id);
-      localStorage.setItem('is-authenticated', res.data._id);
-    });
+    })
+      .then((res) => {
+        setUser(res.data);
+        setToken(res.data._id);
+        localStorage.setItem('is-authenticated', res.data._id);
+      })
+      .catch((err) => {
+        notification.error({
+          message: 'Login failed',
+          description: err.response.data.message,
+        });
+      });
   };
 
   const logout = () => {

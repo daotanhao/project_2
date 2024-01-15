@@ -56,7 +56,7 @@ const CreateEntityTemplate = (props: CreateEntityTemplateProps) => {
       .catch((err) => {
         return notification.error({
           message: `Create ${props.entityName} failed`,
-          description: err.message,
+          description: err.response.data.message,
         });
       });
   };

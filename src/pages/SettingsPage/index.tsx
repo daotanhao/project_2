@@ -1,6 +1,7 @@
 import { Layout, TabsProps, Tabs, Typography } from 'antd';
 import React from 'react';
 import MyDetails from './partials/MyDetails';
+import Password from './partials/Password';
 
 const SettingsPage = () => {
   const items: TabsProps['items'] = [
@@ -12,6 +13,7 @@ const SettingsPage = () => {
     {
       label: 'Password',
       key: 'password',
+      children: <Password />,
     },
   ];
   return (

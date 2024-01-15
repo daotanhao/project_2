@@ -76,7 +76,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
       .catch((err) => {
         return notification.error({
           message: `Update ${props.entityName} failed`,
-          description: err.message,
+          description: err.response.data.message,
         });
       });
   };
