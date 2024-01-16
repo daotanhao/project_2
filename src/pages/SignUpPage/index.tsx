@@ -6,7 +6,7 @@ import '../LoginPage/login.css';
 const SignUpPage = () => {
   const { signUp, loading } = useAuth();
   const onFinish = (values: any) => {
-    signUp(values);
+    signUp({ ...values, role: 'user' });
   };
 
   return (
@@ -78,14 +78,14 @@ const SignUpPage = () => {
               ]}
             />
           </Form.Item>
-          <Form.Item label="Role" name="role">
+          {/* <Form.Item label="Role" name="role">
             <Select
               options={[
                 { value: 'user', label: 'User' },
                 { value: 'admin', label: 'Admin' },
               ]}
             />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item>
             <Button

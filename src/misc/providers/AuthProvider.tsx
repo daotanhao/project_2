@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   ) {
     location.current = currentLocation;
   }
-  console.log('pdf data', pdfData);
   useEffect(() => {
     if (token) getMe();
   }, [token]);
@@ -85,11 +84,18 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     await request('/user/register', {
       method: 'POST',
       data: values,
-    }).then((res) => {
-      setUser(res.data);
-      setToken(res.data._id);
-      localStorage.setItem('is-authenticated', JSON.stringify(res.data));
-    });
+    })
+      .then((res) => {
+        setUser(res.data);
+        setToken(res.data._id);
+        localStorage.setItem('is-authenticated', JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        notification.error({
+          message: 'Signup failed',
+          description: err.response.data.message,
+        });
+      });
   };
 
   const value = { user, pdfData, login, logout, signUp, getMe, loading };

@@ -56,15 +56,15 @@ const SubjectDetailsDocument = () => {
   return (
     <View style={{ marginTop: 20 }}>
       <Text style={styles.title}>
-        11 &nbsp; MÔ TẢ VẮN TẮT NỘI DUNG VÀ KHỐI LƯỢNG CÁC MÔN HỌC
+        9 &nbsp; MÔ TẢ VẮN TẮT NỘI DUNG VÀ KHỐI LƯỢNG CÁC MÔN HỌC
       </Text>
-      <Text style={styles.text}>11.1. Khối kiến thức giáo dục đại cương</Text>
+      <Text style={styles.text}>9.1. Khối kiến thức giáo dục đại cương</Text>
       {renderSubjectDetails(dataSubject, 'general')}
       <Text style={styles.text}>
-        11.2. Khối kiến thức giáo dục chuyên nghiệp
+        9.2. Khối kiến thức giáo dục chuyên nghiệp
       </Text>
       {renderSubjectDetails(dataSubject, 'professional')}
-      <Text style={styles.text}>11.3. Tốt nghiệp</Text>
+      <Text style={styles.text}>9.3. Tốt nghiệp</Text>
       {renderSubjectDetails(dataSubject, 'graduate')}
     </View>
   );

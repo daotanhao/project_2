@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, notification } from 'antd';
 import { useRequestWithState } from '../../hooks/useRequest';
 import { useAuth } from '../../hooks/useAuth';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FormItemProps, Rule } from 'antd/es/form';
 import { useBreadcrumbs } from '../../hooks/useBreadcrumbs';
 
@@ -46,6 +46,7 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   const location = useLocation();
   const [form] = Form.useForm();
   const [dataEntity, setDataEntity] = useState<any>();
+  const navigate = useNavigate();
 
   const loadDataEntity = () => {
     request(`/${props.entityRequestUrl}/get/${id}`)
@@ -62,13 +63,12 @@ const UpdateEntityTemplate = (props: UpdateEntityTemplateProps) => {
   };
 
   const onFinish = (values: any) => {
-    console.log('update form values', values);
     request(`/${props.entityRequestUrl}/${id}`, {
       method: 'PUT',
       data: { ...values, idUserLatestEdit: user?._id },
     })
       .then((res) => {
-        loadDataEntity();
+        navigate(-1);
         return notification.success({
           message: `Update ${props.entityName} successfully`,
         });

@@ -8,7 +8,7 @@ const GraduationConditionDocument = (props: any) => {
 
   return (
     <View style={{ marginTop: 20 }}>
-      <Text style={styles.title}>10 &nbsp; ĐIỀU KIỆN TỐT NGHIỆP</Text>
+      <Text style={styles.title}>8 &nbsp; ĐIỀU KIỆN TỐT NGHIỆP</Text>
       <Text style={styles.text}>{graduationCondition?.content}</Text>
     </View>
   );

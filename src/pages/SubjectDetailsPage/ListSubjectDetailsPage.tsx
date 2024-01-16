@@ -21,6 +21,7 @@ const ListSubjectDetailsPage = () => {
     <ListTableEntityTemplate
       dataSource={dataSubjectList}
       entityRouterUrl="subjectDetails"
+      entityRequestUrl="subjectDetails"
       entityName="Subject details"
       columns={[
         {
@@ -37,16 +38,7 @@ const ListSubjectDetailsPage = () => {
           dataIndex: 'title',
           key: 'title',
         },
-        {
-          title: 'Output standard id',
-          dataIndex: ['idOutputStandard', 'id'],
-          key: 'outputStandardId',
-        },
-        {
-          title: 'Classification scale code',
-          dataIndex: ['idClassificationScale', 'code'],
-          key: 'classificationScaleCode',
-        },
+
         {
           title: 'Theory credits',
           dataIndex: 'theoryCredits',

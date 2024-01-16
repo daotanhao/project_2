@@ -1,8 +1,9 @@
-import { Input, InputNumber, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Select } from 'antd';
 import CreateEntityTemplate from '../../misc/template/CreateEntityTemplate';
 import { useRequest } from '../../hooks/useRequest';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const CreateSubjectDetailsPage = () => {
   const request = useRequest();
@@ -38,7 +39,7 @@ const CreateSubjectDetailsPage = () => {
         const dataOutputStandard = res?.data || [];
         const mappedDataOutputStandard = dataOutputStandard.map(
           (item: any) => ({
-            label: item.title,
+            label: item.id,
             value: item._id,
           })
         );
@@ -54,7 +55,7 @@ const CreateSubjectDetailsPage = () => {
         const dataClassificationScale = res?.data || [];
         const mappedDataClassificationScale = dataClassificationScale.map(
           (item: any) => ({
-            label: item.nameLevel,
+            label: item.code,
             value: item._id,
           })
         );
@@ -126,18 +127,71 @@ const CreateSubjectDetailsPage = () => {
           component: <Select disabled options={listDataSubjectCombination} />,
         },
         {
-          key: 'idOutputStandard',
-          name: 'idOutputStandard',
-          label: 'Output standard',
-          rules: [{ required: true }],
-          component: <Select options={listDataOutputStandard} />,
-        },
-        {
-          key: 'idClassificationScale',
-          name: 'idClassificationScale',
-          label: 'Classification Scale',
-          rules: [{ required: true }],
-          component: <Select options={listDataClassificationScale} />,
+          key: 'relationship',
+          name: 'relationship',
+          label: 'Relationship',
+          component: (
+            // create a form list with 2 fields: output standard id and classification scale code
+            <Form.List name="relationship">
+              {(fields, { add, remove }, { errors }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Form.Item
+                      labelCol={{ span: 8 }}
+                      wrapperCol={{ span: 24 }}
+                      required={false}
+                    >
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                        }}
+                      >
+                        <Form.Item
+                          {...field}
+                          validateTrigger={['onChange', 'onBlur']}
+                          noStyle
+                          name={[field.name, 'idOutputStandard']}
+                        >
+                          <Select
+                            placeholder="Select output standard"
+                            options={listDataOutputStandard}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          {...field}
+                          validateTrigger={['onChange', 'onBlur']}
+                          noStyle
+                          name={[field.name, 'idClassificationScale']}
+                        >
+                          <Select
+                            placeholder="Select classification scale"
+                            options={listDataClassificationScale}
+                          />
+                        </Form.Item>
+                        {fields.length > 1 ? (
+                          <MinusCircleOutlined
+                            onClick={() => remove(field.name)}
+                            style={{ marginLeft: '2%' }}
+                          />
+                        ) : null}
+                      </div>
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      style={{ width: '100%' }}
+                      icon={<PlusOutlined />}
+                    >
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          ),
         },
       ]}
     />
